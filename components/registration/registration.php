@@ -116,16 +116,18 @@ if (isset($_POST['submit'])) {
         $checkStmt->close(); 
 
         if ($errors == 0) {
-            // Insert new user into the database with hashed password
             $stmt = $conn->prepare("INSERT INTO registered_users (first_name, last_name, birthday, age, contact_number, email, address, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt->bind_param("sssisssss", $firstName, $lastName, $birthday, $age, $contactNumber, $email, $address, $username, $hashedPassword);
 
             if ($stmt->execute()) {
                 $successMessage = "Form Submitted successfully!";
                 $firstName = $lastName = $birthday = $age = $contactNumber = $email = $address = $username = $password = $confirmPassword = "";
+                header("Location: ../main/main.php"); 
+                exit();
             } else {
                 $successMessage = "Error submitting form: " . $conn->error;
             }
+            
 
             $stmt->close(); 
         }
