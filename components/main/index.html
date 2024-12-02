@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mainstyles.css">
+    <link rel="shortcut icon" type="image/png" href="/PharmaEase/PharmaEase-Final/assets/PharmaEaseLogo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <title>PharmaEase</title>
+</head>
+<body>
+    <div class="page-transition">
+        <div class="div"></div>
+        <div class="div"></div>
+        <div class="div"></div>
+        <div class="div"></div>
+        <ul class="preload">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+    <div class="container">
+        <div class="img">
+            <img src="/PharmaEase/PharmaEase-Final/assets/LoginCover.png" alt="Cover">
+        </div>
+        <div class="form">
+            <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFull.png" alt="Logo" class="logo-img">
+            <h2>LOG IN</h2>
+            <form action="">
+                <input type="text" placeholder="Username">
+                <input type="password" placeholder="Password">
+                <div class="check">
+                    <div>
+                        <input type="checkbox"> <span>Remember me</span>
+                    </div>
+                    <span><a href="#">Forget Password</a></span>
+                </div>
+                <button type="submit"><strong>LOG IN</strong></button>
+                <p>Don't have an account yet?</p>
+                <button type="button" onclick="window.location.href='/PharmaEase/PharmaEase-Final/components/registration/registration.php'">
+                    <strong>REGISTER</strong>
+                </button>
+            </form>
+        </div>
+    </div>
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const preloader = document.querySelector(".page-transition");
+  const container = document.querySelector(".container");
+  const preloaderDivs = document.querySelectorAll(".page-transition .div");
+  const preloaderDots = document.querySelectorAll(".preload li");
+
+  // GSAP Timelines
+  const slideDown = gsap.timeline({ paused: true });
+  const loading = gsap.timeline({ paused: true, repeat: 2 });
+  const slideUp = gsap.timeline({ paused: true });
+
+  // Slide down animation for preloader
+  slideDown.to(preloaderDivs, {
+    duration: 0.5,
+    bottom: "0%",
+    ease: "power2.in",
+    stagger: 0.2,
+  });
+
+  // Loading animation for dots
+  loading.from(preloaderDots, {
+    duration: 0.5,
+    y: -15,
+    autoAlpha: 0,
+    ease: "power1.in",
+    stagger: 0.2,
+  }).to(preloaderDots, {
+    duration: 0.5,
+    y: 35,
+    autoAlpha: 0,
+    ease: "power1.in",
+    stagger: 0.1,
+  });
+
+  // Slide up animation for preloader
+  slideUp.to(preloaderDivs, {
+    duration: 0.5,
+    bottom: "100%",
+    ease: "power2.out",
+    stagger: 0.2,
+  });
+
+  // Run animations sequentially
+  slideDown
+    .play()
+    .add(loading.play(), "+=0.5")
+    .add(slideUp.play(), "+=0.5")
+    .eventCallback("onComplete", () => {
+      // Hide the preloader
+      preloader.style.display = "none";
+
+      // Fade in the main content
+      container.style.opacity = 1;
+    });
+});
+      </script>
+</body>
+</html>
