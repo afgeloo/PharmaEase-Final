@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="registration.css">
+    <title>Registration Page</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Register</h1>
+        <form id="registrationForm" action="backend.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+            <label for="firstName">First Name</label>
+            <input type="text" name="first_name" id="firstName" required>
+            <span class="error-message" id="firstNameError"></span>
+
+            <label for="lastName">Last Name</label>
+            <input type="text" name="last_name" id="lastName" required>
+            <span class="error-message" id="lastNameError"></span>
+
+            <label for="email">Email Address</label>
+            <input type="email" name="email" id="email" required>
+            <span class="error-message" id="emailError"></span>
+
+            <label for="contactNumber">Contact Number</label>
+            <input type="text" name="contact_number" id="contactNumber" required>
+            <span class="error-message" id="contactError"></span>
+
+            <label for="age">Age</label>
+            <input type="number" name="age" id="age" required>
+            <span class="error-message" id="ageError"></span>
+
+            <label for="idFile">ID</label>
+            <input type="file" name="id_file" id="idFile" required>
+            <span class="error-message" id="idFileError"></span>
+
+            <label for="address">Address</label>
+            <textarea name="address" id="address" required></textarea>
+            <span class="error-message" id="addressError"></span>
+
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" required>
+            <span class="error-message" id="usernameError"></span>
+
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" required>
+            <span class="error-message" id="passwordError"></span>
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" required>
+            <span class="error-message" id="confirmPasswordError"></span>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+    <script src="registration.js"></script>
+</body>
+</html>
