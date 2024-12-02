@@ -19,7 +19,6 @@ if (isset($_POST['login'])) {
     $loginUsername = $_POST["username"];
     $loginPassword = $_POST["password"];
 
-    // Modify the query to check username, contact number, or email
     $stmt = $conn->prepare("SELECT password FROM registered_users WHERE username = ? OR contact_number = ? OR email = ?");
     $stmt->bind_param("sss", $loginUsername, $loginUsername, $loginUsername);
     $stmt->execute();
