@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #f4f4f4;
+    background-color: #FFF9F0; /* Change background color */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,6 +22,13 @@ body {
     border-radius: 8px;
     opacity: 1; 
     transition: opacity 1s ease;
+}
+
+.logo-img {
+    display: block;
+    margin: 0 auto 20px auto;
+    width: 50%;
+    border-radius: 5px;
 }
 
 h2 {
@@ -62,4 +69,33 @@ input[type="submit"]:hover {
 .success {
     color: green;
     font-size: 14px;
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.button {
+    display: block;
+    margin: 10px auto;
+    width: 80%;
+    background: #649752;
+    padding: 8px;
+    border: 0px;
+    border-radius: 20px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #567a42;
 }

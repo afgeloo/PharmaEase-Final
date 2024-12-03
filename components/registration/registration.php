@@ -93,8 +93,9 @@ $conn->close();
     </script>
 </head>
 <body>
-    <div class="container">
+    <div class="container fade-in">
         <div class="main">
+            <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFull.png" alt="Logo" class="logo-img">
             <h2>Registration Form</h2>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
                 <label>First Name:</label>
@@ -137,17 +138,16 @@ $conn->close();
                 <input class="input" type="password" name="confirm_password">
                 <?php if ($_SERVER["REQUEST_METHOD"] == "POST") echo "<div class='error'>$confirmPasswordError</div>"; ?>
 
-                <input class="submit" type="submit" name="submit" value="Register">
+                <input class="submit button" type="submit" name="submit" value="Register">
                 <p><?php echo $successMessage; ?></p>
             </form>
         </div>
     </div>
     <script>
-        function fadeIn() {
+        document.addEventListener("DOMContentLoaded", () => {
             const container = document.querySelector('.container');
-            container.style.transition = 'opacity 1s ease';
-            container.style.opacity = 1;
-        }
+            container.classList.add('fade-in');
+        });
     </script>
 </body>
-</html> 
+</html>

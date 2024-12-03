@@ -1,11 +1,6 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['reset_user'])) {
-    header("Location: forgotpassword.php");
-    exit();
-}
-
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -17,56 +12,77 @@ if ($conn->connect_error) {
     die("Connection Error: " . $conn->connect_error);
 }
 
-$newPassword = $confirmPassword = $error = "";
+$newPassword = $confirmPassword = "";
+$passwordError = $confirmPasswordError = $generalError = "";
+$showErrors = false;
 
-$passwordPattern = "/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/";
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+    $newPassword = $_POST["new_password"];
+    $confirmPassword = $_POST["confirm_password"];
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $newPassword = trim($_POST["new_password"]);
-    $confirmPassword = trim($_POST["confirm_password"]);
+    if (empty($newPassword)) {
+        $passwordError = "Password is required";
+    } elseif (!preg_match("/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/", $newPassword)) {
+        $passwordError = "Password must contain letters, numbers, and symbols, with a minimum of 8 characters";
+    }
 
-    if (!preg_match($passwordPattern, $newPassword)) {
-        $error = "Password must be at least 8 characters long, contain letters, numbers, and special characters.";
-    } elseif ($newPassword !== $confirmPassword) {
-        $error = "Passwords do not match.";
-    } else {
+    if ($newPassword !== $confirmPassword) {
+        $confirmPasswordError = "Passwords do not match";
+    }
+
+    if (empty($passwordError) && empty($confirmPasswordError)) {
         $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+        $username = $_SESSION['reset_user']['username'];
 
         $stmt = $conn->prepare("UPDATE registered_users SET password = ? WHERE username = ?");
-        $stmt->bind_param("ss", $hashedPassword, $_SESSION['reset_user']['username']);
+        $stmt->bind_param("ss", $hashedPassword, $username);
 
         if ($stmt->execute()) {
-            unset($_SESSION['reset_user']);
-            header("Location: ../main/main.php");
+            $successMessage = "Password reset successful!";
+            header("Location: main.php");
             exit();
         } else {
-            $error = "Failed to update password. Please try again. Error: " . $stmt->error;
+            $generalError = "Error: " . $conn->error;
         }
-
-        $stmt->close();
+    } else {
+        $showErrors = true;
     }
 }
 
 $conn->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="newpassword.css">
-    <title>Set New Password</title>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <title>Reset Password</title>
 </head>
 <body>
-    <div class="container">
-        <h2>Set New Password</h2>
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-            <input type="password" placeholder="Enter New Password" name="new_password" required>
-            <input type="password" placeholder="Confirm New Password" name="confirm_password" required>
-            <button type="submit"><strong>Update Password</strong></button>
-            <?php if (!empty($error)) echo "<p class='error-msg'>$error</p>"; ?>
-        </form>
+    <div class="container fade-in">
+        <div class="main">
+            <h2>Reset Password</h2>
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                <label>New Password:</label>
+                <input class="input" type="password" name="new_password" value="<?php echo htmlspecialchars($newPassword); ?>" required>
+                <?php if ($showErrors && !empty($passwordError)) echo "<div class='error'>$passwordError</div>"; ?>
+
+                <label>Confirm Password:</label>
+                <input class="input" type="password" name="confirm_password" value="<?php echo htmlspecialchars($confirmPassword); ?>" required>
+                <?php if ($showErrors && !empty($confirmPasswordError)) echo "<div class='error'>$confirmPasswordError</div>"; ?>
+
+                <button class="submit button" type="submit" name="submit"><strong>Reset Password</strong></button>
+                <?php if ($showErrors && !empty($generalError)) echo "<div class='error'>$generalError</div>"; ?>
+            </form>
+        </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const container = document.querySelector('.container');
+            container.classList.add('fade-in');
+        });
+    </script>
 </body>
 </html>
