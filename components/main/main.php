@@ -87,7 +87,7 @@ $conn->close();
                         <input type="checkbox" id="remember-me">
                         <label for="remember-me">Remember me</label>
                     </div>
-                    <span><a href="#">Forget Password</a></span>
+                    <span><a href="/PharmaEase/PharmaEase-Final/components/main/forgotpassword.php">Forgot Password?</a></span>
                 </div>
                 <button type="submit" name="login"><strong>LOG IN</strong></button>
                 <?php if (!empty($loginError)) echo "<p style='color:red;'>$loginError</p>"; ?>
@@ -100,57 +100,68 @@ $conn->close();
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const preloader = document.querySelector(".page-transition");
-            const container = document.querySelector(".container");
-            const preloaderDivs = document.querySelectorAll(".page-transition .div");
-            const preloaderDots = document.querySelectorAll(".preload li");
+    const preloader = document.querySelector(".page-transition");
+    const container = document.querySelector(".container");
+    const preloaderDivs = document.querySelectorAll(".page-transition .div");
+    const preloaderDots = document.querySelectorAll(".preload li");
 
-            // GSAP Timelines
-            const slideDown = gsap.timeline({ paused: true });
-            const loading = gsap.timeline({ paused: true, repeat: 2 });
-            const slideUp = gsap.timeline({ paused: true });
+    // Check if preloader has already been shown
+    if (sessionStorage.getItem("preloaderShown")) {
+        preloader.style.display = "none";
+        container.style.opacity = 1;
+        return;
+    }
 
-            // Slide down animation for preloader
-            slideDown.to(preloaderDivs, {
-                duration: 0.5,
-                bottom: "0%",
-                ease: "power2.in",
-                stagger: 0.2,
-            });
+    // GSAP Timelines
+    const slideDown = gsap.timeline({ paused: true });
+    const loading = gsap.timeline({ paused: true, repeat: 0.8 });
+    const slideUp = gsap.timeline({ paused: true });
 
-            // Loading animation for dots
-            loading.from(preloaderDots, {
-                duration: 0.5,
-                y: -15,
-                autoAlpha: 0,
-                ease: "power1.in",
-                stagger: 0.2,
-            }).to(preloaderDots, {
-                duration: 0.5,
-                y: 35,
-                autoAlpha: 0,
-                ease: "power1.in",
-                stagger: 0.1,
-            });
+    // Slide down animation for preloader
+    slideDown.to(preloaderDivs, {
+        duration: 0.5,
+        bottom: "0%",
+        ease: "power2.in",
+        stagger: 0.2,
+    });
 
-            // Slide up animation for preloader
-            slideUp.to(preloaderDivs, {
-                duration: 0.5,
-                bottom: "100%",
-                ease: "power2.out",
-                stagger: 0.2,
-            });
+    // Loading animation for dots
+    loading.from(preloaderDots, {
+        duration: 0.5,
+        y: -15,
+        autoAlpha: 0,
+        ease: "power1.in",
+        stagger: 0.2,
+    }).to(preloaderDots, {
+        duration: 0.5,
+        y: 35,
+        autoAlpha: 0,
+        ease: "power1.in",
+        stagger: 0.1,
+    });
 
-            // Run animations sequentially
-            slideDown
-                .play()
-                .add(loading.play(), "+=0.5")
-                .add(slideUp.play(), "+=0.5")
-                .eventCallback("onComplete", () => {
-                    preloader.style.display = "none";
-                    container.style.opacity = 1;
-                });
+    // Slide up animation for preloader
+    slideUp.to(preloaderDivs, {
+        duration: 0.5,
+        bottom: "100%",
+        ease: "power2.out",
+        stagger: 0.2,
+    });
+
+    // Run animations sequentially
+    slideDown
+        .play()
+        .add(loading.play(), "+=0.5")
+        .add(slideUp.play(), "+=0.5")
+        .eventCallback("onComplete", () => {
+            preloader.style.display = "none";
+            container.style.opacity = 1;
+
+            // Mark preloader as shown
+            sessionStorage.setItem("preloaderShown", "true");
         });
+});
+
     </script>
 </body>
 </html>

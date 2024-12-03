@@ -140,7 +140,7 @@ $conn->close();
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>PHP Registration Form</title>
+    <title>PharmaEase Registration Form</title>
     <link rel="stylesheet" type="text/css" href="registration.css">
     <script>
         function calculateAge() {
