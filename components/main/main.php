@@ -30,7 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         if (password_verify($loginPassword, $storedPassword)) {
             $_SESSION['user'] = $loginUsername;
-            // Redirect to prevent form resubmission
             header("Location: /PharmaEase/PharmaEase-Final/components/homepage/homepage.php");
             exit();
         } else {
@@ -92,32 +91,36 @@ $conn->close();
                 <button type="submit" name="login"><strong>LOG IN</strong></button>
                 <?php if (!empty($loginError)) echo "<p style='color:red;'>$loginError</p>"; ?>
                 <p>Don't have an account yet?</p>
-                <button type="button" onclick="window.location.href='/PharmaEase/PharmaEase-Final/components/registration/registration.php'">
-                    <strong>REGISTER</strong>
-                </button>
+                <button type="button" id="register-button" onclick="fadeOutAndRedirect('/PharmaEase/PharmaEase-Final/components/registration/registration.php')"><strong>REGISTER</strong></button>
             </form>
         </div>
     </div>
     <script>
+        function fadeOutAndRedirect(url) {
+            const container = document.querySelector('.container');
+            container.style.transition = 'opacity 1s ease';
+            container.style.opacity = 0;
+            setTimeout(() => {
+                window.location.href = url;
+            }, 1000);
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
     const preloader = document.querySelector(".page-transition");
     const container = document.querySelector(".container");
     const preloaderDivs = document.querySelectorAll(".page-transition .div");
     const preloaderDots = document.querySelectorAll(".preload li");
 
-    // Check if preloader has already been shown
     if (sessionStorage.getItem("preloaderShown")) {
         preloader.style.display = "none";
         container.style.opacity = 1;
         return;
     }
 
-    // GSAP Timelines
-    const slideDown = gsap.timeline({ paused: true });
-    const loading = gsap.timeline({ paused: true, repeat: 0.8 });
-    const slideUp = gsap.timeline({ paused: true });
+            const slideDown = gsap.timeline({ paused: true });
+            const loading = gsap.timeline({ paused: true, repeat: 1 });
+            const slideUp = gsap.timeline({ paused: true });
 
-    // Slide down animation for preloader
     slideDown.to(preloaderDivs, {
         duration: 0.5,
         bottom: "0%",
@@ -125,7 +128,6 @@ $conn->close();
         stagger: 0.2,
     });
 
-    // Loading animation for dots
     loading.from(preloaderDots, {
         duration: 0.5,
         y: -15,
@@ -140,7 +142,6 @@ $conn->close();
         stagger: 0.1,
     });
 
-    // Slide up animation for preloader
     slideUp.to(preloaderDivs, {
         duration: 0.5,
         bottom: "100%",
@@ -148,7 +149,6 @@ $conn->close();
         stagger: 0.2,
     });
 
-    // Run animations sequentially
     slideDown
         .play()
         .add(loading.play(), "+=0.5")
@@ -157,7 +157,6 @@ $conn->close();
             preloader.style.display = "none";
             container.style.opacity = 1;
 
-            // Mark preloader as shown
             sessionStorage.setItem("preloaderShown", "true");
         });
 });

@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -15,151 +18,77 @@ $firstNameError = $lastNameError = $birthdayError = $ageError = $contactError = 
 $errors = 0;
 $successMessage = "";
 
-if (isset($_POST['submit'])) { 
-
-    $firstName = $_POST["first_name"]; 
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+    $firstName = $_POST["first_name"];
     $lastName = $_POST["last_name"];
-    $birthday = $_POST["birthday"]; 
+    $birthday = $_POST["birthday"];
     $age = $_POST["age"];
     $contactNumber = $_POST["contact_number"];
-    $email = $_POST["email"]; 
-    $address = $_POST["address"]; 
-    $username = $_POST["username"]; 
-    $password = $_POST["password"]; 
-    $confirmPassword = $_POST["confirm_password"]; 
+    $email = $_POST["email"];
+    $address = $_POST["address"];
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+    $confirmPassword = $_POST["confirm_password"];
 
-    if (empty($firstName)) {
-        $firstNameError = "First Name is required";
-        $errors = 1;
+    if (empty($firstName)) $firstNameError = "First Name is required";
+    if (empty($lastName)) $lastNameError = "Last Name is required";
+    if (empty($birthday)) $birthdayError = "Birthday is required";
+    if (empty($age)) $ageError = "Age is required";
+    elseif (!is_numeric($age)) $ageError = "Age must be a number";
+    elseif ($age < 13) $ageError = "You must be at least 13 years old";
+
+    if (empty($contactNumber)) $contactError = "Contact Number is required";
+    elseif (!preg_match("/^\d{11}$/", $contactNumber)) $contactError = "Contact number must be 11 digits";
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $emailError = "Email is not valid";
+
+    if (empty($address)) $addressError = "Address is required";
+    if (empty($username)) $usernameError = "Username is required";
+
+    if (empty($password)) $passwordError = "Password is required";
+    elseif (!preg_match("/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/", $password)) {
+        $passwordError = "Password must contain letters, numbers, and symbols, with a minimum of 8 characters";
     }
 
-    if (empty($lastName)) {
-        $lastNameError = "Last Name is required";
-        $errors = 1;
-    }
+    if ($password !== $confirmPassword) $confirmPasswordError = "Passwords do not match";
 
-    if (empty($birthday)) {
-        $birthdayError = "Birthday is required";
-        $errors = 1;
-    }
-
-    if (empty($age)) {
-        $ageError = "Age is required";
-        $errors = 1;
-    } elseif (!is_numeric($age)) {
-        $ageError = "Age must be a number";
-        $errors = 1;
-    } elseif ($age < 13) {
-        $ageError = "You must be at least 13 years old";
-        $errors = 1;
-    }
-
-    if (empty($contactNumber)) {
-        $contactError = "Contact Number is required";
-        $errors = 1;
-    } elseif (!preg_match("/^\d{11}$/", $contactNumber)) {
-        $contactError = "Contact number must be 11 digits";
-        $errors = 1;
-    }
-
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $emailError = "Email is not valid";
-        $errors = 1;
-    }
-
-    if (empty($address)) {
-        $addressError = "Address is required";
-        $errors = 1;
-    }
-
-    if (empty($username)) {
-        $usernameError = "Username is required";
-        $errors = 1;
-    }
-
-    if (empty($password)) {
-        $passwordError = "Password is required";
-        $errors = 1;
-    } elseif (!preg_match("/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/", $password)) {
-        $passwordError = "Password must be at least 8 characters long, contain letters, numbers, and symbols";
-        $errors = 1;
-    }
-
-    if ($password !== $confirmPassword) {
-        $confirmPasswordError = "Passwords do not match";
-        $errors = 1;
-    }
-
-    if ($errors == 0) {
+    if (!$firstNameError && !$lastNameError && !$birthdayError && !$ageError && !$contactError && !$emailError && !$addressError && !$usernameError && !$passwordError && !$confirmPasswordError) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $checkStmt = $conn->prepare("SELECT contact_number, email, username FROM registered_users WHERE contact_number = ? OR email = ? OR username = ?");
-        $checkStmt->bind_param("sss", $contactNumber, $email, $username);
-        $checkStmt->execute();
-        $checkStmt->store_result();
+        $stmt = $conn->prepare("INSERT INTO registered_users (first_name, last_name, birthday, age, contact_number, email, address, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssisssss", $firstName, $lastName, $birthday, $age, $contactNumber, $email, $address, $username, $hashedPassword);
 
-        if ($checkStmt->num_rows > 0) {
-            while ($checkStmt->fetch()) {
-                if ($contactNumber == $contactNumber) {
-                    $contactError = "Contact Number already exists.";
-                }
-                if ($email == $email) {
-                    $emailError = "Email already exists.";
-                }
-                if ($username == $username) {
-                    $usernameError = "Username already exists.";
-                }
-            }
-            $errors = 1;
-        }
-
-        $checkStmt->close(); 
-
-        if ($errors == 0) {
-            $stmt = $conn->prepare("INSERT INTO registered_users (first_name, last_name, birthday, age, contact_number, email, address, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssisssss", $firstName, $lastName, $birthday, $age, $contactNumber, $email, $address, $username, $hashedPassword);
-
-            if ($stmt->execute()) {
-                $successMessage = "Form Submitted successfully!";
-                $firstName = $lastName = $birthday = $age = $contactNumber = $email = $address = $username = $password = $confirmPassword = "";
-                header("Location: ../main/main.php"); 
-                exit();
-            } else {
-                $successMessage = "Error submitting form: " . $conn->error;
-            }
-            
-
-            $stmt->close(); 
+        if ($stmt->execute()) {
+            $successMessage = "Registration successful!";
+            header("Location: ../main/main.php");
+            exit();
+        } else {
+            $successMessage = "Error: " . $conn->error;
         }
     }
 }
 
-$conn->close(); 
+$conn->close();
 ?>
-
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>PharmaEase Registration Form</title>
-    <link rel="stylesheet" type="text/css" href="registration.css">
+<title>PHP Registration Form</title>
+    <link rel="stylesheet" type="text/css" href="registration.css?v=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
     <script>
         function calculateAge() {
             var birthday = new Date(document.getElementById('birthday').value);
             var today = new Date();
             var age = today.getFullYear() - birthday.getFullYear();
-            var month = today.getMonth() - birthday.getMonth();
-            if (month < 0 || (month === 0 && today.getDate() < birthday.getDate())) {
+            if (today.getMonth() < birthday.getMonth() || (today.getMonth() === birthday.getMonth() && today.getDate() < birthday.getDate())) {
                 age--;
             }
             document.getElementById('age').value = age;
         }
 
         function validateContactNumber(input) {
-            var value = input.value.replace(/\D/g, ''); 
-            if (value.length > 11) {
-                value = value.substring(0, 11); 
-            }
-            input.value = value;
+            input.value = input.value.replace(/\D/g, '').substring(0, 11);
         }
     </script>
 </head>
@@ -213,5 +142,12 @@ $conn->close();
             </form>
         </div>
     </div>
+    <script>
+        function fadeIn() {
+            const container = document.querySelector('.container');
+            container.style.transition = 'opacity 1s ease';
+            container.style.opacity = 1;
+        }
+    </script>
 </body>
-</html>
+</html> 
