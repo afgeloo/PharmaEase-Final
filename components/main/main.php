@@ -13,9 +13,9 @@ if ($conn->connect_error) {
 }
 
 $loginUsername = $loginPassword = "";
-$loginError = $successMessage = "";
+$loginError = "";
 
-if (isset($_POST['login'])) {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $loginUsername = $_POST["username"];
     $loginPassword = $_POST["password"];
 
@@ -30,7 +30,8 @@ if (isset($_POST['login'])) {
 
         if (password_verify($loginPassword, $storedPassword)) {
             $_SESSION['user'] = $loginUsername;
-            header("Location: welcome.php");
+            // Redirect to prevent form resubmission
+            header("Location: /PharmaEase/PharmaEase-Final/components/homepage/homepage.php");
             exit();
         } else {
             $loginError = "Invalid password.";
@@ -79,16 +80,17 @@ $conn->close();
             <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFull.png" alt="Logo" class="logo-img">
             <h2>LOG IN</h2>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                <input type="text" placeholder="Username, Email, or Contact Number" name="username" value="<?php echo $loginUsername; ?>">
-                <input type="password" placeholder="Password" name="password">
+                <input type="text" placeholder="Username, Email, or Contact Number" name="username" value="<?php echo htmlspecialchars($loginUsername); ?>" required>
+                <input type="password" placeholder="Password" name="password" required>
                 <div class="check">
                     <div>
-                        <input type="checkbox"> <span>Remember me</span>
+                        <input type="checkbox" id="remember-me">
+                        <label for="remember-me">Remember me</label>
                     </div>
                     <span><a href="#">Forget Password</a></span>
                 </div>
                 <button type="submit" name="login"><strong>LOG IN</strong></button>
-                <?php if ($loginError != "") echo "<p style='color:red;'>$loginError</p>"; ?>
+                <?php if (!empty($loginError)) echo "<p style='color:red;'>$loginError</p>"; ?>
                 <p>Don't have an account yet?</p>
                 <button type="button" onclick="window.location.href='/PharmaEase/PharmaEase-Final/components/registration/registration.php'">
                     <strong>REGISTER</strong>
@@ -145,10 +147,7 @@ $conn->close();
                 .add(loading.play(), "+=0.5")
                 .add(slideUp.play(), "+=0.5")
                 .eventCallback("onComplete", () => {
-                    // Hide the preloader
                     preloader.style.display = "none";
-
-                    // Fade in the main content
                     container.style.opacity = 1;
                 });
         });
