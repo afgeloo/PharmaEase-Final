@@ -92,13 +92,20 @@ $conn->close();
                 <button type="submit" name="login"><strong>LOG IN</strong></button>
                 <?php if (!empty($loginError)) echo "<p style='color:red;'>$loginError</p>"; ?>
                 <p>Don't have an account yet?</p>
-                <button type="button" onclick="window.location.href='/PharmaEase/PharmaEase-Final/components/registration/registration.php'">
-                    <strong>REGISTER</strong>
-                </button>
+                <button type="button" id="register-button" onclick="fadeOutAndRedirect('/PharmaEase/PharmaEase-Final/components/registration/registration.php')"><strong>REGISTER</strong></button>
             </form>
         </div>
     </div>
     <script>
+        function fadeOutAndRedirect(url) {
+            const container = document.querySelector('.container');
+            container.style.transition = 'opacity 1s ease';
+            container.style.opacity = 0;
+            setTimeout(() => {
+                window.location.href = url;
+            }, 1000);
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             const preloader = document.querySelector(".page-transition");
             const container = document.querySelector(".container");
@@ -107,7 +114,7 @@ $conn->close();
 
             // GSAP Timelines
             const slideDown = gsap.timeline({ paused: true });
-            const loading = gsap.timeline({ paused: true, repeat: 2 });
+            const loading = gsap.timeline({ paused: true, repeat: 1 });
             const slideUp = gsap.timeline({ paused: true });
 
             // Slide down animation for preloader

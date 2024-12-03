@@ -1,94 +1,93 @@
 /* Preloader */
-.page-transition .div{
+.page-transition .div {
     position: fixed;
     background-color: #88C273; /* Color for the preloader */
     height: 100%;
     bottom: 100%;
     width: 25%;
-  }
-  
-  .page-transition .div:nth-child(1){
+    z-index: 1000; /* Ensure it is above other elements */
+}
+
+.page-transition .div:nth-child(1) {
     left: 0px;
-  }
-  
-  .page-transition .div:nth-child(2){
+}
+
+.page-transition .div:nth-child(2) {
     left: 25%;
-  }
-  
-  .page-transition .div:nth-child(3){
+}
+
+.page-transition .div:nth-child(3) {
     left: 50%;
-  }
-  
-  .page-transition .div:nth-child(4){
+}
+
+.page-transition .div:nth-child(4) {
     left: 75%;
-  }
-  
-  .preload{
+}
+
+.preload {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
-  
-  .preload li{
+    z-index: 1001; /* Ensure it is above other elements */
+}
+
+.preload li {
     display: inline-block;
     width: 10px;
     height: 10px;
     border: 2px solid #fff;
     border-radius: 50%;
-  }
-  
-  /* Main Content */
-  * {
+}
+
+/* Main Content */
+* {
     font-family: "Varela Round", sans-serif;
     padding: 0px;
     margin: 0px;
-  }
-  
-  body {
+}
+
+body {
     max-height: 100vh;
     background-color: #FFF9F0;
     overflow-x: hidden;
-  }
-  
-  .container {
+}
+
+.container {
     display: flex;
     width: 100vw;
-  }
-
-  .container {
     opacity: 0; /* Initially hidden */
     transition: opacity 1s ease; /* Smooth fade-in */
-  }
-  
-  .img {
+}
+
+.img {
     max-width: 50%;
-  }
-  
-  img {
+}
+
+img {
     max-width: 100%;
-  }
-  
-  /* Login */
-  .form {
+}
+
+/* Login */
+.form {
     min-width: 50vw;
     padding: 20px;
     background-color: #FFF9F0;
     box-sizing: border-box;
-  }
-  
-  .logo-img {
+}
+
+.logo-img {
     display: block;
     margin: 0 auto 20px auto;
     width: 50%;
     border-radius: 5px;
-  }
-  
-  h2 {
+}
+
+h2 {
     text-align: center;
-  }
-  
-  input[type="text"], input[type="password"] {
+}
+
+input[type="text"], input[type="password"] {
     display: block;
     width: 80%;
     margin: 20px auto;
@@ -96,22 +95,22 @@
     background: #ffffff;
     border: 0px solid;
     border-radius: 5px;
-  }
-  
-  .check {
+}
+
+.check {
     margin: auto;
     padding: 10px 0px;
     width: 80%;
     display: flex;
     justify-content: space-between;
-  }
-  
-  a {
+}
+
+a {
     text-decoration: none;
     color: #6B7EB1;
-  }
-  
-  button {
+}
+
+button {
     display: block;
     margin: 10px auto;
     width: 80%;
@@ -120,18 +119,18 @@
     border: 0px;
     border-radius: 20px;
     color: #fff;
-  }
-  
-  .form p {
+}
+
+.form p {
     width: 80%;
     margin: 10px auto;
-  }
-  
-  @media only screen and (max-width: 670px) {
+}
+
+@media only screen and (max-width: 670px) {
     img {
-      display: none;
+        display: none;
     }
     .form {
-      width: 100%;
+        width: 100%;
     }
-  }
+}
