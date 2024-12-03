@@ -1,9 +1,7 @@
 <?php
-// Enable error reporting for debugging
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Database connection
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -11,7 +9,6 @@ $dbname = "pharmaease_db";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Connection error handling
 if ($conn->connect_error) {
     die("Connection Error: " . $conn->connect_error);
 }
@@ -22,7 +19,6 @@ $errors = 0;
 $successMessage = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-    // Form inputs
     $firstName = $_POST["first_name"];
     $lastName = $_POST["last_name"];
     $birthday = $_POST["birthday"];
@@ -34,7 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $password = $_POST["password"];
     $confirmPassword = $_POST["confirm_password"];
 
-    // Validation
     if (empty($firstName)) $firstNameError = "First Name is required";
     if (empty($lastName)) $lastNameError = "Last Name is required";
     if (empty($birthday)) $birthdayError = "Birthday is required";
@@ -57,7 +52,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
     if ($password !== $confirmPassword) $confirmPasswordError = "Passwords do not match";
 
-    // If no errors, proceed with saving data
     if (!$firstNameError && !$lastNameError && !$birthdayError && !$ageError && !$contactError && !$emailError && !$addressError && !$usernameError && !$passwordError && !$confirmPasswordError) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
@@ -79,7 +73,7 @@ $conn->close();
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>PHP Registration Form</title>
+<title>PHP Registration Form</title>
     <link rel="stylesheet" type="text/css" href="registration.css?v=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
     <script>
