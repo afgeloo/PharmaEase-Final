@@ -86,7 +86,7 @@ $conn->close();
                         <input type="checkbox" id="remember-me">
                         <label for="remember-me">Remember me</label>
                     </div>
-                    <span><a href="/PharmaEase/PharmaEase-Final/components/main/forgotpassword.php">Forgot Password?</a></span>
+                    <span><a href="/PharmaEase/PharmaEase-Final/components/main/forgotpassword.php">Forget Password</a></span>
                 </div>
                 <button type="submit" name="login"><strong>LOG IN</strong></button>
                 <?php if (!empty($loginError)) echo "<p style='color:red;'>$loginError</p>"; ?>
@@ -106,61 +106,56 @@ $conn->close();
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-    const preloader = document.querySelector(".page-transition");
-    const container = document.querySelector(".container");
-    const preloaderDivs = document.querySelectorAll(".page-transition .div");
-    const preloaderDots = document.querySelectorAll(".preload li");
-
-    if (sessionStorage.getItem("preloaderShown")) {
-        preloader.style.display = "none";
-        container.style.opacity = 1;
-        return;
-    }
+            const preloader = document.querySelector(".page-transition");
+            const container = document.querySelector(".container");
+            const preloaderDivs = document.querySelectorAll(".page-transition .div");
+            const preloaderDots = document.querySelectorAll(".preload li");
 
             const slideDown = gsap.timeline({ paused: true });
             const loading = gsap.timeline({ paused: true, repeat: 1 });
             const slideUp = gsap.timeline({ paused: true });
 
-    slideDown.to(preloaderDivs, {
-        duration: 0.5,
-        bottom: "0%",
-        ease: "power2.in",
-        stagger: 0.2,
-    });
+            // Slide down animation for preloader
+            slideDown.to(preloaderDivs, {
+                duration: 0.5,
+                bottom: "0%",
+                ease: "power2.in",
+                stagger: 0.2,
+            });
 
-    loading.from(preloaderDots, {
-        duration: 0.5,
-        y: -15,
-        autoAlpha: 0,
-        ease: "power1.in",
-        stagger: 0.2,
-    }).to(preloaderDots, {
-        duration: 0.5,
-        y: 35,
-        autoAlpha: 0,
-        ease: "power1.in",
-        stagger: 0.1,
-    });
+            // Loading animation for dots
+            loading.from(preloaderDots, {
+                duration: 0.5,
+                y: -15,
+                autoAlpha: 0,
+                ease: "power1.in",
+                stagger: 0.2,
+            }).to(preloaderDots, {
+                duration: 0.5,
+                y: 35,
+                autoAlpha: 0,
+                ease: "power1.in",
+                stagger: 0.1,
+            });
 
-    slideUp.to(preloaderDivs, {
-        duration: 0.5,
-        bottom: "100%",
-        ease: "power2.out",
-        stagger: 0.2,
-    });
+            // Slide up animation for preloader
+            slideUp.to(preloaderDivs, {
+                duration: 0.5,
+                bottom: "100%",
+                ease: "power2.out",
+                stagger: 0.2,
+            });
 
-    slideDown
-        .play()
-        .add(loading.play(), "+=0.5")
-        .add(slideUp.play(), "+=0.5")
-        .eventCallback("onComplete", () => {
-            preloader.style.display = "none";
-            container.style.opacity = 1;
-
-            sessionStorage.setItem("preloaderShown", "true");
+            // Run animations sequentially
+            slideDown
+                .play()
+                .add(loading.play(), "+=0.5")
+                .add(slideUp.play(), "+=0.5")
+                .eventCallback("onComplete", () => {
+                    preloader.style.display = "none";
+                    container.style.opacity = 1;
+                });
         });
-});
-
     </script>
 </body>
 </html>
