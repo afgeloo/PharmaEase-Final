@@ -50,7 +50,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="mainstyles.css">
+    <link rel="stylesheet" href="mainstyles.css?v=<?php echo time(); ?>">
     <link rel="shortcut icon" type="image/png" href="/PharmaEase/PharmaEase-Final/assets/PharmaEaseLogo.png">
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -77,7 +77,7 @@ $conn->close();
         </div>
         <div class="form">
             <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFull.png" alt="Logo" class="logo-img">
-            <h2>LOG IN</h2>
+            <h2>Log in</h2>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <input type="text" placeholder="Username, Email, or Contact Number" name="username" value="<?php echo htmlspecialchars($loginUsername); ?>" required>
                 <input type="password" placeholder="Password" name="password" required>
@@ -88,10 +88,10 @@ $conn->close();
                     </div>
                     <span><a href="#" onclick="fadeOutAndRedirect('/PharmaEase/PharmaEase-Final/components/main/forgotpassword.php')">Forget Password</a></span>
                 </div>
-                <button type="submit" name="login"><strong>LOG IN</strong></button>
+                <button type="submit" class="button" name="login"><span><strong>LOG IN</strong></span></button>
                 <?php if (!empty($loginError)) echo "<p style='color:red;'>$loginError</p>"; ?>
                 <p>Don't have an account yet?</p>
-                <button type="button" id="register-button" onclick="fadeOutAndRedirect('/PharmaEase/PharmaEase-Final/components/registration/registration.php')"><strong>REGISTER</strong></button>
+                <button type="button" class="button" id="register-button" onclick="fadeOutAndRedirect('/PharmaEase/PharmaEase-Final/components/registration/registration.php')"><span><strong>REGISTER</strong></span></button>
             </form>
         </div>
     </div>
