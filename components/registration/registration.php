@@ -73,8 +73,9 @@ $conn->close();
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>PHP Registration Form</title>
-    <link rel="stylesheet" type="text/css" href="registration.css?v=1.0">
+<title>PharmaEase - Registration</title>
+    <link rel="stylesheet" type="text/css" href="registration.css?v=<?php echo time(); ?>">
+    <link rel="shortcut icon" type="image/png" href="/PharmaEase/PharmaEase-Final/assets/PharmaEaseLogo.png">
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
     <script>
         function calculateAge() {
