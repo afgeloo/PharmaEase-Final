@@ -18,14 +18,13 @@ session_start();
       <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
       <nav>
         <a href="#">My Account</a>
-        <a href="#">WishList</a>
-        <a href="#">Shopping</a>
         <a href="#">Cart</a>
         <a href="#">Checkout</a>
       </nav>
     </header>
     <div class="navlist">
       <div>
+        <a href="#">All Products</a>
         <a href="#">Medicines</a>
         <a href="#">Health Supplements</a>
         <a href="#">Personal Care</a>
@@ -215,51 +214,14 @@ session_start();
 
     <!-- Brands Name -->
     <div class="brands-name">
-      <a href="#">Adidas |</a>
-      <a href="#">Arrow |</a>
-      <a href="#">Fila |</a>
-      <a href="#">Online Shopping|</a>
-      <a href="#">Nike |</a>
-      <a href="#">Pepe Jeans |</a>
-      <a href="#">Puma |</a>
-      <a href="#">United Colors of Benetton |</a>
-      <a href="#">Fastrack |</a>
-      <a href="#">Shorts |</a>
-      <a href="#">Being Human |</a>
-      <a href="#">Skirts |</a>
-      <a href="#">Woodland |</a>
-      <a href="#">Supra Dresses Clothing |</a>
-      <a href="#">Jewellery |</a>
-      <a href="#">T-shirts |</a>
-      <a href="#">Shoes |</a>
-      <a href="#">Bags |</a>
-      <a href="#">Watches |</a>
-      <a href="#">Caps |</a>
-      <a href="#">Shirts |</a>
-      <a href="#">Bagpacks |</a>
-      <a href="#">Flip Flops |</a>
-      <a href="#">Sunglasses |</a>
-      <a href="#">Kurtas |</a>
-      <a href="#">Jackets |</a>
-      <a href="#">Sketchers |</a>
-      <a href="#">Saree |</a>
-      <a href="#">Sandals |</a>
-      <a href="#">Puma Tshirts |</a>
-      <a href="#">Woodland Shoes |</a>
-      <a href="#">Titan Watches |</a>
-      <a href="#">Fastrack Watches |</a>
-      <a href="#">Wrangler Shirts |</a>
-      <a href="#">Adidas Tshirts |</a>
-      <a href="#">Nike Shoes |</a>
-      <a href="#">Roadster Shirts |</a>
-      <a href="#">Casual Shoes |</a>
-      <a href="#">Running Shoes |</a>
-      <a href="#">Nike Sport Shoes |</a>
-      <a href="#">Jeans |</a>
-      <a href="#">Being Human |</a>
-      <a href="#">Tshirts |</a>
-      <a href="#">Converse Shoes |</a>
-      <a href="#">Cricket Shoes |</a>
+      <a href="#">Mercury Drugs |</a>
+      <a href="#">The Generics Pharmacy |</a>
+      <a href="#">Southstar Drug |</a>
+      <a href="#">Watsons Generics |</a>
+      <a href="#">Rose Pharmacy |</a>
+      <a href="#">Pfizer |</a>
+      <a href="#">Unilab |</a>
+      <a href="#">RiteMED |</a>
     </div>
     <!-- Footer  -->
     <footer>
@@ -273,27 +235,26 @@ session_start();
       <ul>
         <li><a class="head" href="#">POLICIES</a></li>
         <li><a href="#">Payment Options</a></li>
-        <li><a href="#">Terms & Conditions of Use</a></li>
-        <li><a href="#">Terms & Conditions of Membership Program</a></li>
-        <li><a href="#">Offer Terms & Conditions</a></li>
+        <li><a href="#">Terms & Conditions</a></li>
         <li><a href="#">Returns & Exchange Policy</a></li>
         <li><a href="#">Shipping Policy</a></li>
         <li><a href="#">Privacy Policy</a></li>
         <li><a href="#">Safety Checklist</a></li>
+        <li><a href="#">License</a></li>
       </ul>
       <ul>
         <li><a class="head" href="#">CONTACT US</a></li>
-        <li><a href="#">Customer Support</a></li>
-        <li><a href="#">Store Locators</a></li>
-        <li><a href="#">Help Center</a></li>
-        <li class="about-us"><a href="#">About Us</a></li>
-        <li><a href="#">Official Brand Store</a></li>
         <li><a href="#">About Us</a></li>
-        <li><a href="#">Careers</a></li>
+        <li><a href="#">Customer Support</a></li>
+        <li><a href="#">Help Center</a></li>
+        <li><a href="#">Local Pharmacies</a></li>
+        <li><a href="#">Partnerships</a></li>
       </ul>
       <ul class="social-media">
         <li><a class="head" href="#">SOCIAL</a></li>
         <li><a href="#">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Tiktok</a></li>
         <li><a href="#">Twitter</a></li>
         <li><a href="#">YouTube</a></li>
       </ul>
