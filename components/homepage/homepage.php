@@ -6,7 +6,7 @@ session_start();
 <html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="homepage.css">
+  <link rel="stylesheet" href="homepage.css?v=<?php echo time(); ?>">
   <link rel="shortcut icon" type="image/png" href="/PharmaEase/PharmaEase-Final/assets/PharmaEaseLogo.png">
   <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
   <title>Welcome to PharmaEase</title>

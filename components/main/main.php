@@ -86,7 +86,7 @@ $conn->close();
                         <input type="checkbox" id="remember-me">
                         <label for="remember-me">Remember me</label>
                     </div>
-                    <span><a href="/PharmaEase/PharmaEase-Final/components/main/forgotpassword.php">Forget Password</a></span>
+                    <span><a href="#" onclick="fadeOutAndRedirect('/PharmaEase/PharmaEase-Final/components/main/forgotpassword.php')">Forget Password</a></span>
                 </div>
                 <button type="submit" name="login"><strong>LOG IN</strong></button>
                 <?php if (!empty($loginError)) echo "<p style='color:red;'>$loginError</p>"; ?>
