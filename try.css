@@ -1,0 +1,152 @@
+/* General page styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+#grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: space-around;
+}
+
+.product {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 300px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product .info-large {
+    padding: 15px;
+}
+
+.product h4 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.product .sku {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.product .price-big {
+    font-size: 18px;
+    color: #e91e63;
+    margin-bottom: 15px;
+}
+
+.product .price-big span {
+    text-decoration: line-through;
+    margin-right: 5px;
+    color: #aaa;
+}
+
+.product .colors-large, .product .sizes-large {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.product button.add-cart-large {
+    background-color: #e91e63;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.product button.add-cart-large:hover {
+    background-color: #d81b60;
+}
+
+/* 3D flip effect */
+.make3D {
+    perspective: 1000px;
+}
+
+.product-front {
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+    transition: transform 0.5s;
+}
+
+.product:hover .product-front {
+    transform: rotateY(180deg);
+}
+
+.product .shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.product img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.image_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: none;
+}
+
+.product:hover .image_overlay {
+    display: block;
+}
+
+.add_to_cart, .view_gallery, .view_details {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.add_to_cart:hover, .view_gallery:hover, .view_details:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.stats-container {
+    padding: 10px;
+}
+
+.product_name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.product_price {
+    font-size: 18px;
+    color: #e91e63;
+}
+
+.product-options {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
