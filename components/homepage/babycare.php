@@ -6,11 +6,11 @@ session_start();
 <html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="homepage.css?v=<?php echo time(); ?>">
+  <link rel="stylesheet" href="babycare.css?v=<?php echo time(); ?>">
   <link rel="shortcut icon" type="image/png" href="/PharmaEase/PharmaEase-Final/assets/PharmaEaseLogo.png">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-  <title>Welcome to PharmaEase</title>
+  <title>PharmaEase - Baby Care</title>
   <script src="\PharmaEase\PharmaEase-Final\components\homepage\products.js"></script>
 </head>
 <body>
@@ -27,7 +27,7 @@ session_start();
     </header>
     <div class="navlist">
       <div>
-      <a href="allproducts.php">All Products</a>
+        <a href="allproducts.php">All Products</a>
         <a href="medicines.php">Medicines</a>
         <a href="healthsupplements.php">Health Supplements</a>
         <a href="personalcare.php">Personal Care</a>
@@ -36,98 +36,20 @@ session_start();
         <a href="babycare.php">Baby Care</a>
         <a href="covidessentials.php">COVID Essentials</a>
       </div>
-      <div class="row">
-  <div class="col-xl-8">
-    <form action="#" class="search-box spaced-elements">
-      <div class="select-form">
-        <div class="select-itms">
-          <input list="select1" name="select" placeholder="Search PharmaEase">
-        </div>
-      </div>
-      <div class="select-form">
-        <div class="select-itms">
-          <select name="category" id="category">
-            <option value="" disabled selected>Sort by Category</option>
-            <option value="prescription">Prescription Medicines</option>
-            <option value="overthecounter">Over-the-Counter</option>
-            <option value="vitamins">Vitamins & Supplements</option>
-            <option value="personalcare">Personal Care</option>
-            <option value="medicinalsupplies">Medicinal Supplies</option>
-            <option value="babycare">Baby Care</option>
-            <option value="sexualwellness">Sexual Wellness</option>
-          </select>
-        </div>
-      </div>
-      <div class="select-form">
-        <div class="select-itms">
-          <select name="store" id="store">
-            <option value="" disabled selected>Sort by Store</option>
-            <option value="mercury">Mercury Drug</option>
-            <option value="tgp">The Generics Pharmacy</option>
-            <option value="generika">Generika</option>
-            <option value="southstar">Southstar Drug</option>
-            <option value="watsons">Watsons</option>
-          </select>
-        </div>
-      </div>
-      <div class="search-form">
-        <a href="#"><img src="/PharmaEase/PharmaEase-Final/assets/search.png" alt="Search" class="searchIcon"></a>
-      </div>
-    </form>
-  </div>
-</div>
-    </div>
-    <!-- mask layout -->
-    <section class="section-grid grid-six-col gallery" id="gallery">
-        <div class="card">
-        </div>
-        <div class="card gallery-slider">
-      <div class="gallery-slider__container">
-        <figure class="gallery-slider__slide">
-          <figcaption class="content">
-          </figcaption>
-        </figure>
-        <figure class="gallery-slider__slide">
-          <figcaption class="content">
-            <h2 class="card__title">Welcome to PharmaEase</h2>
-          </figcaption>
-        </figure>
-        <figure class="gallery-slider__slide">
-          <figcaption class="content">
-            <h2 class="card__title">Find the latest deals</h2>
-          </figcaption>
-        </figure>
-        <figure class="gallery-slider__slide">
-          <figcaption class="content">
-            <h2 class="card__title">PharmaEase: The Medicine that’s Always Within Reach.</h2>
-          </figcaption>
-        </figure>
-      </div>
-      <div class="gallery__dots dots">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
+      <div class="search">
+        <form action="#">
+          <input
+            type="text"
+            placeholder="Search for Products & Brands"
+            name="search"
+          />
+          <!-- <button>
+            <i class="fa fa-search" style="font-size: 18px"> </i>
+          </button> -->
+        </form>
       </div>
     </div>
-    <div class="card">
-      <button class="slider__btn--grid gallery-next"><img src="/PharmaEase/PharmaEase-Final/assets/slider/rightArrow.png" alt="right arrow"></button>
-      <button class="slider__btn--grid gallery-prev"><img src="/PharmaEase/PharmaEase-Final/assets/slider/leftArrow.png" alt="left arrow"></button>
-    </div>
-      </section>
-    <div class="details">
-      <img
-        src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseLogoHD.png"
-        ;
-        alt="mask"
-      />
-      <div class="stay-home">
-          <h2>PharmaEase</h2>
-      </div>
-          <p>PharmaEase is an online pharmacy designed to empower local pharmacies by providing a digital avenue to offer their services and products. PharmaEase ensures that individuals can access essential medications conveniently, especially during emergencies when immediate assistance may not be available. By connecting pharmacies directly with consumers, PharmaEase enhances accessibility to healthcare and supports the modernization of local pharmaceutical services. </p>
-    </div>
-    <!-- Deals of the day -->
-    <h2>Top Products</h2>
+    
     <div id="grid-selector">
                <div id="grid-menu">
                       View:
@@ -171,8 +93,7 @@ session_start();
                         <img src="/PharmaEase/PharmaEase-Final/assets/product/facemask1.png" alt="" />
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
-                        <div class="view_gallery">View gallery</div>
-                        <a href="\PharmaEase\PharmaEase-Final\components\homepage\productview.php" class="view_details">View details</a>
+                        <div class="view_gallery">View gallery</div>                
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">₱50</span>
@@ -260,7 +181,6 @@ session_start();
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
                         <div class="view_gallery">View gallery</div>
-                        <a href="/PharmaEase/PharmaEase-Final/components/productview/productview.php?product_id=89356" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">$39</span>
@@ -350,7 +270,6 @@ session_start();
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
                         <div class="view_gallery">View gallery</div>
-                        <a href="/PharmaEase/PharmaEase-Final/components/productview/productview.php?product_id=89356" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">$39</span>
@@ -441,7 +360,6 @@ session_start();
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
                         <div class="view_gallery">View gallery</div>
-                        <a href="/PharmaEase/PharmaEase-Final/components/productview/productview.php?product_id=89356" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">$39</span>
@@ -531,7 +449,6 @@ session_start();
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
                         <div class="view_gallery">View gallery</div>
-                        <a href="/PharmaEase/PharmaEase-Final/components/productview/productview.php?product_id=89356" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">$39</span>
@@ -621,7 +538,6 @@ session_start();
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
                         <div class="view_gallery">View gallery</div>
-                        <a href="/PharmaEase/PharmaEase-Final/components/productview/productview.php?product_id=89356" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">$39</span>
@@ -710,7 +626,6 @@ session_start();
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
                         <div class="view_gallery">View gallery</div>
-                        <a href="/PharmaEase/PharmaEase-Final/components/productview/productview.php?product_id=89356" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">$39</span>
@@ -800,7 +715,6 @@ session_start();
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
                         <div class="view_gallery">View gallery</div>
-                        <a href="/PharmaEase/PharmaEase-Final/components/productview/productview.php?product_id=89356" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">$39</span>
