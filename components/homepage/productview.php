@@ -17,7 +17,9 @@ session_start();
 <div class="container">
     <!-- Main Navbar -->
     <header>
-      <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
+      <a href="homepage.php">
+        <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
+      </a>
       <nav>
         <a href="homepage.php">Home</a>
         <a href="#">Cart</a>
@@ -92,6 +94,10 @@ session_start();
           <span>3-ply with earloop disposable face mask, filters droplets, pollen, dust and other air particulates.</span>
         </li>
         <li class="product-attributes">
+        <strong>CATEGORY:</strong>
+        <span>Medicinal Supplies</span>
+        </li>
+        <li class="product-attributes">
         <strong>STORE:</strong>
         <span>Mercury Drug</span>
         </li>
@@ -127,41 +133,6 @@ session_start();
       </ul>
     </div>
     <!-- Footer  -->
-    <footer>
-      <ul>
-        <li><a class="head" href="#">MY ACCOUNT</a></li>
-        <li><a href="#">Orders</a></li>
-        <li><a href="#">Returns/Refunds</a></li>
-        <li><a href="#">Track Order</a></li>
-        <li><a href="#">Frequently Asked Questions</a></li>
-      </ul>
-      <ul>
-        <li><a class="head" href="#">POLICIES</a></li>
-        <li><a href="#">Payment Options</a></li>
-        <li><a href="#">Terms & Conditions</a></li>
-        <li><a href="#">Returns & Exchange Policy</a></li>
-        <li><a href="#">Shipping Policy</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Safety Checklist</a></li>
-        <li><a href="#">License</a></li>
-      </ul>
-      <ul>
-        <li><a class="head" href="#">CONTACT US</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Customer Support</a></li>
-        <li><a href="#">Help Center</a></li>
-        <li><a href="#">Local Pharmacies</a></li>
-        <li><a href="#">Partnerships</a></li>
-      </ul>
-      <ul class="social-media">
-        <li><a class="head" href="#">SOCIAL</a></li>
-        <li><a href="#">Facebook</a></li>
-        <li><a href="#">Instagram</a></li>
-        <li><a href="#">Tiktok</a></li>
-        <li><a href="#">Twitter</a></li>
-        <li><a href="#">YouTube</a></li>
-      </ul>
-    </footer>
-</div>
+    <?php include "footer.php"; ?>
 </body>
 </html>

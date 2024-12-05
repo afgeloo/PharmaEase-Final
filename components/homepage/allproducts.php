@@ -17,7 +17,9 @@ session_start();
 <div class="container">
     <!-- Main Navbar -->
     <header>
-      <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
+      <a href="homepage.php">
+        <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
+      </a>
       <nav>
         <a href="homepage.php">Home</a>
         <a href="#">Cart</a>

@@ -17,7 +17,9 @@ session_start();
 <div class="container">
     <!-- Main Navbar -->
     <header>
-      <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
+      <a href="homepage.php">
+        <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
+      </a>
       <nav>
         <a href="homepage.php">Home</a>
         <a href="#">Cart</a>
@@ -854,7 +856,6 @@ session_start();
     </div>
     <!-- Footer  -->
      <?php include "footer.php"; ?>
-  </div>
   <script>
 const _ = className => document.querySelector(className);
 const __ = className => document.querySelectorAll(className);
