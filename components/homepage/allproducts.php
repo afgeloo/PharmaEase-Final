@@ -36,7 +36,9 @@ $result = $conn->query($sql);
 <div class="container">
     <!-- Main Navbar -->
     <header>
-      <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
+      <a href="homepage.php">
+        <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
+      </a>
       <nav>
         <a href="homepage.php">Home</a>
         <a href="#">Cart</a>
@@ -69,6 +71,7 @@ $result = $conn->query($sql);
       </div>
     </div>
     
+    <div class="product-container">
     <div id="grid-selector">
                <div id="grid-menu">
                       View:

@@ -272,41 +272,7 @@ $result = $conn->query($sql);
         
     </div>
     <!-- Footer  -->
-    <footer>
-      <ul>
-        <li><a class="head" href="#">MY ACCOUNT</a></li>
-        <li><a href="#">Orders</a></li>
-        <li><a href="#">Returns/Refunds</a></li>
-        <li><a href="#">Track Order</a></li>
-        <li><a href="#">Frequently Asked Questions</a></li>
-      </ul>
-      <ul>
-        <li><a class="head" href="#">POLICIES</a></li>
-        <li><a href="#">Payment Options</a></li>
-        <li><a href="#">Terms & Conditions</a></li>
-        <li><a href="#">Returns & Exchange Policy</a></li>
-        <li><a href="#">Shipping Policy</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Safety Checklist</a></li>
-        <li><a href="#">License</a></li>
-      </ul>
-      <ul>
-        <li><a class="head" href="#">CONTACT US</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Customer Support</a></li>
-        <li><a href="#">Help Center</a></li>
-        <li><a href="#">Local Pharmacies</a></li>
-        <li><a href="#">Partnerships</a></li>
-      </ul>
-      <ul class="social-media">
-        <li><a class="head" href="#">SOCIAL</a></li>
-        <li><a href="#">Facebook</a></li>
-        <li><a href="#">Instagram</a></li>
-        <li><a href="#">Tiktok</a></li>
-        <li><a href="#">Twitter</a></li>
-        <li><a href="#">YouTube</a></li>
-      </ul>
-    </footer>
+    <?php include "footer.php"; ?>
   </div>
   <script>
 const _ = className => document.querySelector(className);
@@ -342,7 +308,7 @@ class Slider {
       });
       this.dots[this.slideIndex].classList.add('active');
     };
-    this.container.style.left = ${-this.slideWidth*this.slideIndex}%;
+    this.container.style.left = `${-this.slideWidth*this.slideIndex}%`;
   };
   nextListener() {
     this.next.addEventListener('click', () => {
@@ -354,7 +320,7 @@ class Slider {
   moveLeft() {
     if (this.slideIndex <= 0) this.slideIndex = this.slides.length;
     this.slideIndex--;
-    this.container.style.left = ${-this.slideWidth*this.slideIndex}%;
+    this.container.style.left = `${-this.slideWidth*this.slideIndex}%`;
     this.dots.forEach(dot => {
       dot.classList.remove('active');
     });
@@ -374,7 +340,7 @@ class Slider {
     });
     e.target.classList.add('active');
     let dotIndex = dotsArray.indexOf(e.target);
-    this.container.style.left = ${-this.slideWidth*dotIndex}%;
+    this.container.style.left = `${-this.slideWidth * dotIndex}%`;
     this.slideIndex = dotIndex;
   };
 

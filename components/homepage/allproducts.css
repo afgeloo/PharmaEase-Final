@@ -482,7 +482,7 @@ h2::first-letter {
 
 #grid-selector{
 	height: 10px;
-	width: 1291px;
+	width: 95vw;
 	padding: 40px 0 40px 30px;
 	float: left;
 	color: #5d5f68;
@@ -518,8 +518,7 @@ h2::first-letter {
  
 
 #grid{	
-	width: 1335px;
-	
+	width: 100vw;
 	left: 340px;
 	height: 1200px;
 	top: 180px;
@@ -548,8 +547,9 @@ h2::first-letter {
 .product{
     position: relative;
     perspective: 800px;
-    width:306px;
-    height:471px;
+    width:20em;
+	margin-right: 100px;
+    height:500px;
     transform-style: preserve-3d;
     transition: transform 5s;
 	float:left; 
@@ -1395,3 +1395,23 @@ footer ul {
   }
 }
 
+
+.product-container {
+	width: 100%;
+	max-width: 100%;
+	margin: 0 auto;
+	padding: 0 70px;
+	box-sizing: border-box;
+  }
+  
+  #grid-selector {
+	width: 100%;
+	padding: 40px 30px;
+	box-sizing: border-box;
+  }
+  
+  #grid {
+	width: 100%;
+	margin: 0 auto;
+	box-sizing: border-box;
+  }
