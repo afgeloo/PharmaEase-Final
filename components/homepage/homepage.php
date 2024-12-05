@@ -27,26 +27,54 @@ session_start();
     <div class="navlist">
       <div>
         <a href="#">All Products</a>
-        <a href="#">Medicines</a>
-        <a href="#">Health Supplements</a>
+        <a href="#">Prescription Medicines</a>
+        <a href="#">Over-the-Counter</a>
+        <a href="#">Vitamins & Supplements</a>
         <a href="#">Personal Care</a>
-        <a href="#">Medical Devices</a>
-        <a href="#">Wellness</a>
+        <a href="#">Medicinal Supplies</a>
         <a href="#">Baby Care</a>
-        <a href="#">COVID Essentials</a>
+        <a href="#">Sexual Wellness</a>
       </div>
-      <div class="search">
-        <form action="#">
-          <input
-            type="text"
-            placeholder="Search for Products & Brands"
-            name="search"
-          />
-          <!-- <button>
-            <i class="fa fa-search" style="font-size: 18px"> </i>
-          </button> -->
-        </form>
+      <div class="row">
+  <div class="col-xl-8">
+    <form action="#" class="search-box spaced-elements">
+      <div class="select-form">
+        <div class="select-itms">
+          <input list="select1" name="select" placeholder="Search PharmaEase">
+        </div>
       </div>
+      <div class="select-form">
+        <div class="select-itms">
+          <select name="category" id="category">
+            <option value="" disabled selected>Sort by Category</option>
+            <option value="prescription">Prescription Medicines</option>
+            <option value="overthecounter">Over-the-Counter</option>
+            <option value="vitamins">Vitamins & Supplements</option>
+            <option value="personalcare">Personal Care</option>
+            <option value="medicinalsupplies">Medicinal Supplies</option>
+            <option value="babycare">Baby Care</option>
+            <option value="sexualwellness">Sexual Wellness</option>
+          </select>
+        </div>
+      </div>
+      <div class="select-form">
+        <div class="select-itms">
+          <select name="store" id="store">
+            <option value="" disabled selected>Sort by Store</option>
+            <option value="mercury">Mercury Drug</option>
+            <option value="tgp">The Generics Pharmacy</option>
+            <option value="generika">Generika</option>
+            <option value="southstar">Southstar Drug</option>
+            <option value="watsons">Watsons</option>
+          </select>
+        </div>
+      </div>
+      <div class="search-form">
+        <a href="#"><img src="/PharmaEase/PharmaEase-Final/assets/search.png" alt="Search" class="searchIcon"></a>
+      </div>
+    </form>
+  </div>
+</div>
     </div>
     <!-- mask layout -->
     <section class="section-grid grid-six-col gallery" id="gallery">
@@ -142,7 +170,8 @@ session_start();
                         <img src="/PharmaEase/PharmaEase-Final/assets/product/facemask1.png" alt="" />
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
-                        <div class="view_gallery">View gallery</div>                
+                        <div class="view_gallery">View gallery</div>
+                        <a href="\PharmaEase\PharmaEase-Final\components\homepage\productview.php" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">₱50</span>
@@ -230,6 +259,7 @@ session_start();
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
                         <div class="view_gallery">View gallery</div>
+                        <a href="/PharmaEase/PharmaEase-Final/components/productview/productview.php?product_id=89356" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">$39</span>
@@ -319,6 +349,7 @@ session_start();
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
                         <div class="view_gallery">View gallery</div>
+                        <a href="/PharmaEase/PharmaEase-Final/components/productview/productview.php?product_id=89356" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">$39</span>
@@ -409,6 +440,7 @@ session_start();
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
                         <div class="view_gallery">View gallery</div>
+                        <a href="/PharmaEase/PharmaEase-Final/components/productview/productview.php?product_id=89356" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">$39</span>
@@ -498,6 +530,7 @@ session_start();
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
                         <div class="view_gallery">View gallery</div>
+                        <a href="/PharmaEase/PharmaEase-Final/components/productview/productview.php?product_id=89356" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">$39</span>
@@ -587,6 +620,7 @@ session_start();
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
                         <div class="view_gallery">View gallery</div>
+                        <a href="/PharmaEase/PharmaEase-Final/components/productview/productview.php?product_id=89356" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">$39</span>
@@ -675,6 +709,7 @@ session_start();
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
                         <div class="view_gallery">View gallery</div>
+                        <a href="/PharmaEase/PharmaEase-Final/components/productview/productview.php?product_id=89356" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">$39</span>
@@ -764,6 +799,7 @@ session_start();
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
                         <div class="view_gallery">View gallery</div>
+                        <a href="/PharmaEase/PharmaEase-Final/components/productview/productview.php?product_id=89356" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">$39</span>
