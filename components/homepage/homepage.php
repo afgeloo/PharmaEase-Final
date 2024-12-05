@@ -20,14 +20,13 @@ session_start();
       <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
       <nav>
         <a href="#">My Account</a>
-        <a href="#">WishList</a>
-        <a href="#">Shopping</a>
         <a href="#">Cart</a>
         <a href="#">Checkout</a>
       </nav>
     </header>
     <div class="navlist">
       <div>
+        <a href="#">All Products</a>
         <a href="#">Medicines</a>
         <a href="#">Health Supplements</a>
         <a href="#">Personal Care</a>
@@ -825,27 +824,26 @@ session_start();
       <ul>
         <li><a class="head" href="#">POLICIES</a></li>
         <li><a href="#">Payment Options</a></li>
-        <li><a href="#">Terms & Conditions of Use</a></li>
-        <li><a href="#">Terms & Conditions of Membership Program</a></li>
-        <li><a href="#">Offer Terms & Conditions</a></li>
+        <li><a href="#">Terms & Conditions</a></li>
         <li><a href="#">Returns & Exchange Policy</a></li>
         <li><a href="#">Shipping Policy</a></li>
         <li><a href="#">Privacy Policy</a></li>
         <li><a href="#">Safety Checklist</a></li>
+        <li><a href="#">License</a></li>
       </ul>
       <ul>
         <li><a class="head" href="#">CONTACT US</a></li>
-        <li><a href="#">Customer Support</a></li>
-        <li><a href="#">Store Locators</a></li>
-        <li><a href="#">Help Center</a></li>
-        <li class="about-us"><a href="#">About Us</a></li>
-        <li><a href="#">Official Brand Store</a></li>
         <li><a href="#">About Us</a></li>
-        <li><a href="#">Careers</a></li>
+        <li><a href="#">Customer Support</a></li>
+        <li><a href="#">Help Center</a></li>
+        <li><a href="#">Local Pharmacies</a></li>
+        <li><a href="#">Partnerships</a></li>
       </ul>
       <ul class="social-media">
         <li><a class="head" href="#">SOCIAL</a></li>
         <li><a href="#">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Tiktok</a></li>
         <li><a href="#">Twitter</a></li>
         <li><a href="#">YouTube</a></li>
       </ul>
