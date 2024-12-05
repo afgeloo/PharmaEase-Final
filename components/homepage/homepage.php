@@ -127,7 +127,9 @@ session_start();
           <p>PharmaEase is an online pharmacy designed to empower local pharmacies by providing a digital avenue to offer their services and products. PharmaEase ensures that individuals can access essential medications conveniently, especially during emergencies when immediate assistance may not be available. By connecting pharmacies directly with consumers, PharmaEase enhances accessibility to healthcare and supports the modernization of local pharmaceutical services. </p>
     </div>
     <!-- Deals of the day -->
+    <div class="product-container">
     <h2>Top Products</h2>
+
     <div id="grid-selector">
                <div id="grid-menu">
                       View:
@@ -260,7 +262,7 @@ session_start();
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
                         <div class="view_gallery">View gallery</div>
-                        <a href="/PharmaEase/PharmaEase-Final/components/productview/productview.php?product_id=89356" class="view_details">View details</a>
+                        <a href="\PharmaEase\PharmaEase-Final\components\homepage\productview.php" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">$39</span>
@@ -350,7 +352,7 @@ session_start();
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
                         <div class="view_gallery">View gallery</div>
-                        <a href="/PharmaEase/PharmaEase-Final/components/productview/productview.php?product_id=89356" class="view_details">View details</a>
+                        <a href="\PharmaEase\PharmaEase-Final\components\homepage\productview.php" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">$39</span>
@@ -441,7 +443,7 @@ session_start();
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
                         <div class="view_gallery">View gallery</div>
-                        <a href="/PharmaEase/PharmaEase-Final/components/productview/productview.php?product_id=89356" class="view_details">View details</a>
+                        <a href="\PharmaEase\PharmaEase-Final\components\homepage\productview.php" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">$39</span>
@@ -449,7 +451,7 @@ session_start();
                                 <p>Summer dress</p>                                            
                                 
                                 <div class="product-options">
-                                <strong>SIZES</strong>
+                                <strong>SIZES</</strong>
                                 <span>XS, S, M, L, XL, XXL</span>
                                 <strong>COLORS</strong>
                                 <div class="colors">
@@ -531,7 +533,7 @@ session_start();
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
                         <div class="view_gallery">View gallery</div>
-                        <a href="/PharmaEase/PharmaEase-Final/components/productview/productview.php?product_id=89356" class="view_details">View details</a>
+                        <a href="\PharmaEase\PharmaEase-Final\components\homepage\productview.php" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">$39</span>
@@ -621,7 +623,7 @@ session_start();
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
                         <div class="view_gallery">View gallery</div>
-                        <a href="/PharmaEase/PharmaEase-Final/components/productview/productview.php?product_id=89356" class="view_details">View details</a>
+                        <a href="\PharmaEase\PharmaEase-Final\components\homepage\productview.php" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">$39</span>
@@ -710,7 +712,7 @@ session_start();
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
                         <div class="view_gallery">View gallery</div>
-                        <a href="/PharmaEase/PharmaEase-Final/components/productview/productview.php?product_id=89356" class="view_details">View details</a>
+                        <a href="\PharmaEase\PharmaEase-Final\components\homepage\productview.php" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">$39</span>
@@ -800,7 +802,7 @@ session_start();
                         <div class="image_overlay"></div>
                         <div class="add_to_cart">Add to cart</div>
                         <div class="view_gallery">View gallery</div>
-                        <a href="/PharmaEase/PharmaEase-Final/components/productview/productview.php?product_id=89356" class="view_details">View details</a>
+                        <a href="\PharmaEase\PharmaEase-Final\components\homepage\productview.php" class="view_details">View details</a>
                         <div class="stats">        	
                             <div class="stats-container">
                                 <span class="product_price">$39</span>
@@ -849,42 +851,9 @@ session_start();
             </div>    
         </div>
         </div>
+    </div>
     <!-- Footer  -->
-    <footer>
-      <ul>
-        <li><a class="head" href="#">MY ACCOUNT</a></li>
-        <li><a href="#">Orders</a></li>
-        <li><a href="#">Returns/Refunds</a></li>
-        <li><a href="#">Track Order</a></li>
-        <li><a href="#">Frequently Asked Questions</a></li>
-      </ul>
-      <ul>
-        <li><a class="head" href="#">POLICIES</a></li>
-        <li><a href="#">Payment Options</a></li>
-        <li><a href="#">Terms & Conditions</a></li>
-        <li><a href="#">Returns & Exchange Policy</a></li>
-        <li><a href="#">Shipping Policy</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Safety Checklist</a></li>
-        <li><a href="#">License</a></li>
-      </ul>
-      <ul>
-        <li><a class="head" href="#">CONTACT US</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Customer Support</a></li>
-        <li><a href="#">Help Center</a></li>
-        <li><a href="#">Local Pharmacies</a></li>
-        <li><a href="#">Partnerships</a></li>
-      </ul>
-      <ul class="social-media">
-        <li><a class="head" href="#">SOCIAL</a></li>
-        <li><a href="#">Facebook</a></li>
-        <li><a href="#">Instagram</a></li>
-        <li><a href="#">Tiktok</a></li>
-        <li><a href="#">Twitter</a></li>
-        <li><a href="#">YouTube</a></li>
-      </ul>
-    </footer>
+     <?php include "footer.php"; ?>
   </div>
   <script>
 const _ = className => document.querySelector(className);

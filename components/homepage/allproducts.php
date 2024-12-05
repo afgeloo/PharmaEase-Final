@@ -50,6 +50,7 @@ session_start();
       </div>
     </div>
     
+    <div class="product-container">
     <div id="grid-selector">
                <div id="grid-menu">
                       View:
@@ -763,6 +764,8 @@ session_start();
             </div>    
         </div>
         </div>
+    </div>
+
     <!-- Footer  -->
     <footer>
       <ul>
