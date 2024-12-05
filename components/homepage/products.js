@@ -44,11 +44,13 @@ $(document).ready(function(){
 		$(el).find('.make3D').hover(function(){
 				$(this).parent().css('z-index', "20");
 				$(this).addClass('animate');
-				$(this).find('div.carouselNext, div.carouselPrev').addClass('visible');			
+				$(this).find('div.carouselNext, div.carouselPrev').addClass('visible');
+				$(this).find('.view_details').addClass('visible'); // Add this line
 			 }, function(){
 				$(this).removeClass('animate');			
 				$(this).parent().css('z-index', "1");
 				$(this).find('div.carouselNext, div.carouselPrev').removeClass('visible');
+				$(this).find('.view_details').removeClass('visible'); // Add this line
 		});	
 		
 		// Flip card to the back side
