@@ -6,11 +6,11 @@ session_start();
 <html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="homepage.css?v=<?php echo time(); ?>">
+  <link rel="stylesheet" href="healthsupplements.css?v=<?php echo time(); ?>">
   <link rel="shortcut icon" type="image/png" href="/PharmaEase/PharmaEase-Final/assets/PharmaEaseLogo.png">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-  <title>Welcome to PharmaEase</title>
+  <title>PharmaEase - Health Supplements</title>
   <script src="\PharmaEase\PharmaEase-Final\components\homepage\products.js"></script>
 </head>
 <body>
@@ -49,57 +49,7 @@ session_start();
         </form>
       </div>
     </div>
-    <!-- mask layout -->
-    <section class="section-grid grid-six-col gallery" id="gallery">
-        <div class="card">
-        </div>
-        <div class="card gallery-slider">
-      <div class="gallery-slider__container">
-        <figure class="gallery-slider__slide">
-          <figcaption class="content">
-          </figcaption>
-        </figure>
-        <figure class="gallery-slider__slide">
-          <figcaption class="content">
-            <h2 class="card__title">Welcome to PharmaEase</h2>
-          </figcaption>
-        </figure>
-        <figure class="gallery-slider__slide">
-          <figcaption class="content">
-            <h2 class="card__title">Find the latest deals</h2>
-          </figcaption>
-        </figure>
-        <figure class="gallery-slider__slide">
-          <figcaption class="content">
-            <h2 class="card__title">PharmaEase: The Medicine that’s Always Within Reach.</h2>
-          </figcaption>
-        </figure>
-      </div>
-      <div class="gallery__dots dots">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-      </div>
-    </div>
-    <div class="card">
-      <button class="slider__btn--grid gallery-next"><img src="/PharmaEase/PharmaEase-Final/assets/slider/rightArrow.png" alt="right arrow"></button>
-      <button class="slider__btn--grid gallery-prev"><img src="/PharmaEase/PharmaEase-Final/assets/slider/leftArrow.png" alt="left arrow"></button>
-    </div>
-      </section>
-    <div class="details">
-      <img
-        src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseLogoHD.png"
-        ;
-        alt="mask"
-      />
-      <div class="stay-home">
-          <h2>PharmaEase</h2>
-      </div>
-          <p>PharmaEase is an online pharmacy designed to empower local pharmacies by providing a digital avenue to offer their services and products. PharmaEase ensures that individuals can access essential medications conveniently, especially during emergencies when immediate assistance may not be available. By connecting pharmacies directly with consumers, PharmaEase enhances accessibility to healthcare and supports the modernization of local pharmaceutical services. </p>
-    </div>
-    <!-- Deals of the day -->
-    <h2>Top Products</h2>
+    
     <div id="grid-selector">
                <div id="grid-menu">
                       View:
