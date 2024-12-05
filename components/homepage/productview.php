@@ -29,14 +29,14 @@ session_start();
     </header>
     <div class="navlist">
       <div>
-        <a href="allproducts.php">All Products</a>
-        <a href="medicines.php">Medicines</a>
-        <a href="healthsupplements.php">Health Supplements</a>
+      <a href="allproducts.php">All Products</a>
+        <a href="medicines.php">Prescription Medicines</a>
+        <a href="overthecounter.php">Over-the-Counter</a>
+        <a href="vitsandsupps.php">Vitamins and Supplements</a>
         <a href="personalcare.php">Personal Care</a>
-        <a href="medicaldevices.php">Medical Devices</a>
-        <a href="wellness.php">Wellness</a>
+        <a href="medsupps.php">Medicinal Supplies</a>
         <a href="babycare.php">Baby Care</a>
-        <a href="covidessentials.php">COVID Essentials</a>
+        <a href="sexualwellness.php">Sexual Wellness</a>
       </div>
       <div class="row">
         <div class="col-xl-8">

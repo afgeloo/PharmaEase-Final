@@ -125,6 +125,20 @@ input {
 }
 /* ...existing code... */
 
+.search button {
+  background-color: #88c273;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.search button:hover {
+  background-color: #45a049;
+}
+
 /*galleryslides CSS*/
 /* Variables */
 :root {

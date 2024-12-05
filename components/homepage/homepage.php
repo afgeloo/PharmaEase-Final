@@ -1,5 +1,24 @@
 <?php
 session_start();
+
+// Database connection variables
+$servername = "localhost"; // Replace with your database server
+$username = "root";        // Replace with your MySQL username
+$password = "";            // Replace with your MySQL password
+$dbname = "pharmaease_db"; // Replace with your database name
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// SQL query to fetch products
+$sql = "SELECT * FROM products";
+$result = $conn->query($sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -11,15 +30,13 @@ session_start();
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
   <title>Welcome to PharmaEase</title>
-  <script src="\PharmaEase\PharmaEase-Final\components\homepage\products.js"></script>
+  <script src="/PharmaEase/PharmaEase-Final/components/homepage/products.js"></script>
 </head>
 <body>
 <div class="container">
     <!-- Main Navbar -->
     <header>
-      <a href="homepage.php">
-        <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
-      </a>
+      <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
       <nav>
         <a href="homepage.php">Home</a>
         <a href="#">Cart</a>
@@ -30,13 +47,13 @@ session_start();
     <div class="navlist">
       <div>
       <a href="allproducts.php">All Products</a>
-        <a href="medicines.php">Medicines</a>
-        <a href="healthsupplements.php">Health Supplements</a>
+        <a href="medicines.php">Prescription Medicines</a>
+        <a href="overthecounter.php">Over-the-Counter</a>
+        <a href="vitsandsupps.php">Vitamins and Supplements</a>
         <a href="personalcare.php">Personal Care</a>
-        <a href="medicaldevices.php">Medical Devices</a>
-        <a href="wellness.php">Wellness</a>
+        <a href="medsupps.php">Medicinal Supplies</a>
         <a href="babycare.php">Baby Care</a>
-        <a href="covidessentials.php">COVID Essentials</a>
+        <a href="sexualwellness.php">Sexual Wellness</a>
       </div>
       <div class="row">
   <div class="col-xl-8">
@@ -129,9 +146,7 @@ session_start();
           <p>PharmaEase is an online pharmacy designed to empower local pharmacies by providing a digital avenue to offer their services and products. PharmaEase ensures that individuals can access essential medications conveniently, especially during emergencies when immediate assistance may not be available. By connecting pharmacies directly with consumers, PharmaEase enhances accessibility to healthcare and supports the modernization of local pharmaceutical services. </p>
     </div>
     <!-- Deals of the day -->
-    <div class="product-container">
     <h2>Top Products</h2>
-
     <div id="grid-selector">
                <div id="grid-menu">
                       View:
@@ -145,717 +160,120 @@ session_start();
         </div>
         
         <div id="grid">
-            <div class="product">
-                <div class="info-large">
-                    <h4>DISPOSABLE FACEMASK</h4>
-                    <div class="sku">
-                        PRODUCT NO.: <strong>89356</strong>
-                    </div>
-                     
-                    <div class="price-big">
-                        <span>₱80</span> ₱50
-                    </div>
-                     
-                    <h3>DESCRIPTION</h3>
-                    <div class="colors-large">
-                        <span>3-ply with earloop disposable face mask, filters droplets, pollen, dust and other air particulates.</span>
-                    </div>
-        
-                    <h3>STORE</h3>
-                    <div class="sizes-large">
-                         <span>Mercury Drug</span>
-                    </div>
-                    
-                    <button class="add-cart-large">Add To Cart</button>                          
-                                 
-                </div>
-                <div class="make3D">
-                    <div class="product-front">
-                        <div class="shadow"></div>
-                        <img src="/PharmaEase/PharmaEase-Final/assets/product/facemask1.png" alt="" />
-                        <div class="image_overlay"></div>
-                        <div class="add_to_cart">Add to cart</div>
-                        <div class="view_gallery">View gallery</div>
-                        <a href="\PharmaEase\PharmaEase-Final\components\homepage\productview.php" class="view_details">View details</a>
-                        <div class="stats">        	
-                            <div class="stats-container">
-                                <span class="product_price">₱50</span>
-                                <span class="product_name">DISPOSABLE FACEMASK</span>    
-                                <p>Essentials</p>                                            
-                                
-                                <div class="product-options">
-                                <strong>DESCRIPTION</strong>
-                                <span> 3-ply with earloop, filters droplets, and other air particulates.</span>
-                                <strong>STORE</strong>
-                                <div class="colors">
-                                <span>Mercury Drug</span>
-                                </div>
-                            </div>                       
-                            </div>                         
+        <?php
+        // Check if products are available
+        if ($result->num_rows > 0) {
+            // Loop through each product and display it
+            while($row = $result->fetch_assoc()) {
+                $images = json_decode($row['images'], true); // Decode the images from JSON format
+                ?>
+                
+                <div class="product">
+                    <!-- Product Info -->
+                    <div class="info-large">
+                        <h4><?php echo htmlspecialchars($row['name']); ?></h4>
+                        <div class="sku">
+                            PRODUCT NO.: <strong><?php echo htmlspecialchars($row['sku']); ?></strong>
                         </div>
+
+                        <div class="price-big">
+                            <span>₱<?php echo number_format($row['original_price'], 2); ?></span> 
+                            ₱<?php echo number_format($row['price'], 2); ?>
+                        </div>
+
+                        <h3>DESCRIPTION</h3>
+                        <div class="colors-large">
+                            <span><?php echo htmlspecialchars($row['description']); ?></span>
+                        </div>
+
+                        <h3>STORE</h3>
+                        <div class="sizes-large">
+                            <span><?php echo htmlspecialchars($row['store']); ?></span>
+                        </div>
+
+                        <button class="add-cart-large">Add To Cart</button>
                     </div>
-                    
-                    <div class="product-back">
-                        <div class="shadow"></div>
-                        <div class="carousel">
-                            <ul class="carousel-container">
-                                <li><img src="/PharmaEase/PharmaEase-Final/assets/product/facemask1.png" alt="" /></li>
-                                <li><img src="/PharmaEase/PharmaEase-Final/assets/product/facemask2.png" alt="" /></li>
-                                <li><img src="/PharmaEase/PharmaEase-Final/assets/product/facemask3.png" alt="" /></li>
-                            </ul>
-                            <div class="arrows-perspective">
-                                <div class="carouselPrev">
-                                    <div class="y"></div>
-                                    <div class="x"></div>
-                                </div>
-                                <div class="carouselNext">
-                                    <div class="y"></div>
-                                    <div class="x"></div>
+
+                    <!-- 3D Product Display -->
+                    <div class="make3D">
+                        <div class="product-front">
+                            <div class="shadow"></div>
+                            <?php
+                            // Check if there are images and display the first one
+                            if (!empty($images)) {
+                                echo '<img src="' . htmlspecialchars($images[0]) . '" alt="Product Front Image" />';
+                            } else {
+                                echo '<img src="/path/to/default-image.jpg" alt="Default Front Image" />';
+                            }
+                            ?>
+                            <div class="image_overlay"></div>
+                            <div class="add_to_cart">Add to cart</div>
+                            <div class="view_gallery">View gallery</div>
+                            <a href="productview.php?id=<?php echo $row['id']; ?>" class="view_details">View details</a>
+
+                            <div class="stats">
+                                <div class="stats-container">
+                                    <span class="product_price">₱<?php echo number_format($row['price'], 2); ?></span>
+                                    <span class="product_name"><?php echo htmlspecialchars($row['name']); ?></span>
+                                    <p><?php echo htmlspecialchars($row['description']); ?></p>
+                                    <div class="product-options">
+                                        <strong>DESCRIPTION</strong>
+                                        <span><?php echo htmlspecialchars($row['description']); ?></span>
+                                        <strong>STORE</strong>
+                                        <div class="colors">
+                                            <span><?php echo htmlspecialchars($row['store']); ?></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="flip-back">
-                            <div class="cy"></div>
-                            <div class="cx"></div>
-                        </div>
-                    </div>	  
-                </div>	
-            </div>
-            
-            
-            <div class="product">
-            <div class="info-large">
-                    <h4>PLEAT PRINTED DRESS</h4>
-                    <div class="sku">
-                        PRODUCT SKU: <strong>89356</strong>
-                    </div>
-                     
-                    <div class="price-big">
-                        <span>$43</span> $39
-                    </div>
-                     
-                    <h3>COLORS</h3>
-                    <div class="colors-large">
-                        <ul>
-                            <li><a href="" style="background:#222"><span></span></a></li>
-                            <li><a href="" style="background:#6e8cd5"><span></span></a></li>
-                            <li><a href="" style="background:#f56060"><span></span></a></li>
-                            <li><a href="" style="background:#44c28d"><span></span></a></li>
-                        </ul> 
-                    </div>
-        
-                    <h3>SIZE</h3>
-                    <div class="sizes-large">
-                         <span>XS</span>
-                        <span>S</span>
-                        <span>M</span>
-                        <span>L</span>
-                        <span>XL</span>
-                        <span>XXL</span>
-                    </div>
-                    
-                    <button class="add-cart-large">Add To Cart</button>                          
-                                 
-                </div>
-                <div class="make3D">
-                    <div class="product-front">
-                        <div class="shadow"></div>
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2.jpg" alt="" />
-                        <div class="image_overlay"></div>
-                        <div class="add_to_cart">Add to cart</div>
-                        <div class="view_gallery">View gallery</div>
-                        <a href="\PharmaEase\PharmaEase-Final\components\homepage\productview.php" class="view_details">View details</a>
-                        <div class="stats">        	
-                            <div class="stats-container">
-                                <span class="product_price">$39</span>
-                                <span class="product_name">PLEAT PRINTED DRESS</span>    
-                                <p>Summer dress</p>                                            
-                                
-                                <div class="product-options">
-                                <strong>SIZES</strong>
-                                <span>XS, S, M, L, XL, XXL</span>
-                                <strong>COLORS</strong>
-                                <div class="colors">
-                                    <div class="c-blue"><span></span></div>
-                                    <div class="c-red"><span></span></div>
-                                    <div class="c-white"><span></span></div>
-                                    <div class="c-green"><span></span></div>
-                                </div>
-                            </div>                       
-                            </div>                         
-                        </div>
-                    </div>
-                    
-                    <div class="product-back">
-                        <div class="shadow"></div>
-                        <div class="carousel">
-                            <ul class="carousel-container">
-                                <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2.jpg" alt="" /></li>
-                                <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/3.jpg" alt="" /></li>
-                                <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/4.jpg" alt="" /></li>
-                            </ul>
-                            <div class="arrows-perspective">
-                                <div class="carouselPrev">
-                                    <div class="y"></div>
-                                    <div class="x"></div>
-                                </div>
-                                <div class="carouselNext">
-                                    <div class="y"></div>
-                                    <div class="x"></div>
+
+                        <!-- Product Back (Carousel) -->
+                        <div class="product-back">
+                            <div class="shadow"></div>
+                            <div class="carousel">
+                                <ul class="carousel-container">
+                                    <?php
+                                    // Display additional images if available (up to 3 images)
+                                    if (!empty($images)) {
+                                        $carousel_images = array_slice($images, 0, 3); // Show up to 3 images in carousel
+                                        foreach ($carousel_images as $image) {
+                                            echo '<li><img src="' . htmlspecialchars($image) . '" alt="Product Image" /></li>';
+                                        }
+                                    } else {
+                                        echo '<li><img src="/path/to/default-image.jpg" alt="Default Image" /></li>';
+                                    }
+                                    ?>
+                                </ul>
+                                <div class="arrows-perspective">
+                                    <div class="carouselPrev">
+                                        <div class="y"></div>
+                                        <div class="x"></div>
+                                    </div>
+                                    <div class="carouselNext">
+                                        <div class="y"></div>
+                                        <div class="x"></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="flip-back">
-                            <div class="cy"></div>
-                            <div class="cx"></div>
-                        </div>
-                    </div>	  
-                </div>	
-            </div>
-            
-            <div class="product">
-            <div class="info-large">
-                    <h4>FLOWY SHIRT DRESS</h4>
-                    <div class="sku">
-                        PRODUCT SKU: <strong>89356</strong>
-                    </div>
-                     
-                    <div class="price-big">
-                        <span>$43</span> $39
-                    </div>
-                     
-                    <h3>COLORS</h3>
-                    <div class="colors-large">
-                        <ul>
-                            <li><a href="" style="background:#222"><span></span></a></li>
-                            <li><a href="" style="background:#6e8cd5"><span></span></a></li>
-                            <li><a href="" style="background:#f56060"><span></span></a></li>
-                            <li><a href="" style="background:#44c28d"><span></span></a></li>
-                        </ul> 
-                    </div>
-        
-                    <h3>SIZE</h3>
-                    <div class="sizes-large">
-                         <span>XS</span>
-                        <span>S</span>
-                        <span>M</span>
-                        <span>L</span>
-                        <span>XL</span>
-                        <span>XXL</span>
-                    </div>
-                    
-                    <button class="add-cart-large">Add To Cart</button>                          
-                                 
-                </div>
-                <div class="make3D">        
-                    <div class="product-front">
-                        <div class="shadow"></div>
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/3.jpg" alt="" />
-                        <div class="image_overlay"></div>
-                        <div class="add_to_cart">Add to cart</div>
-                        <div class="view_gallery">View gallery</div>
-                        <a href="\PharmaEase\PharmaEase-Final\components\homepage\productview.php" class="view_details">View details</a>
-                        <div class="stats">        	
-                            <div class="stats-container">
-                                <span class="product_price">$39</span>
-                                <span class="product_name">FLOWY SHIRT DRESS</span>    
-                                <p>Summer dress</p>                                            
-                                
-                                <div class="product-options">
-                                <strong>SIZES</strong>
-                                <span>XS, S, M, L, XL, XXL</span>
-                                <strong>COLORS</strong>
-                                <div class="colors">
-                                    <div class="c-blue"><span></span></div>
-                                    <div class="c-red"><span></span></div>
-                                    <div class="c-white"><span></span></div>
-                                    <div class="c-green"><span></span></div>
-                                </div>
-                            </div>                       
-                            </div>                         
-                        </div>
-                    </div>
-                    
-                    <div class="product-back">
-                        <div class="shadow"></div>
-                        <div class="carousel">
-                            <ul class="carousel-container">
-                                <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/3.jpg" alt="" /></li>
-                                <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/4.jpg" alt="" /></li>
-                                <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1.jpg" alt="" /></li>
-                            </ul>
-                            <div class="arrows-perspective">
-                                <div class="carouselPrev">
-                                    <div class="y"></div>
-                                    <div class="x"></div>
-                                </div>
-                                <div class="carouselNext">
-                                    <div class="y"></div>
-                                    <div class="x"></div>
-                                </div>
+                            <div class="flip-back">
+                                <div class="cy"></div>
+                                <div class="cx"></div>
                             </div>
                         </div>
-                        <div class="flip-back">
-                            <div class="cy"></div>
-                            <div class="cx"></div>
-                        </div>
-                    </div>	  
-                </div>	
-            </div>
-            
-            
-            <div class="product">
-            <div class="info-large">
-                    <h4>DOUBLE LAYER DRESS</h4>
-                    <div class="sku">
-                        PRODUCT SKU: <strong>89356</strong>
-                    </div>
-                     
-                    <div class="price-big">
-                        <span>$43</span> $39
-                    </div>
-                     
-                    <h3>COLORS</h3>
-                    <div class="colors-large">
-                        <ul>
-                            <li><a href="" style="background:#222"><span></span></a></li>
-                            <li><a href="" style="background:#6e8cd5"><span></span></a></li>
-                            <li><a href="" style="background:#f56060"><span></span></a></li>
-                            <li><a href="" style="background:#44c28d"><span></span></a></li>
-                        </ul> 
-                    </div>
-        
-                    <h3>SIZE</h3>
-                    <div class="sizes-large">
-                         <span>XS</span>
-                        <span>S</span>
-                        <span>M</span>
-                        <span>L</span>
-                        <span>XL</span>
-                        <span>XXL</span>
-                    </div>
-                    
-                    <button class="add-cart-large">Add To Cart</button>                          
-                                 
+                    </div>  
                 </div>
-                <div class="make3D">
-                    <div class="product-front">
-                        <div class="shadow"></div>
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/4.jpg" alt="" />
-                        <div class="image_overlay"></div>
-                        <div class="add_to_cart">Add to cart</div>
-                        <div class="view_gallery">View gallery</div>
-                        <a href="\PharmaEase\PharmaEase-Final\components\homepage\productview.php" class="view_details">View details</a>
-                        <div class="stats">        	
-                            <div class="stats-container">
-                                <span class="product_price">$39</span>
-                                <span class="product_name">DOUBLE LAYER DRESS</span>    
-                                <p>Summer dress</p>                                            
-                                
-                                <div class="product-options">
-                                <strong>SIZES</</strong>
-                                <span>XS, S, M, L, XL, XXL</span>
-                                <strong>COLORS</strong>
-                                <div class="colors">
-                                    <div class="c-blue"><span></span></div>
-                                    <div class="c-red"><span></span></div>
-                                    <div class="c-white"><span></span></div>
-                                    <div class="c-green"><span></span></div>
-                                </div>
-                            </div>                       
-                            </div>                         
-                        </div>
-                    </div>
-                    
-                    <div class="product-back">
-                        <div class="shadow"></div>
-                        <div class="carousel">
-                            <ul class="carousel-container">
-                                <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/4.jpg" alt="" /></li>
-                                <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/6.jpg" alt="" /></li>
-                                <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/7.jpg" alt="" /></li>
-                            </ul>
-                            <div class="arrows-perspective">
-                                <div class="carouselPrev">
-                                    <div class="y"></div>
-                                    <div class="x"></div>
-                                </div>
-                                <div class="carouselNext">
-                                    <div class="y"></div>
-                                    <div class="x"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flip-back">
-                            <div class="cy"></div>
-                            <div class="cx"></div>
-                        </div>
-                    </div>	  
-                </div>	
-            </div>
-            
-            <div class="product">
-            <div class="info-large">
-                    <h4>BEAD DETAIL DRESS</h4>
-                    <div class="sku">
-                        PRODUCT SKU: <strong>89356</strong>
-                    </div>
-                     
-                    <div class="price-big">
-                        <span>$43</span> $39
-                    </div>
-                     
-                    <h3>COLORS</h3>
-                    <div class="colors-large">
-                        <ul>
-                            <li><a href="" style="background:#222"><span></span></a></li>
-                            <li><a href="" style="background:#6e8cd5"><span></span></a></li>
-                            <li><a href="" style="background:#f56060"><span></span></a></li>
-                            <li><a href="" style="background:#44c28d"><span></span></a></li>
-                        </ul> 
-                    </div>
+                <?php
+            }
+        } else {
+            echo "No products found.";
+        }
+        ?>
         
-                    <h3>SIZE</h3>
-                    <div class="sizes-large">
-                         <span>XS</span>
-                        <span>S</span>
-                        <span>M</span>
-                        <span>L</span>
-                        <span>XL</span>
-                        <span>XXL</span>
-                    </div>
-                    
-                    <button class="add-cart-large">Add To Cart</button>                          
-                                 
-                </div>
-                <div class="make3D">
-                    <div class="product-front">
-                        <div class="shadow"></div>
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/5.jpg" alt="" />
-                        <div class="image_overlay"></div>
-                        <div class="add_to_cart">Add to cart</div>
-                        <div class="view_gallery">View gallery</div>
-                        <a href="\PharmaEase\PharmaEase-Final\components\homepage\productview.php" class="view_details">View details</a>
-                        <div class="stats">        	
-                            <div class="stats-container">
-                                <span class="product_price">$39</span>
-                                <span class="product_name">BEAD DETAIL DRESS</span>    
-                                <p>Summer dress</p>                                            
-                                
-                                <div class="product-options">
-                                <strong>SIZES</strong>
-                                <span>XS, S, M, L, XL, XXL</span>
-                                <strong>COLORS</strong>
-                                <div class="colors">
-                                    <div class="c-blue"><span></span></div>
-                                    <div class="c-red"><span></span></div>
-                                    <div class="c-white"><span></span></div>
-                                    <div class="c-green"><span></span></div>
-                                </div>
-                            </div>                       
-                            </div>                         
-                        </div>
-                    </div>
-                    
-                    <div class="product-back">
-                        <div class="shadow"></div>
-                        <div class="carousel">
-                            <ul class="carousel-container">
-                                <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/5.jpg" alt="" /></li>
-                                <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/7.jpg" alt="" /></li>
-                            </ul>
-                            <div class="arrows-perspective">
-                                <div class="carouselPrev">
-                                    <div class="y"></div>
-                                    <div class="x"></div>
-                                </div>
-                                <div class="carouselNext">
-                                    <div class="y"></div>
-                                    <div class="x"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flip-back">
-                            <div class="cy"></div>
-                            <div class="cx"></div>
-                        </div>
-                    </div>	  
-                </div>	
-            </div>
-            
-            
-            <div class="product">
-            <div class="info-large">
-                    <h4>PLEATED DETAIL DRESS</h4>
-                    <div class="sku">
-                        PRODUCT SKU: <strong>89356</strong>
-                    </div>
-                     
-                    <div class="price-big">
-                        <span>$43</span> $39
-                    </div>
-                     
-                    <h3>COLORS</h3>
-                    <div class="colors-large">
-                        <ul>
-                            <li><a href="" style="background:#222"><span></span></a></li>
-                            <li><a href="" style="background:#6e8cd5"><span></span></a></li>
-                            <li><a href="" style="background:#9b887b"><span></span></a></li>
-                            <li><a href="" style="background:#44c28d"><span></span></a></li>
-                        </ul> 
-                    </div>
-        
-                    <h3>SIZE</h3>
-                    <div class="sizes-large">
-                         <span>XS</span>
-                        <span>S</span>
-                        <span>M</span>
-                        <span>L</span>
-                        <span>XL</span>
-                        <span>XXL</span>
-                    </div>
-                    
-                    <button class="add-cart-large">Add To Cart</button>                          
-                                 
-                </div>
-                <div class="make3D">
-                    <div class="product-front">
-                        <div class="shadow"></div>
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/6.jpg" alt="" />
-                        <div class="image_overlay"></div>
-                        <div class="add_to_cart">Add to cart</div>
-                        <div class="view_gallery">View gallery</div>
-                        <a href="\PharmaEase\PharmaEase-Final\components\homepage\productview.php" class="view_details">View details</a>
-                        <div class="stats">        	
-                            <div class="stats-container">
-                                <span class="product_price">$39</span>
-                                <span class="product_name">PLEATED DETAIL DRESS</span>    
-                                <p>Summer dress</p>                                            
-                                
-                                <div class="product-options">
-                                <strong>SIZES</strong>
-                                <span>XS, S, M, L, XL, XXL</span>
-                                <strong>COLORS</strong>
-                                <div class="colors">
-                                    <div class="c-blue"><span></span></div>
-                                    <div class="c-red"><span></span></div>
-                                    <div class="c-white"><span></span></div>
-                                    <div class="c-green"><span></span></div>
-                                </div>
-                            </div>                       
-                            </div>                         
-                        </div>
-                    </div>
-                    
-                    <div class="product-back">
-                        <div class="shadow"></div>
-                        <div class="carousel">
-                            <ul class="carousel-container">
-                                <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/6.jpg" alt="" /></li>
-                                <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/7.jpg" alt="" /></li>
-                            </ul>
-                            <div class="arrows-perspective">
-                                <div class="carouselPrev">
-                                    <div class="y"></div>
-                                    <div class="x"></div>
-                                </div>
-                                <div class="carouselNext">
-                                    <div class="y"></div>
-                                    <div class="x"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flip-back">
-                            <div class="cy"></div>
-                            <div class="cx"></div>
-                        </div>
-                    </div>	  
-                </div>	
-            </div>
-            
-            <div class="product">
-            <div class="info-large">
-                    <h4>PRINTED DRESS</h4>
-                    <div class="sku">
-                        PRODUCT SKU: <strong>89356</strong>
-                    </div>
-                     
-                    <div class="price-big">
-                        <span>$43</span> $39
-                    </div>
-                     
-                    <h3>COLORS</h3>
-                    <div class="colors-large">
-                        <ul>
-                            <li><a href="" style="background:#222"><span></span></a></li>
-                            <li><a href="" style="background:#6e8cd5"><span></span></a></li>
-                            <li><a href="" style="background:#9b887b"><span></span></a></li>
-                            <li><a href="" style="background:#44c28d"><span></span></a></li>
-                        </ul> 
-                    </div>
-        
-                    <h3>SIZE</h3>
-                    <div class="sizes-large">
-                         <span>XS</span>
-                        <span>S</span>
-                        <span>M</span>
-                        <span>L</span>
-                        <span>XL</span>
-                        <span>XXL</span>
-                    </div>
-                    
-                    <button class="add-cart-large">Add To Cart</button>                          
-                                 
-                </div>
-                <div class="make3D">
-                    <div class="product-front">
-                        <div class="shadow"></div>
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/7.jpg" alt="" />
-                        <div class="image_overlay"></div>
-                        <div class="add_to_cart">Add to cart</div>
-                        <div class="view_gallery">View gallery</div>
-                        <a href="\PharmaEase\PharmaEase-Final\components\homepage\productview.php" class="view_details">View details</a>
-                        <div class="stats">        	
-                            <div class="stats-container">
-                                <span class="product_price">$39</span>
-                                <span class="product_name">PRINTED DRESS</span>    
-                                <p>Summer dress</p>                                            
-                                
-                                <div class="product-options">
-                                <strong>SIZES</strong>
-                                <span>XS, S, M, L, XL, XXL</span>
-                                <strong>COLORS</strong>
-                                <div class="colors">
-                                    <div class="c-blue"><span></span></div>
-                                    <div class="c-red"><span></span></div>
-                                    <div class="c-white"><span></span></div>
-                                    <div class="c-green"><span></span></div>
-                                </div>
-                            </div>                       
-                            </div>                         
-                        </div>
-                    </div>
-                    
-                    <div class="product-back">
-                        <div class="shadow"></div>
-                        <div class="carousel">
-                            <ul class="carousel-container">
-                                <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/7.jpg" alt="" /></li>
-                                <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/5.jpg" alt="" /></li>
-                                <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/4.jpg" alt="" /></li>
-                            </ul>
-                            <div class="arrows-perspective">
-                                <div class="carouselPrev">
-                                    <div class="y"></div>
-                                    <div class="x"></div>
-                                </div>
-                                <div class="carouselNext">
-                                    <div class="y"></div>
-                                    <div class="x"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flip-back">
-                            <div class="cy"></div>
-                            <div class="cx"></div>
-                        </div>
-                    </div>	  
-                </div>	
-            </div>
-            
-            <div class="product">
-            <div class="info-large">
-                    <h4>PRINTED DRESS</h4>
-                    <div class="sku">
-                        PRODUCT SKU: <strong>89356</strong>
-                    </div>
-                     
-                    <div class="price-big">
-                        <span>$43</span> $39
-                    </div>
-                     
-                    <h3>COLORS</h3>
-                    <div class="colors-large">
-                        <ul>
-                            <li><a href="" style="background:#222"><span></span></a></li>
-                            <li><a href="" style="background:#6e8cd5"><span></span></a></li>
-                            <li><a href="" style="background:#9b887b"><span></span></a></li>
-                            <li><a href="" style="background:#44c28d"><span></span></a></li>
-                        </ul> 
-                    </div>
-        
-                    <h3>SIZE</h3>
-                    <div class="sizes-large">
-                         <span>XS</span>
-                        <span>S</span>
-                        <span>M</span>
-                        <span>L</span>
-                        <span>XL</span>
-                        <span>XXL</span>
-                    </div>
-                    
-                    <button class="add-cart-large">Add To Cart</button>                          
-                                 
-                </div>
-                <div class="make3D">
-                    <div class="product-front">
-                        <div class="shadow"></div>
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/8.jpg" alt="" />
-                        <div class="image_overlay"></div>
-                        <div class="add_to_cart">Add to cart</div>
-                        <div class="view_gallery">View gallery</div>
-                        <a href="\PharmaEase\PharmaEase-Final\components\homepage\productview.php" class="view_details">View details</a>
-                        <div class="stats">        	
-                            <div class="stats-container">
-                                <span class="product_price">$39</span>
-                                <span class="product_name">PRINTED DRESS</span>    
-                                <p>Summer dress</p>                                            
-                                
-                                <div class="product-options">
-                                <strong>SIZES</strong>
-                                <span>XS, S, M, L, XL, XXL</span>
-                                <strong>COLORS</strong>
-                                <div class="colors">
-                                    <div class="c-blue"><span></span></div>
-                                    <div class="c-red"><span></span></div>
-                                    <div class="c-white"><span></span></div>
-                                    <div class="c-green"><span></span></div>
-                                </div>
-                            </div>                       
-                            </div>                         
-                        </div>
-                    </div>
-                    
-                    <div class="product-back">
-                        <div class="shadow"></div>
-                        <div class="carousel">
-                            <ul class="carousel-container">
-                                <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/8.jpg" alt="" /></li>
-                                <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/7.jpg" alt="" /></li>
-                            </ul>
-                            <div class="arrows-perspective">
-                                <div class="carouselPrev">
-                                    <div class="y"></div>
-                                    <div class="x"></div>
-                                </div>
-                                <div class="carouselNext">
-                                    <div class="y"></div>
-                                    <div class="x"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flip-back">
-                            <div class="cy"></div>
-                            <div class="cx"></div>
-                        </div>
-                    </div>	  
-                </div>	
-            </div>    
-        </div>
-        </div>
     </div>
     <!-- Footer  -->
-     <?php include "footer.php"; ?>
+    <?php include "footer.php"; ?>
+  </div>
   <script>
 const _ = className => document.querySelector(className);
 const __ = className => document.querySelectorAll(className);
@@ -922,7 +340,7 @@ class Slider {
     });
     e.target.classList.add('active');
     let dotIndex = dotsArray.indexOf(e.target);
-    this.container.style.left = `${-this.slideWidth*dotIndex}%`;
+    this.container.style.left = `${-this.slideWidth * dotIndex}%`;
     this.slideIndex = dotIndex;
   };
 

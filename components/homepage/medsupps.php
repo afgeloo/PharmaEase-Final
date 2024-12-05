@@ -25,11 +25,11 @@ $result = $conn->query($sql);
 <html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="babycare.css?v=<?php echo time(); ?>">
+  <link rel="stylesheet" href="medsupps.css?v=<?php echo time(); ?>">
   <link rel="shortcut icon" type="image/png" href="/PharmaEase/PharmaEase-Final/assets/PharmaEaseLogo.png">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-  <title>PharmaEase - Baby Care</title>
+  <title>PharmaEase - Medicinal Supplies</title>
   <script src="\PharmaEase\PharmaEase-Final\components\homepage\products.js"></script>
 </head>
 <body>
