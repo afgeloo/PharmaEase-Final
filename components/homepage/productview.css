@@ -219,10 +219,14 @@ main .section .section-content {
     font-weight: bold;
 }
 
+/* ...existing code... */
 .product-info .product-price {
-    font-size: 16px;
-    color: #88c273; /* Change to green */
+    font-size: 34px;
+    font-weight: 600;
+    color: #88c273;
+    margin-top: 21px;
 }
+/* ...existing code... */
 
 .product-info .product-attributes {
     width: 100%;
@@ -234,21 +238,30 @@ main .section .section-content {
     margin: 20px 0;
 }
 
+/* ...existing code... */
 .product-info .product-addtocart button {
-    width: 100%;
-    cursor: pointer;
-    background: #88c273; /* Change to green */
-    color: #fff;
-    display: block;
-    border: none;
-    outline: none;
+    border: 3px solid #000;
+    font-size: 17px;
+    background: #fff;
+    text-transform: uppercase;
+    font-weight: 700;
     padding: 10px;
+    width: 100%;
+    margin-top: 20px;
     border-radius: 4px;
+    cursor: pointer;
+    color: #000;
+    display: block;
+    outline: none;
+    transition: all 200ms ease-out; /* Added transition */
 }
 
 .product-info .product-addtocart button:hover {
-    background: #45a049; /* Darker green on hover */
+    color: #88c273;
+    border-color: #88c273;
+    background: #fff;
 }
+/* ...existing code... */
 
 .product-info .product-description {
     font-size: 12px;

@@ -64,35 +64,6 @@ $result = $conn->query($sql);
           <input list="select1" name="select" placeholder="Search PharmaEase">
         </div>
       </div>
-      <div class="select-form">
-        <div class="select-itms">
-          <select name="category" id="category">
-            <option value="" disabled selected>Sort by Category</option>
-            <option value="prescription">Prescription Medicines</option>
-            <option value="overthecounter">Over-the-Counter</option>
-            <option value="vitamins">Vitamins & Supplements</option>
-            <option value="personalcare">Personal Care</option>
-            <option value="medicinalsupplies">Medicinal Supplies</option>
-            <option value="babycare">Baby Care</option>
-            <option value="sexualwellness">Sexual Wellness</option>
-          </select>
-        </div>
-      </div>
-      <div class="select-form">
-        <div class="select-itms">
-          <select name="store" id="store">
-            <option value="" disabled selected>Sort by Store</option>
-            <option value="mercury">Mercury Drug</option>
-            <option value="tgp">The Generics Pharmacy</option>
-            <option value="generika">Generika</option>
-            <option value="southstar">Southstar Drug</option>
-            <option value="watsons">Watsons</option>
-          </select>
-        </div>
-      </div>
-      <div class="search-form">
-        <a href="#"><img src="/PharmaEase/PharmaEase-Final/assets/search.png" alt="Search" class="searchIcon"></a>
-      </div>
     </form>
   </div>
 </div>

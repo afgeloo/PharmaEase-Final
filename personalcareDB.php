@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 // Database connection variables
 $servername = "localhost"; // Replace with your database server
 $username = "root";        // Replace with your MySQL username
@@ -433,4 +433,4 @@ foreach ($products as $product) {
 
 // Close connection
 $conn->close();
-?>
+?> -->
