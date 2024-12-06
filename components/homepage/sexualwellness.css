@@ -1395,4 +1395,39 @@
     }
   }
   
+  .view_details {	
+    
+    position: absolute;
+    top: 208px; /* Adjusted from 208px to 188px */
+    left: 50%;
+    width: 152px;
+    font-size: 15px;
+    margin-left: -78px;
+    border: 2px solid #fff;
+    color: #fff;	
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 10px 0;	
+    opacity: 0;
+    -webkit-transition: all 200ms ease-out; 
+       -moz-transition: all 200ms ease-out; 
+       -o-transition: all 200ms ease-out; 
+        transition: all 200ms ease-out; 
+  }
+  
+  .view_details:hover{	
+    background:#fff;
+    color:#88c273;
+    cursor:pointer;
+  
+  }
+  
+  .make3D.animate .view_details {
+    opacity: 1;
+    -webkit-transition: all 200ms ease-out;
+    -moz-transition: all 200ms ease-out;
+    -o-transition: all 200ms ease-out;
+    transition: all 200ms ease-out;
+  }
   

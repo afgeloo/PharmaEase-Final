@@ -14,40 +14,45 @@ if ($conn->connect_error) {
 }
 
 // SQL query to create the products table
-$sql = "CREATE TABLE IF NOT EXISTS `products` (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `name` VARCHAR(255) NOT NULL,
-    `sku` VARCHAR(100) NOT NULL,
-    `price` DECIMAL(10, 2) NOT NULL,
-    `original_price` DECIMAL(10, 2) NOT NULL,
-    `description` TEXT,
-    `store` VARCHAR(255),
-    `images` JSON,  -- Stores an array of image paths
-    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);";
+// $sql_create_table = "CREATE TABLE IF NOT EXISTS `sexual wellness` (
+//     `id` INT AUTO_INCREMENT PRIMARY KEY,
+//     `name` VARCHAR(255) NOT NULL,
+//     `label` VARCHAR(255) NOT NULL,
+//     `price` DECIMAL(10, 2) NOT NULL,
+//     `description` TEXT,
+//     `store` VARCHAR(255),
+//     `images` JSON,
+//     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+//     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+// );";
 
 // Execute query to create the table
-if ($conn->query($sql) === TRUE) {
-    echo "Table 'products' created successfully.<br>";
-} else {
-    echo "Error creating table: " . $conn->error . "<br>";
-}
+// if ($conn->query($sql_create_table) === TRUE) {
+//     echo "Table 'sexual wellness' created successfully.<br>";
+// } else {
+//     echo "Error creating table: " . $conn->error . "<br>";
+// }
 
-// Insert products into the products table with 3 images
-$sql_insert = "
-    INSERT INTO `products` (`name`, `sku`, `price`, `original_price`, `description`, `store`, `images`)
+// Prepare the description and escape any special characters
+$description = $conn->real_escape_string("Designed to provide comfort and protection for your baby. They are made with high-quality materials to keep your baby's skin healthy and prevent leakages.");
+
+// SQL query to insert products
+$sql_insert = "INSERT INTO `sexual wellness` (`name`, `label`, `price`, `description`, `store`, `images`)
     VALUES
-    ('DISPOSABLE FACEMASK', '89356', 50.00, 80.00, '3-ply with earloop disposable face mask, filters droplets, pollen, dust and other air particulates.', 'Mercury Drug', '[\"/PharmaEase/PharmaEase-Final/assets/product/facemask1.png\", \"/PharmaEase/PharmaEase-Final/assets/product/facemask2.png\", \"/PharmaEase/PharmaEase-Final/assets/product/facemask3.png\"]'),
-    ('ALCOHOL GEL', '89567', 120.00, 150.00, 'Hand sanitizer gel with 70% alcohol, kills 99.9% of germs.', 'Watsons', '[\"/PharmaEase/PharmaEase-Final/assets/product/facemask1.png\", \"/PharmaEase/PharmaEase-Final/assets/product/facemask2.png\", \"/PharmaEase/PharmaEase-Final/assets/product/facemask3.png\"]'),
-    ('VITAMIN C', '98765', 200.00, 250.00, 'Vitamin C tablets to boost immunity and protect against colds.', 'Mercury Drug', '[\"/PharmaEase/PharmaEase-Final/assets/product/facemask1.png\", \"/PharmaEase/PharmaEase-Final/assets/product/facemask2.png\", \"/PharmaEase/PharmaEase-Final/assets/product/facemask3.png\"]');
-";
+    (
+        'Modess',
+        'Napkin/Panty Liner',
+        35.00,
+        '$description',
+        'Watsons',
+        '[\"/PharmaEase/PharmaEase-Final/assets/ProductPics/SEXUAL WELLNESS/MODESS NAPKIN.png\", \"/PharmaEase/PharmaEase-Final/assets/ProductPics/SEXUAL WELLNESS/MODESS NAPKIN (2).png\"]'
+    );";
 
 // Execute insert query
 if ($conn->query($sql_insert) === TRUE) {
-    echo "3 products inserted successfully with images.<br>";
+    echo "Product inserted successfully.<br>";
 } else {
-    echo "Error inserting products: " . $conn->error . "<br>";
+    echo "Error inserting product: " . $conn->error . "<br>";
 }
 
 // Close connection

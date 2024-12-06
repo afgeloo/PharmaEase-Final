@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 }
 
 // SQL query to fetch products
-$sql = "SELECT * FROM products";
+$sql = "SELECT * FROM `sexual wellness`";
 $result = $conn->query($sql);
 
 ?>
@@ -94,12 +94,19 @@ $result = $conn->query($sql);
                     <!-- Product Info -->
                     <div class="info-large">
                         <h4><?php echo htmlspecialchars($row['name']); ?></h4>
-                        <div class="sku">
-                            PRODUCT NO.: <strong><?php echo htmlspecialchars($row['sku']); ?></strong>
+
+                        <?php if (!empty($row['label'])): ?>
+                        <span><?php echo htmlspecialchars($row['label']); ?></span>
+                        <?php endif; ?>
+
+                        <br />
+                        <br />
+
+                        <div class="id">
+                            PRODUCT NO.: <strong><?php echo htmlspecialchars($row['id']); ?></strong>
                         </div>
 
                         <div class="price-big">
-                            <span>₱<?php echo number_format($row['original_price'], 2); ?></span> 
                             ₱<?php echo number_format($row['price'], 2); ?>
                         </div>
 
