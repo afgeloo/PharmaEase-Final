@@ -16,7 +16,8 @@ if ($conn->connect_error) {
 }
 
 // SQL query to fetch products
-$sql = "SELECT * FROM `sexual wellness`";
+$sql = "SELECT * FROM `sexual wellness`
+        ORDER BY RAND()";
 $result = $conn->query($sql);
 
 ?>
@@ -55,20 +56,14 @@ $result = $conn->query($sql);
         <a href="babycare.php">Baby Care</a>
         <a href="sexualwellness.php">Sexual Wellness</a>
       </div>
-      <div class="search">
-        <form action="#">
-          <input
-            type="text"
-            placeholder="Search for Products & Brands"
-            name="search"
-          />
-          <!-- <button>
-            <i class="fa fa-search" style="font-size: 18px"> </i>
-          </button> -->
-        </form>
+      <form action="#" class="search-box spaced-elements">
+      <div class="select-form">
+        <div class="select-itms">
+          <input list="select1" name="select" placeholder="Search PharmaEase">
+        </div>
       </div>
+    </form>
     </div>
-    
     <div class="product-container">
     <div id="grid-selector">
                <div id="grid-menu">

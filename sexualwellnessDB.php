@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 // Database connection variables
 $servername = "localhost"; // Replace with your database server
 $username = "root";        // Replace with your MySQL username
@@ -14,8 +14,8 @@ if ($conn->connect_error) {
 }
 
 // SQL query to create the products table
-$sql_create_table = "CREATE TABLE IF NOT EXISTS sexual wellness (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+$sql_create_table = "CREATE TABLE IF NOT EXISTS `sexual wellness` (
+    id INT AUTO_INCREMENT UNIQUE KEY,
     name VARCHAR(255) NOT NULL,
     label VARCHAR(255) NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
@@ -241,4 +241,4 @@ foreach ($products as $product) {
 
 // Close connection
 $conn->close();
-?> -->
+?>
