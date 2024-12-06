@@ -208,7 +208,8 @@ $result = $conn->query($sql);
                             }
                             ?>
                             <div class="image_overlay"></div>
-                            <div class="add_to_cart">Add to cart</div>
+                            
+
                             <div class="view_gallery">View gallery</div>
                             <a href="productview.php?id=<?php echo $row['id']; ?>" class="view_details">View details</a>
 
@@ -216,9 +217,8 @@ $result = $conn->query($sql);
                                 <div class="stats-container">
                                     <span class="product_price">₱<?php echo number_format($row['price'], 2); ?></span>
                                     <span class="product_name"><?php echo htmlspecialchars($row['name']); ?></span>
-                                    <p><?php echo htmlspecialchars($row['description']); ?></p>
                                     <div class="product-options">
-                                        <strong>DESCRIPTION</strong>
+                                    <br /><strong>DESCRIPTION</strong>
                                         <span><?php echo htmlspecialchars($row['description']); ?></span>
                                         <strong>STORE</strong>
                                         <div class="colors">

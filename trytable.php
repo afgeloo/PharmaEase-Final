@@ -14,35 +14,37 @@ if ($conn->connect_error) {
 }
 
 // SQL query to create the products table
-// $sql_create_table = "CREATE TABLE IF NOT EXISTS `sexual wellness` (
-//     `id` INT AUTO_INCREMENT PRIMARY KEY,
-//     `name` VARCHAR(255) NOT NULL,
-//     `label` VARCHAR(255) NOT NULL,
-//     `price` DECIMAL(10, 2) NOT NULL,
-//     `description` TEXT,
-//     `store` VARCHAR(255),
-//     `images` JSON,
-//     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-//     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-// );";
+$sql_create_table = "CREATE TABLE IF NOT EXISTS `sexual wellness` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `name` VARCHAR(255) NOT NULL,
+    `label` VARCHAR(255) NOT NULL,
+    `price` DECIMAL(10, 2) NOT NULL,
+    `sku` INT NOT NULL,
+    `description` TEXT,
+    `store` VARCHAR(255),
+    `images` JSON,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);";
 
-// Execute query to create the table
-// if ($conn->query($sql_create_table) === TRUE) {
-//     echo "Table 'sexual wellness' created successfully.<br>";
-// } else {
-//     echo "Error creating table: " . $conn->error . "<br>";
-// }
+// // Execute query to create the table
+if ($conn->query($sql_create_table) === TRUE) {
+    echo "Table 'sexual wellness' created successfully.<br>";
+} else {
+    echo "Error creating table: " . $conn->error . "<br>";
+}
 
 // Prepare the description and escape any special characters
 $description = $conn->real_escape_string("Designed to provide comfort and protection for your baby. They are made with high-quality materials to keep your baby's skin healthy and prevent leakages.");
 
 // SQL query to insert products
-$sql_insert = "INSERT INTO `sexual wellness` (`name`, `label`, `price`, `description`, `store`, `images`)
+$sql_insert = "INSERT INTO `sexual wellness` (`name`, `label`, `price`, `sku`, `description`, `store`, `images`)
     VALUES
     (
         'Modess',
         'Napkin/Panty Liner',
         35.00,
+        5234,
         '$description',
         'Watsons',
         '[\"/PharmaEase/PharmaEase-Final/assets/ProductPics/SEXUAL WELLNESS/MODESS NAPKIN.png\", \"/PharmaEase/PharmaEase-Final/assets/ProductPics/SEXUAL WELLNESS/MODESS NAPKIN (2).png\"]'
