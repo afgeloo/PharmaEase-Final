@@ -27,13 +27,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['verify'])) {
         $verificationError = "Invalid verification code format";
     } else {
         $stmt = $conn->prepare("SELECT id FROM registered_users WHERE code_verification = ? AND is_verified = 0");
-        $stmt->bind_param("s", $verificationCode);
+        $stmt->bind_param("i", $verificationCode);
         $stmt->execute();
         $stmt->store_result();
 
         if ($stmt->num_rows > 0) {
             $updateStmt = $conn->prepare("UPDATE registered_users SET is_verified = 1, code_verification = NULL WHERE code_verification = ?");
-            $updateStmt->bind_param("s", $verificationCode);
+            $updateStmt->bind_param("i", $verificationCode);
             if ($updateStmt->execute()) {
                 $successMessage = "Your email has been verified successfully!";
                 // Optionally, redirect to login page
