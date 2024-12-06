@@ -87,15 +87,14 @@ session_start();
         <li><img src="/PharmaEase/PharmaEase-Final/assets/product/facemask3.png" alt="Product Image"></li>
       </ul>
       <ul class="product-info">
-        <li class="product-name">DISPOSABLE FACEMASK</li>
-        <li class="product-price">₱50</li>
+        <li class="product-name">Disposable Facemask</li>
+        <li class="product-label">Medicinal Supplies</li>
+        <li class="product-no">Product No.: <strong>2</strong></li>
+        <li class="product-price">₱50.00</li>
+        <li class="product-stocks">Stocks: 5234</li>
         <li class="product-attributes">
           <strong>DESCRIPTION:</strong>
           <span>3-ply with earloop disposable face mask, filters droplets, pollen, dust and other air particulates.</span>
-        </li>
-        <li class="product-attributes">
-        <strong>CATEGORY:</strong>
-        <span>Medicinal Supplies</span>
         </li>
         <li class="product-attributes">
         <strong>STORE:</strong>

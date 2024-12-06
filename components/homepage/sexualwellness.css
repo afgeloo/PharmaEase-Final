@@ -549,11 +549,12 @@
       position: relative;
       perspective: 800px;
       width:306px;
-      height:471px;
+      height:40%;
       transform-style: preserve-3d;
       transition: transform 5s;
       float:left; 
-      margin-right: 23px;
+      margin-bottom: 30px;
+      margin-right: 30px;
       -webkit-transition: width 500ms ease-in-out;
          -moz-transition: width 500ms ease-in-out;
           -ms-transition: width 500ms ease-in-out;
@@ -594,6 +595,7 @@
       top:10px;
       left:10px;	
       overflow:hidden;
+      border-radius: 8px;
       transform-style: preserve-3d;
       -webkit-transition:  100ms ease-out; 
          -moz-transition:  100ms ease-out; 
@@ -665,7 +667,7 @@
               transition: all 200ms ease-out;
   }
   .make3D.animate .stats-container{
-      top:265px;
+      top:200px;
       -webkit-transition: all 200ms ease-out; 
          -moz-transition: all 200ms ease-out; 
            -o-transition: all 200ms ease-out; 
@@ -704,7 +706,7 @@
               transition: all 200ms ease-out; 
   }
   .product-options{
-      padding:0;
+      margin-top: 10px;
   }
   .product-options strong{
       font-weight:700;
@@ -750,36 +752,37 @@
               transition: all 200ms ease-out; 		
   }
   .view_gallery{	
-      position:absolute;
-      top:144px;
-      left:50%;
-      width:152px;
-      font-size:15px;
-      margin-left:-78px;
-      border:2px solid #fff;
-      color:#fff;	
-      text-align:center;
-      text-transform:uppercase;
-      font-weight:700;
-      padding:10px 0;	
-      opacity:0;
-      -webkit-transition: all 200ms ease-out; 
-         -moz-transition: all 200ms ease-out; 
-           -o-transition: all 200ms ease-out; 
-              transition: all 200ms ease-out; 
+    position: absolute;
+    top: 60px; /* Adjusted from 80px to 60px */
+    left: 50%;
+    width: 152px;
+    font-size: 15px;
+    margin-left: -78px;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    color: #fff;	
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 10px 0;	
+    opacity: 0;
+    -webkit-transition: all 200ms ease-out; 
+       -moz-transition: all 200ms ease-out; 
+       -o-transition: all 200ms ease-out; 
+        transition: all 200ms ease-out; 
   }
   .view_gallery:hover{	
-      background:#fff;
-      color:#88c273;
-      cursor:pointer;
+    background:#fff;
+    color:#88c273;
+    cursor:pointer;
   
   }
   .make3D.animate .view_gallery{
-      opacity:1;	
-      -webkit-transition: all 200ms ease-out; 
-         -moz-transition: all 200ms ease-out; 
-           -o-transition: all 200ms ease-out; 
-              transition: all 200ms ease-out; 		
+    opacity: 1;
+    -webkit-transition: all 200ms ease-out;
+    -moz-transition: all 200ms ease-out;
+    -o-transition: all 200ms ease-out;
+    transition: all 200ms ease-out;
   }
   div.colors div{
       margin-top:3px;
@@ -1155,9 +1158,12 @@
   }
   
   .product.large{
-      width:639px;
+      width:45%;
+      height: 55%;
       margin-bottom:25px;
       overflow:hidden;
+      background-color: white;
+      border-radius: 8px;
       -webkit-transition: all 500ms ease-in-out;
          -moz-transition: all 500ms ease-in-out;
           -ms-transition: all 500ms ease-in-out;
@@ -1177,8 +1183,8 @@
         top: 0;
         left: 0px;
         padding: 42px;
-        width: 245px;
-        height: 395px;
+        /* width: 100%; */
+        height: 500px;
         -webkit-transition: all 500ms ease-out;
          -moz-transition: all 300ms ease-out;
           -ms-transition: all 300ms ease-out;
@@ -1195,12 +1201,12 @@
   }
   
   .info-large h4{
-      text-transform:uppercase;
       font-size:28px;
       color:#000;
-      font-weight:400;
+      font-weight: bold;
       padding:0;
   }
+
   div.sku{
         font-weight: 700;
         color: #d0d0d0;
@@ -1229,9 +1235,9 @@
         text-transform: uppercase;
         font-weight: 700;
         padding: 10px;
-        font-family: "Open Sans", sans-serif;
         width: 246px;
         margin-top: 38px;	
+        border-radius: 4px;
         -webkit-transition: all 200ms ease-out;
          -moz-transition: all 200ms ease-out;
           -ms-transition: all 200ms ease-out;
@@ -1398,12 +1404,13 @@
   .view_details {	
     
     position: absolute;
-    top: 208px; /* Adjusted from 208px to 188px */
+    top: 124px; /* Adjusted from 144px to 124px */
     left: 50%;
     width: 152px;
     font-size: 15px;
     margin-left: -78px;
     border: 2px solid #fff;
+    border-radius: 4px;
     color: #fff;	
     text-align: center;
     text-transform: uppercase;
@@ -1430,4 +1437,86 @@
     -o-transition: all 200ms ease-out;
     transition: all 200ms ease-out;
   }
-  
+
+  .product_label {
+    font-size: 12px; /* Reduced font size */
+    color: #969699; /* Changed color */
+  }
+
+  .product-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 70px;
+    box-sizing: border-box;
+    }
+    
+    #grid-selector {
+    width: 100%;
+    padding: 40px 30px;
+    box-sizing: border-box;
+    }
+    
+    #grid {
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    }
+
+/* ...existing code... */
+.quantity-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #eaeaea;
+    border-radius: 10px;
+    padding: 0.5rem;
+    margin-top: 10px;
+}
+
+.quantity-btn {
+    background: transparent;
+    border: none;
+    outline: none;
+    margin: 0;
+    padding: 0px 8px;
+    cursor: pointer;
+}
+
+.quantity-btn svg {
+    width: 15px;
+    height: 15px;
+}
+
+.quantity-input {
+    outline: none;
+    user-select: none;
+    text-align: center;
+    width: 47px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+}
+
+.quantity-input::-webkit-inner-spin-button,
+.quantity-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.view_product_link {
+    display: block;
+    margin-top: 10px;
+    text-align: left; /* Changed from center to left */
+    color: #88c273;
+    text-decoration: underline;
+    cursor: pointer;
+}
+/* ...existing code... */
+
+ion-icon[name="cart-outline"] {
+    font-size: 2rem; /* Adjust the size as needed */
+}
+/* ...existing code... */
