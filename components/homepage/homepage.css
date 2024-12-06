@@ -320,7 +320,7 @@ body {
 .gallery .dots .dot {
   width: 10px;
   height: 10px;
-  border: 1px solid var(--secondary);
+  border: 1px solid var(--white);
   border-radius: 50%;
   margin: 10px;
   transition: 0.3s ease-in-out;
@@ -328,7 +328,7 @@ body {
 }
 
 .gallery .dots .dot.active {
-  background: var(--secondary);
+  background: var(--white);
 }
 
 @media screen and (max-width: 768px) {
