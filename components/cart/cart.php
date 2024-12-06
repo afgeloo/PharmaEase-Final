@@ -38,9 +38,9 @@ $result = $conn->query($sql);
     <header>
       <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
       <nav>
-        <a href="homepage.php">Home</a>
-        <a href="#">Cart</a>
-        <a href="#">Checkout</a>
+        <a href="../homepage/homepage.php">Home</a>
+        <a href="cart.php">Cart</a>
+        <a href="../checkout/checkout.php">Checkout</a>
         <a href="#">My Account</a>
       </nav>
     </header>
