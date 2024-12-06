@@ -1,9 +1,6 @@
 <?php
-// registration.php
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-
-require '../../vendor/autoload.php';
 
 $servername = "localhost";
 $username = "root";
@@ -16,20 +13,12 @@ if ($conn->connect_error) {
     die("Connection Error: " . $conn->connect_error);
 }
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require '../../vendor/phpmailer/phpmailer/src/Exception.php';
-require '../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
-require '../../vendor/phpmailer/phpmailer/src/SMTP.php';
-
 $firstName = $lastName = $birthday = $age = $contactNumber = $email = $address = $username = $password = $confirmPassword = "";
 $firstNameError = $lastNameError = $birthdayError = $ageError = $contactError = $emailError = $addressError = $usernameError = $passwordError = $confirmPasswordError = "";
 $errors = 0;
 $successMessage = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-    // Retrieve and sanitize input
     $firstName = $_POST["first_name"];
     $lastName = $_POST["last_name"];
     $birthday = $_POST["birthday"];
@@ -41,7 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $password = $_POST["password"];
     $confirmPassword = $_POST["confirm_password"];
 
-    // Validate inputs
     if (empty($firstName)) $firstNameError = "First Name is required";
     if (empty($lastName)) $lastNameError = "Last Name is required";
     if (empty($birthday)) $birthdayError = "Birthday is required";
@@ -65,42 +53,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     if ($password !== $confirmPassword) $confirmPasswordError = "Passwords do not match";
 
     if (!$firstNameError && !$lastNameError && !$birthdayError && !$ageError && !$contactError && !$emailError && !$addressError && !$usernameError && !$passwordError && !$confirmPasswordError) {
-        // Generate verification code
-        $verificationCode = rand(100000, 999999);
-
-        // Hash password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        // Prepare and bind
-        $stmt = $conn->prepare("INSERT INTO registered_users (first_name, last_name, birthday, age, contact_number, email, address, username, password, is_verified, code_verification) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)");
-        $stmt->bind_param("sssisssssi", $firstName, $lastName, $birthday, $age, $contactNumber, $email, $address, $username, $hashedPassword, $verificationCode);
+        $stmt = $conn->prepare("INSERT INTO registered_users (first_name, last_name, birthday, age, contact_number, email, address, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssisssss", $firstName, $lastName, $birthday, $age, $contactNumber, $email, $address, $username, $hashedPassword);
 
         if ($stmt->execute()) {
-            // Send verification email
-            $mail = new PHPMailer(true);
-            try {
-                $mail->isSMTP();
-                $mail->Mailer = "smtp";
-                //$mail->SMTPDebug = 1;
-                $mail->SMTPAuth = TRUE;
-                $mail->SMTPSecure = "tls";
-                $mail->Port = 587;
-                $mail->Host = "smtp.gmail.com";
-                $mail->Username = "pharmaease.info@gmail.com";
-                $mail->Password = "mgbo dlkk ukoo feve";
-
-                $mail->setFrom("pharmaease.info@gmail.com", "PharmaEase");
-                $mail->addAddress($email, $firstName . ' ' . $lastName);
-                $mail->isHTML(true);
-                $mail->Subject = "Email Verification";
-                $mail->Body = "Your verification code is: <b>$verificationCode</b>";
-
-                $mail->send();
-                header("Location: verify_registration.php");
-                exit();
-            } catch (Exception $e) {
-                $successMessage = "Registration successful, but email could not be sent. Mailer Error: {$mail->ErrorInfo}";
-            }
+            $successMessage = "Registration successful!";
+            header("Location: ../main/main.php");
+            exit();
         } else {
             $successMessage = "Error: " . $conn->error;
         }

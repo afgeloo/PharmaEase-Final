@@ -20,9 +20,7 @@ $sql = "CREATE TABLE IF NOT EXISTS registered_users (
     email VARCHAR(100) NOT NULL UNIQUE,
     address TEXT NOT NULL,
     username VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    verification_number VARCHAR(6),
-    verification_status BOOLEAN DEFAULT FALSE
+    password VARCHAR(255) NOT NULL
 )";
 
 if ($conn->query($sql) === TRUE) {
@@ -31,5 +29,15 @@ if ($conn->query($sql) === TRUE) {
     echo "Error creating table: " . $conn->error;
 }
 
+$firstName = $lastName = $birthday = $age = $contactNumber = $email = $address = $username = $password = $confirmPassword = "";
+$firstNameError = $lastNameError = $birthdayError = $ageError = $contactError = $emailError = $addressError = $usernameError = $passwordError = $confirmPasswordError = "";
+$errors = 0;
+$successMessage = "";
+
+if (isset($_POST['submit'])) {
+   
+}
+
 $conn->close();
+
 ?>
