@@ -79,7 +79,7 @@ $result = $conn->query($sql);
                    </ul>
                </div>
                
-               <ion-icon name="cart-outline" id="cart-icon"></ion-icon>
+               <ion-icon name="cart-outline"></ion-icon>
         </div>
         
         <div id="grid">

@@ -595,6 +595,7 @@
       top:10px;
       left:10px;	
       overflow:hidden;
+      border-radius: 8px;
       transform-style: preserve-3d;
       -webkit-transition:  100ms ease-out; 
          -moz-transition:  100ms ease-out; 
@@ -758,6 +759,7 @@
     font-size: 15px;
     margin-left: -78px;
     border: 2px solid #fff;
+    border-radius: 4px;
     color: #fff;	
     text-align: center;
     text-transform: uppercase;
@@ -1160,6 +1162,8 @@
       height: 55%;
       margin-bottom:25px;
       overflow:hidden;
+      background-color: white;
+      border-radius: 8px;
       -webkit-transition: all 500ms ease-in-out;
          -moz-transition: all 500ms ease-in-out;
           -ms-transition: all 500ms ease-in-out;
@@ -1199,7 +1203,7 @@
   .info-large h4{
       font-size:28px;
       color:#000;
-      font-weight:400;
+      font-weight: bold;
       padding:0;
   }
 
@@ -1406,6 +1410,7 @@
     font-size: 15px;
     margin-left: -78px;
     border: 2px solid #fff;
+    border-radius: 4px;
     color: #fff;	
     text-align: center;
     text-transform: uppercase;
