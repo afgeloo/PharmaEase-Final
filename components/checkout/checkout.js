@@ -18,25 +18,37 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="shopping-cart">
                         <div class="product">
                             <div class="product-image-container">
-                                <img src="https://s.cdpn.io/3/dingo-dog-bones.jpg" class="product-image">
+                                <img src="/PharmaEase/PharmaEase-Final/assets/ProductPics/MEDICINAL SUPPLIES/ANTIGEN.png" class="product-image">
                             </div>
                             <div class="product-details">
-                                <div class="product-name"><strong>Dingo Dog Bones</strong></div>
-                                <div class="product-price">Price: 12.99</div>
+                                <div class="product-name"><strong>Antigen</strong></div>
+                                <div class="product-price">Price: 150.00</div>
                                 <div class="product-quantity">Quantity: 1</div>
-                                <div class="product-line-price">Total: 12.99</div>
+                                <div class="product-line-price">Total: 150.00</div>
                             </div>
                         </div>
                         <hr>
                         <div class="product">
                             <div class="product-image-container">
-                                <img src="https://s.cdpn.io/3/large-NutroNaturalChoiceAdultLambMealandRiceDryDogFood.png" class="product-image">
+                                <img src="/PharmaEase/PharmaEase-Final/assets/ProductPics/MEDICINAL SUPPLIES/face shield.png" class="product-image">
                             </div>
                             <div class="product-details">
-                                <div class="product-name"><strong>Nutro™ Adult Lamb and Rice Dog Food</strong></div>
-                                <div class="product-price">Price: 45.99</div>
+                                <div class="product-name"><strong>Face Shield</strong></div>
+                                <div class="product-price">Price: 12.05</div>
                                 <div class="product-quantity">Quantity: 1</div>
-                                <div class="product-line-price">Total: 45.99</div>
+                                <div class="product-line-price">Total: 12.05</div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="product">
+                            <div class="product-image-container">
+                                <img src="/PharmaEase/PharmaEase-Final/assets/ProductPics/SEXUAL WELLNESS/GILLETTE SHAVING CREAM.png" class="product-image">
+                            </div>
+                            <div class="product-details">
+                                <div class="product-name"><strong>Gillete</strong></div>
+                                <div class="product-price">Price: 133.00</div>
+                                <div class="product-quantity">Quantity: 1</div>
+                                <div class="product-line-price">Total: 133.00</div>
                             </div>
                         </div>
                         <hr>

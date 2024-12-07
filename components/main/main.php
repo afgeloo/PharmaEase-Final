@@ -47,7 +47,7 @@ if (($loginUsername === $specificEmail || $loginUsername === $specificUsername) 
         if (password_verify($loginPassword, $storedPassword)) {
             $_SESSION['user'] = $loginUsername;
             $_SESSION['role'] = 'user';
-            header("Location: /PharmaEase/PharmaEase-Final/components/homepage/homepage.php");
+            header("Location: /PharmaEase/PharmaEase-Final/components/Admin/manage_orders.php");
             exit();
         } else {
             $loginError = "Invalid password.";

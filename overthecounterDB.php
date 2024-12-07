@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 }
 
 // SQL query to create the products table
-$sql_create_table = "CREATE TABLE IF NOT EXISTS `over the counter` (
+$sql_create_table = "CREATE TABLE IF NOT EXISTS `Prescription Medicines` (
     id INT AUTO_INCREMENT UNIQUE KEY,
     name VARCHAR(255) NOT NULL,
     label VARCHAR(255) NOT NULL,
@@ -39,190 +39,226 @@ if ($conn->query($sql_create_table) === TRUE) {
 // Array of products to insert
 $products = [
     [
-        'name' => 'Alciflora',
-        'label' => 'Anti-Diarrhea ',
-        'price' => 44.50,
-        'sku' => 5001,
-        'description' => "Helps in the recovery of the intestinal microbial flora imbalance of diverse origin.",
+        'name' => 'Bactiv',
+        'label' => 'Anti Bacterial',
+        'price' => 700.50,
+        'sku' => 5051,
+        'description' => "An antibiotic medication commonly used to treat bacterial infections.",
         'store' => 'Watsons',
         'images' => json_encode([
-            "assets\ProductPics\OVER THE COUNTER\alcifa.png"
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Bactiv 625mg Tablet.png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Bactiv 625mg Tablet (3).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Bactiv 625mg Tablet (2).png"
         ])
     ],
+    
     [
-        'name' => 'Allerta',
-        'label' => ' Antihistamine & Anti Allergies',
-        'price' => 46.50,
-        'sku' => 5002,
-        'description' => "Long lasting up to 24 hours allergy relief",
+        'name' => 'Cybelle',
+        'label' => 'Contraceptive pill',
+        'price' => 800.50,
+        'sku' => 5052,
+        'description' => "It is used to prevent pregnancy, regulate menstrual cycles, and sometimes manage conditions like acne or heavy periods.",
         'store' => 'Watsons',
         'images' => json_encode([
-            "assets\ProductPics\OVER THE COUNTER\allerta (2).png",
-            "assets\ProductPics\OVER THE COUNTER\allerta.png"
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Cybelle Pill 2mg _ 35mcg Tablet (2).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Cybelle Pill 2mg _ 35mcg Tablet (3).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Cybelle Pill 2mg _ 35mcg Tablet.png"
         ])
     ],
+    
     [
-        'name' => 'Bactidol',
-        'label' => 'Cough & Cold Preparation',
-        'price' => 187.00        ,
-        'sku' => 5003,
-        'description' => "For symptomatic relief of productive cough",
+        'name' => 'Escivex',
+        'label' => 'Anti-Depressant',
+        'price' => 850.50,
+        'sku' => 5053,
+        'description' => "Medication primarily used to treat anxiety, depression, and certain mood disorders.",
         'store' => 'Watsons',
         'images' => json_encode([
-            "assets\ProductPics\OVER THE COUNTER\bactidol (2).png",
-            "assets\ProductPics\OVER THE COUNTER\bactidol (3).png",
-            "assets\ProductPics\OVER THE COUNTER\bactidol.png"
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Escivex 10mg Tablet (2).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Escivex 10mg Tablet (3).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Escivex 10mg Tablet.png"
         ])
     ],
+    
     [
-        'name' => 'Biogesic',
-        'label' => 'Cough & Cold Preparation',
-        'price' => 85.00,
-        'sku' => 5004,
-        'description' => "Used and trusted for headache and fever relief.",
+        'name' => 'Fixcom',
+        'label' => 'Epilepsy Medication',
+        'price' => 600.50,
+        'sku' => 5054,
+        'description' => " It is used to treat epilepsy and certain types of seizures, as well as to manage bipolar disorder.",
         'store' => 'Watsons',
         'images' => json_encode([
-            "assets\ProductPics\OVER THE COUNTER\biogesic (2).png",
-            "assets\ProductPics\OVER THE COUNTER\biogesic (3).png",
-            "assets\ProductPics\OVER THE COUNTER\biogesic.png"
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Fixcom 2 150 mg _ 75 mg mg Tablet (2).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Fixcom 2 150 mg _ 75 mg mg Tablet (3).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Fixcom 2 150 mg _ 75 mg mg Tablet.png"
         ])
     ],
+    
     [
-        'name' => 'Bonamine Candy',
-        'label' => 'Antiemetics',
-        'price' => 70.00,
-        'sku' => 5005,
-        'description' => "It is an eco-friendly alternative to tampons and pads, offering longer wear time and less environmental waste.",
+        'name' => 'Janumet',
+        'label' => 'Diabetes Medication',
+        'price' => 1000.50,
+        'sku' => 5055,
+        'description' => "Medication used to manage type 2 diabetes.",
         'store' => 'Watsons',
         'images' => json_encode([
-            "assets\ProductPics\OVER THE COUNTER\Bonamine candy tablet (2).png",
-            "assets\ProductPics\OVER THE COUNTER\Bonamine candy tablet (3).png",
-            "assets\ProductPics\OVER THE COUNTER\Bonamine candy tablet.png"
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Janumet 50mg _ 1 g Tablet (2).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Janumet 50mg _ 1 g Tablet (3).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Janumet 50mg _ 1 g Tablet.png"
         ])
     ],
+    
     [
-        'name' => 'Claritin',
-        'label' => 'Antihistamine',
-        'price' => 371.50,
-        'sku' => 5006,
-        'description' => "Anti Allergy Drug.",
+        'name' => 'Jardiace Duo',
+        'label' => 'Diabetes Medication',
+        'price' => 1050.50,
+        'sku' => 5056,
+        'description' => "Medication used to manage type 2 diabetes.",
         'store' => 'Watsons',
         'images' => json_encode([
-            "assets\ProductPics\OVER THE COUNTER\claritin (2).png",
-            "assets\ProductPics\OVER THE COUNTER\claritin.png"
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Jardiance Duo 12.5mg _ 500mg Tablet (3).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Jardiance Duo 12.5mg _ 500mg Tablet (2).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Jardiance Duo 12.5mg _ 500mg Tablet.png"
         ])
     ],
+    
     [
-        'name' => 'Diatabs',
-        'label' => 'Feminine Wash',
-        'price' => 150.00,
-        'sku' => 5007,
-        'description' => "helps absorb toxins and fluids in the digestive tract, reducing diarrhea and promoting firmer stools.",
+        'name' => 'Meliane',
+        'label' => 'Anti Pregnancy',
+        'price' => 500.50,
+        'sku' => 5057,
+        'description' => "It is used to prevent pregnancy, regulate menstrual cycles.",
         'store' => 'Watsons',
         'images' => json_encode([
-            "assets\ProductPics\OVER THE COUNTER\diatabs (2).png",
-            "assets\ProductPics\OVER THE COUNTER\diatabs.png"
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Meliane 75mcg _ 20mcg Tablet (2).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Meliane 75mcg _ 20mcg Tablet (3).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Meliane 75mcg _ 20mcg Tablet.png"
         ])
     ],
+    
     [
-        'name' => 'Erceflora Gut Defense',
-        'label' => 'Anti-Diarrhea',
-        'price' => 200.25,
-        'sku' => 5008,
-        'description' => "Boost your gut health with Erceflora Gut Defense Suspension.",
+        'name' => 'Mucosta',
+        'label' => 'Stomach Lining',
+        'price' => 750.50,
+        'sku' => 5058,
+        'description' => "Medication used to treat gastric conditions, such as gastritis or gastric ulcers.",
         'store' => 'Watsons',
         'images' => json_encode([
-            "assets\ProductPics\OVER THE COUNTER\Erceflora Gut Defense Suspension (2).png",
-            "assets\ProductPics\OVER THE COUNTER\Erceflora Gut Defense Suspension (3).png",
-            "assets\ProductPics\OVER THE COUNTER\Erceflora Gut Defense Suspension.png"
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Mucosta 100mg Tablet (2).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Mucosta 100mg Tablet (3).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Mucosta 100mg Tablet.png"
         ])
     ],
+    
     [
-        'name' => 'Flanax',
-        'label' => 'Cough',
-        'price' => 345.00,
-        'sku' => 5009,
-        'description' => "Relief of moderate to severe pain with or without inflammation.",
+        'name' => 'Nebilet',
+        'label' => 'Blood Pressure Medication',
+        'price' => 550.50,
+        'sku' => 5059,
+        'description' => "Medication that contains nebivolol, a beta-blocker used to treat high blood pressure (hypertension) and heart-related conditions.",
         'store' => 'Watsons',
         'images' => json_encode([
-            "assets\ProductPics\OVER THE COUNTER\flanax (2).png",
-            "assets\ProductPics\OVER THE COUNTER\flanax.png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Nebilet 5mg Tablet_ Piozone 15mg Tablet (2).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Nebilet 5mg Tablet_ Piozone 15mg Tablet (3).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Nebilet 5mg Tablet_ Piozone 15mg Tablet.png"
         ])
     ],
+    
     [
-        'name' => 'Kiddilets',
-        'label' => 'Paracetamol',
-        'price' => 63.00,
-        'sku' => 5010,
-        'description' => "child-friendly, chewable tablet form of paracetamol, used to relieve pain and reduce fever in children.",
+        'name' => 'Piozone',
+        'label' => 'Diabetes Medication',
+        'price' => 1150.50,
+        'sku' => 5060,
+        'description' => "Medication used to manage type 2 diabetes.",
         'store' => 'Watsons',
         'images' => json_encode([
-            "assets\ProductPics\OVER THE COUNTER\flanax (4).png",
-            "assets\ProductPics\OVER THE COUNTER\flanax (3).png",
-            "assets\ProductPics\OVER THE COUNTER\flanax (5).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Piozone 15mg Tablet (3).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Piozone 15mg Tablet.png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Piozone 15mg Tablet (2).png"
         ])
     ],
+    
     [
-        'name' => 'Omeprazole Risek',
-        'label' => 'Antiulcerants',
-        'price' => 801.00,
-        'sku' => 5011,
-        'description' => "Medications that treat and prevent stomach and duodenal ulcers by reducing acid production or protecting the stomach lining.",
+        'name' => 'Piozone',
+        'label' => 'Anti Depressant',
+        'price' => 150.50,
+        'sku' => 5061,
+        'description' => "Is used to treat depression, anxiety, and other mood disorders, while promethazine helps manage symptoms like allergies or motion sickness.",
         'store' => 'Watsons',
         'images' => json_encode([
-            "assets\ProductPics\OVER THE COUNTER\omeprasoltablet (2).png",
-            "assets\ProductPics\OVER THE COUNTER\omeprasoltablet.png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Prodin Fluoxetine 20mg Capsule (2).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Prodin Fluoxetine 20mg Capsule (3).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Prodin Fluoxetine 20mg Capsule.png"
         ])
     ],
+    
     [
-        'name' => 'Pantomide',
-        'label' => 'Anti Acid',
-        'price' => 40.75,
-        'sku' => 5012,
-        'description' => "Used for gastrointestinal issues, such as irritable bowel syndrome (IBS), by regulating intestinal motility and relieving symptoms like abdominal pain and discomfort.",
+        'name' => 'Provasc',
+        'label' => 'Blood Pressure Medication',
+        'price' => 500.50,
+        'sku' => 5062,
+        'description' => "Medication that contains amlodipine, a beta-blocker used to treat high blood pressure (hypertension) and heart-related conditions.",
         'store' => 'Watsons',
         'images' => json_encode([
-            "assets\ProductPics\OVER THE COUNTER\pantomide (2).png",
-            "assets\ProductPics\OVER THE COUNTER\pantomide.png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Provasc 5mg Tablet (2).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Provasc 5mg Tablet (3).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Provasc 5mg Tablet.png"
         ])
     ],
+    
     [
-        'name' => 'Restime',
-        'label' => 'Antihistamine ',
-        'price' => 92.50        ,
-        'sku' => 5013,
-        'description' => "Medication used to relieve symptoms of allergies, such as runny nose, sneezing, itching, and watery eyes.",
+        'name' => 'Doxycycline',
+        'label' => 'Anti Bacterial',
+        'price' => 540.50,
+        'sku' => 5063,
+        'description' => "An antibiotic used to treat a variety of bacterial infections, such as respiratory infections, urinary tract infections, acne, and Lyme disease.",
         'store' => 'Watsons',
         'images' => json_encode([
-            "assets\ProductPics\OVER THE COUNTER\resttime tablet (2).png",
-            "assets\ProductPics\OVER THE COUNTER\resttime tablet (3).png",
-            "assets\ProductPics\OVER THE COUNTER\resttime tablet.png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ RiteMed Doxycycline 100mg Capsule.png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ RiteMed Doxycycline 100mg Capsule (3).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ RiteMed Doxycycline 100mg Capsule (2).png"
         ])
     ],
+    
     [
-        'name' => 'Sinutab',
-        'label' => 'Headache',
-        'price' => 100.25,
-        'sku' => 5014,
-        'description' => "Used to relieve symptoms of sinus congestion, pressure, headache, and nasal stuffiness, often associated with colds, sinusitis, or allergies.",
+        'name' => 'Slinda',
+        'label' => 'Oral Contraceptive',
+        'price' => 440.50,
+        'sku' => 5064,
+        'description' => "It is used to prevent pregnancy and may also help regulate menstrual cycles.",
         'store' => 'Watsons',
         'images' => json_encode([
-            "assets\ProductPics\OVER THE COUNTER\sinutab (2).png",
-            "assets\ProductPics\OVER THE COUNTER\sinutab (3).png",
-            "assets\ProductPics\OVER THE COUNTER\sinutab.png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Slinda 4mg Film-coated Tablet 28x1 (2).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Slinda 4mg Film-coated Tablet 28x1 (3).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Slinda 4mg Film-coated Tablet 28x1.png"
         ])
     ],
+    
     [
-        'name' => 'Solux',
-        'label' => 'Cough Relief',
-        'price' => 54.25,
-        'sku' => 5015,
-        'description' => "Reduce the cough reflex, and soothing agents like honey or menthol.",
+        'name' => 'Valpros',
+        'label' => 'Anti Epilepsy',
+        'price' => 340.50,
+        'sku' => 5065,
+        'description' => "Used to treat epilepsy (seizure disorders) and bipolar disorder.",
         'store' => 'Watsons',
         'images' => json_encode([
-            "assets\ProductPics\OVER THE COUNTER\solux (2).png",
-            "assets\ProductPics\OVER THE COUNTER\solux (3).png",
-            "assets\ProductPics\OVER THE COUNTER\solux.png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Valpros 500mg Tablet (2).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Valpros 500mg Tablet (3).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Rx_ Valpros 500mg Tablet.png"
+        ])
+    ],
+    
+    [
+        'name' => 'Ural 4',
+        'label' => 'UTI treatment',
+        'price' => 340.50,
+        'sku' => 5065,
+        'description' => "UTI Treatment for patients.",
+        'store' => 'Watsons',
+        'images' => json_encode([
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Ural 4 g Granules (2).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Ural 4 g Granules (3).png",
+            "/PharmaEase/PharmaEase-Final/assets/ProductPics/PRESCRIPTION MEDICINES/Ural 4 g Granules.png"
         ])
     ],
 ];
@@ -230,7 +266,7 @@ $products = [
 // Insert each product
 foreach ($products as $product) {
     $description = $conn->real_escape_string($product['description']);
-    $sql_insert = "INSERT INTO `baby care` (name, label, price, sku, description, store, images)
+    $sql_insert = "INSERT INTO `Prescription Medicines` (name, label, price, sku, description, store, images)
         VALUES (
             '{$conn->real_escape_string($product['name'])}',
             '{$conn->real_escape_string($product['label'])}',

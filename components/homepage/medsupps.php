@@ -42,6 +42,7 @@ $result = $conn->query($sql);
       <a href="homepage.php">Home</a>
         <a href="../cart/cart.php">Cart</a>
         <a href="../checkout/checkout.php">Checkout</a>
+        <a href="../orderstatus/orders.php">Track Order</a>
         <a href="../myaccount/account.php">My Account</a>
         <a href="../main/main.php"><ion-icon name="log-out-outline"></ion-icon> Sign Out</a>
       </nav>

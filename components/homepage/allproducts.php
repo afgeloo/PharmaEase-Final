@@ -17,8 +17,20 @@ if ($conn->connect_error) {
 
 // SQL query to fetch products
 $sql = "SELECT * FROM `sexual wellness`
-        ORDER BY RAND()";
+        UNION ALL
+        SELECT * FROM `prescription medicines`
+        UNION ALL
+        SELECT * FROM `over the counter`
+        UNION ALL
+        SELECT * FROM `vitamins & suppliments`
+        UNION ALL
+        SELECT * FROM `personal care`
+        UNION ALL
+        SELECT * FROM `medicinal supplies`
+        UNION ALL
+        SELECT * FROM `baby care`";
 $result = $conn->query($sql);
+
 
 // Check if cart is set and initialize it if not
 if (!isset($_SESSION['cart'])) {
@@ -55,6 +67,7 @@ if (isset($_POST['add_to_cart'])) {
         <a href="homepage.php">Home</a>
         <a href="../cart/cart.php">Cart</a>
         <a href="../checkout/checkout.php">Checkout</a>
+        <a href="../orderstatus/orders.php">Track Order</a>
         <a href="../myaccount/account.php">My Account</a>
         <a href="../main/main.php"><ion-icon name="log-out-outline"></ion-icon> Sign Out</a>
       </nav>
@@ -153,7 +166,15 @@ if (isset($_POST['add_to_cart'])) {
                             </button>
                         </div>
 
-                        <button class="add-cart-large">Add To Cart</button>
+                        <form action="../cart/cart2.php" method="post">
+    <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($row['id']); ?>">
+    <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($row['name']); ?>">
+    <input type="hidden" name="product_description" value="<?php echo htmlspecialchars($row['description']); ?>">
+    <input type="hidden" name="product_price" value="<?php echo htmlspecialchars($row['price']); ?>">
+    <input type="hidden" name="product_quantity" value="1"> <!-- Default quantity -->
+    <button type="submit" name="add_to_cart" class="add-cart-large">Add To Cart</button>
+</form>
+
                         <a href="productview.php?id=<?php echo $row['id']; ?>" class="view_product_link">View Product Details</a>
                     </div>
 
