@@ -175,6 +175,7 @@ $result = $conn->query($sql);
             <div class="totals-value" id="cart-total">0.00</div>
           </div>
           <button class="checkout" style="display: none;">Checkout</button>
+          <a href="../checkout/checkout.php" class="checkout-button">Proceed to Checkout</a>
         </div>
             
         
