@@ -58,7 +58,7 @@
   }
   
   .search {
-    margin-right: 20px;
+    margin-right: 62px;
   }
   
   .navlist {
@@ -1483,7 +1483,7 @@
     cursor: pointer;
 }
 
-quantity-btn svg {
+.quantity-btn svg {
     width: 15px;
     height: 15px;
 }
@@ -1518,120 +1518,5 @@ quantity-btn svg {
 
 ion-icon[name="cart-outline"] {
     font-size: 2rem; /* Adjust the size as needed */
-
 }
 /* ...existing code... */
-
-/* Style for the search dropdown */
-.search-dropdown select, .search-dropdown input {
-	width: 80%;
-	padding: 5px;
-	font-size: 16px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	margin: 5px 0;
-}
-
-/* Style for the category dropdown container */
-.category-dropdown-container {
-	position: relative;
-	display: flex; /* Flexbox to align the items horizontally */
-	align-items: center;
-	border-radius: 4px;
-	margin-left: 10px; /* Add space between search dropdown and filter icon */
-}
-.category-dropdown-container:hover #category-dropdown {
-	display: block;
-	transition: all 0.3s ease; /* Optional, for smooth appearance */
-  }
-
-/* Style for the category dropdown */
-#category-dropdown {
-	display: none;
-	position: absolute;
-	background-color: rgb(255, 255, 255); /* Set background color to green */
-	color: white; /* Text color for contrast */
-	box-shadow: 0px 8px 16px rgba(10, 162, 28, 0.2);
-	z-index: 1;
-	border-radius: 4px; /* Set border radius */
-}
-
-/* Style for the icon */
-.category-icon {
-	cursor: pointer;
-	font-size: 24px;
-	background-color: green;
-	color: #f0f0f0; /* Set icon color to light */
-}
-
-/* Style for the search dropdown */
-.search-dropdown select, .search-dropdown input {
-	width: 80%;
-	padding: 5px;
-	font-size: 16px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	margin: 5px 0;
-  }
-  
-  /* Style for the category dropdown container */
-  .category-dropdown-container {
-	position: relative;
-	display: flex; /* Flexbox to align the items horizontally */
-	align-items: center;
-	border-radius: 4px;
-  }
-  
-  /* Style for the category dropdown */
-  #category-dropdown {
-	display: none;
-	position: absolute;
-	background-color: green; /* Set background color to green */
-	color: white; /* Text color for contrast */
-	box-shadow: 0px 8px 16px rgba(10, 162, 28, 0.2);
-	z-index: 1;
-  }
-  
-  /* Style for the icon */
-  .category-icon {
-	cursor: pointer;
-	font-size: 24px;
-	background-color: green;
-  }
-  
-  /* Style for each option inside the dropdown */
-  #category-dropdown a {
-	color: rgb(30, 154, 34);
-	padding: 8px 16px;
-	text-decoration: none;
-	display: block;
-  }
-  
-  /* Hover effect for options */
-  #category-dropdown a:hover {
-	background-color: #ddd;
-  }
-  
-  /* Display the dropdown when it's active */
-  #category-dropdown.show {
-	display: block;
-  }
-  
-  /* Position the search dropdown to the left of the category dropdown */
-  .search-dropdown {
-	position: absolute;
-	display: flex;
-	right: 10px; /* Adjusted from 10px to 30px */
-	top: 0; /* Align vertically with the category dropdown */
-	z-index: 2; /* Ensure it stays above category dropdown */
-  }
-  
-  /* Style for the search dropdown background */
-  .search-dropdown select, .search-dropdown input {
-	background-color: #f0f0f0; /* Light background for search input */
-  }
-  
-  /* Add a slight shadow for better visibility */
-  .search-dropdown select, .search-dropdown input {
-	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  }
