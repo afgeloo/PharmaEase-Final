@@ -1,24 +1,39 @@
 <?php
 session_start();
 
+// Database connection
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "pharmaease_db";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
-
 if ($conn->connect_error) {
     die("Connection Error: " . $conn->connect_error);
 }
 
+// Initialize variables
 $loginUsername = $loginPassword = "";
 $loginError = "";
 
+// Handle form submission
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $loginUsername = $_POST["username"];
+    $loginUsername = trim($_POST["username"]);
     $loginPassword = $_POST["password"];
 
+    // Admin credentials (hashed for security)
+    $specificEmail = "dennislaysonjr3@gmail.com";
+    $specificUsername = "dslaysonjr";
+    $specificHashedPassword = '$2y$10$eImiTXuWVxfM37uY4JANjQ=='; // Replace with the correct hash
+
+if (($loginUsername === $specificEmail || $loginUsername === $specificUsername) && password_verify($loginPassword, $specificHashedPassword)) {
+    $_SESSION['user'] = $loginUsername;
+    $_SESSION['role'] = 'admin';
+    header("Location: /PharmaEase/PharmaEase-Final/components/Admin/manage_orders.php");
+    exit();
+}
+
+    // Check the database for regular users
     $stmt = $conn->prepare("SELECT password FROM registered_users WHERE username = ? OR contact_number = ? OR email = ?");
     $stmt->bind_param("sss", $loginUsername, $loginUsername, $loginUsername);
     $stmt->execute();
@@ -28,8 +43,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt->bind_result($storedPassword);
         $stmt->fetch();
 
+        // Verify the password
         if (password_verify($loginPassword, $storedPassword)) {
             $_SESSION['user'] = $loginUsername;
+            $_SESSION['role'] = 'user';
             header("Location: /PharmaEase/PharmaEase-Final/components/homepage/homepage.php");
             exit();
         } else {
@@ -44,6 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

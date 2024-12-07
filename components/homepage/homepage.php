@@ -277,8 +277,9 @@ $result = $conn->query($sql);
         
     </div>
     <!-- Footer  -->
-    <?php include "footer.php"; ?>
   </div>
+  <?php include "footer.php"; ?>
+
   <script>
 const _ = className => document.querySelector(className);
 const __ = className => document.querySelectorAll(className);

@@ -16,9 +16,9 @@ if ($conn->connect_error) {
 }
 
 // SQL query to fetch products
-$sql = "SELECT * FROM products";
+$sql = "SELECT * FROM `over the counter`
+        ORDER BY RAND()";
 $result = $conn->query($sql);
-
 ?>
 
 <!DOCTYPE html>
