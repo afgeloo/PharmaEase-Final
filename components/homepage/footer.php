@@ -1,3 +1,4 @@
+<div class="footer-container">
 <footer>
     <ul>
         <li>
@@ -42,6 +43,7 @@
         <li><a href="#">YouTube</a></li>
     </ul>
 </footer>
+</div>
 
 <style>
 
@@ -109,6 +111,11 @@ footer ul.social-media li a[href*="YouTube"]::before {
 .footer-logo-img {
     width: 250px; /* Adjust the size as needed */
     margin-bottom: 10px;
+}
+
+.footer-container {
+  width: 100vw;
+  padding-top: 400px;
 }
 
 </style>

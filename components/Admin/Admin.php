@@ -4,6 +4,17 @@ session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+$allowedEmail = "dennislaysonjr3@gmail.com";
+$allowedUsername = "dslaysonjr";
+
+// Check if the user is authenticated
+if (!isset($_SESSION['email']) || !isset($_SESSION['username']) || 
+    $_SESSION['email'] !== $allowedEmail || $_SESSION['username'] !== $allowedUsername) {
+    // Redirect or deny access if credentials do not match
+    header("Location: ../Admin/Admin.php");
+    exit;
+}
+
 // Database connection variables
 $servername = "localhost";
 $username = "root";
