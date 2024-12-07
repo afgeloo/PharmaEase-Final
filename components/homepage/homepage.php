@@ -42,7 +42,7 @@ $result = $conn->query($sql);
         <a href="homepage.php">Home</a>
         <a href="../cart/cart.php">Cart</a>
         <a href="../checkout/checkout.php">Checkout</a>
-        <a href="#">My Account</a>
+        <a href="../myaccount/myaccount.php">My Account</a>
       </nav>
     </header>
     <div class="navlist">

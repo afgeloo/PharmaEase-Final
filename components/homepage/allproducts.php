@@ -17,10 +17,21 @@ if ($conn->connect_error) {
 
 // SQL query to fetch products
 $sql = "SELECT * FROM `sexual wellness`
-        -- UNION ALL
-        -- SELECT * FROM `baby care`
         ORDER BY RAND()";
 $result = $conn->query($sql);
+
+// Check if cart is set and initialize it if not
+if (!isset($_SESSION['cart'])) {
+  $_SESSION['cart'] = array();
+}
+
+if (isset($_POST['add_to_cart'])) {
+  // Add product to cart
+  $product_id = $_POST['product_id'];
+  $quantity = $_POST['quantity'];
+  $_SESSION['cart'][$product_id] = $quantity;
+  header("Location: allproducts.php"); // Redirect to refresh page and show notification
+}
 
 ?>
 
@@ -41,10 +52,10 @@ $result = $conn->query($sql);
     <header>
       <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
       <nav>
-        <a href="homepage.php">Home</a>
-        <a href="#">Cart</a>
-        <a href="#">Checkout</a>
-        <a href="#">My Account</a>
+      <a href="homepage.php">Home</a>
+        <a href="../cart/cart.php">Cart</a>
+        <a href="../checkout/checkout.php">Checkout</a>
+        <a href="../myaccount/myaccount.php">My Account</a>
       </nav>
     </header>
     <div class="navlist">
@@ -58,9 +69,13 @@ $result = $conn->query($sql);
         <a href="babycare.php">Baby Care</a>
         <a href="sexualwellness.php">Sexual Wellness</a>
       </div>
-      
+      <form action="#" class="search-box spaced-elements">
+      <div class="select-form">
+        <div class="select-itms">
+          <input list="select1" name="select" placeholder="Search PharmaEase">
         </div>
       </div>
+    </form>
     </div>
     <div class="product-container">
     <div id="grid-selector">
@@ -389,15 +404,3 @@ $(document).ready(function() {
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
-
-<!-- Category Dropdown Script -->
-<script>
-  // Toggle dropdown visibility on click of the filter icon
-  const filterIcon = document.getElementById('category-icon');
-  const dropdown = document.getElementById('category-dropdown');
-
-  filterIcon.addEventListener('click', () => {
-    // Toggle dropdown visibility
-    dropdown.classList.toggle('show');
-  });
-</script>
