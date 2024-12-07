@@ -38,22 +38,23 @@ $result = $conn->query($sql);
     <header>
       <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
       <nav>
-        <a href="../homepage/homepage.php">Home</a>
+        <a href="../homepage/homepage.php">Home</a>  
         <a href="cart.php">Cart</a>
         <a href="../checkout/checkout.php">Checkout</a>
-        <a href="#">My Account</a>
+        <a href="../myaccount/account.php">My Account</a>
+        <a href="../main/main.php"><ion-icon name="log-out-outline"></ion-icon> Sign Out</a>
       </nav>
     </header>
     <div class="navlist">
       <div>
-      <a href="allproducts.php">All Products</a>
-        <a href="medicines.php">Prescription Medicines</a>
-        <a href="overthecounter.php">Over-the-Counter</a>
-        <a href="vitsandsupps.php">Vitamins and Supplements</a>
-        <a href="personalcare.php">Personal Care</a>
-        <a href="medsupps.php">Medicinal Supplies</a>
-        <a href="babycare.php">Baby Care</a>
-        <a href="sexualwellness.php">Sexual Wellness</a>
+      <a href="../homepage/allproducts.php">All Products</a>
+        <a href="../homepage/medicines.php">Prescription Medicines</a>
+        <a href="../homepage/overthecounter.php">Over-the-Counter</a>
+        <a href="../homepage/vitsandsupps.php">Vitamins and Supplements</a>
+        <a href="../homepage/personalcare.php">Personal Care</a>
+        <a href="../homepage/medsupps.php">Medicinal Supplies</a>
+        <a href="../homepage/babycare.php">Baby Care</a>
+        <a href="../homepage/sexualwellness.php">Sexual Wellness</a>
       </div>
       <div class="search">
         <form action="#">

@@ -17,7 +17,8 @@ if ($conn->connect_error) {
 
 
 // SQL query to fetch products
-$sql = "SELECT * FROM products";
+$sql = "SELECT * FROM `sexual wellness`";
+        
 $result = $conn->query($sql);
 
 ?>
@@ -39,10 +40,10 @@ $result = $conn->query($sql);
     <header>
       <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
       <nav>
-        <a href="homepage.php">Home</a>
+      <a href="homepage.php">Home</a>
         <a href="../cart/cart.php">Cart</a>
         <a href="../checkout/checkout.php">Checkout</a>
-        <a href="../myaccount/myaccount.php">My Account</a>
+        <a href="../myaccount/account.php">My Account</a>
         <a href="../main/main.php"><ion-icon name="log-out-outline"></ion-icon> Sign Out</a>
       </nav>
     </header>
@@ -120,6 +121,7 @@ $result = $conn->query($sql);
     </div>
     <!-- Deals of the day -->
     <h2>Top Products</h2>
+    <div class="product-container">
     <div id="grid-selector">
                <div id="grid-menu">
                       View:
@@ -129,7 +131,7 @@ $result = $conn->query($sql);
                    </ul>
                </div>
                
-               Showing 1–9 of 48 results 
+               <ion-icon name="cart-outline"></ion-icon>
         </div>
         
         <div id="grid">
@@ -145,14 +147,25 @@ $result = $conn->query($sql);
                     <!-- Product Info -->
                     <div class="info-large">
                         <h4><?php echo htmlspecialchars($row['name']); ?></h4>
-                        <div class="sku">
-                            PRODUCT NO.: <strong><?php echo htmlspecialchars($row['sku']); ?></strong>
+
+                        <?php if (!empty($row['label'])): ?>
+                        <span><?php echo htmlspecialchars($row['label']); ?></span>
+                        <?php endif; ?>
+
+                        <br />
+                        <br />
+
+                        <div class="id">
+                            Product No.: <strong><?php echo htmlspecialchars($row['id']); ?></strong>
                         </div>
 
                         <div class="price-big">
-                            <span>₱<?php echo number_format($row['original_price'], 2); ?></span> 
                             ₱<?php echo number_format($row['price'], 2); ?>
                         </div>
+
+                        <?php if (!empty($row['sku'])): ?>
+                        Stocks: <span><?php echo htmlspecialchars($row['sku']); ?></span>
+                        <?php endif; ?>
 
                         <h3>DESCRIPTION</h3>
                         <div class="colors-large">
@@ -164,7 +177,27 @@ $result = $conn->query($sql);
                             <span><?php echo htmlspecialchars($row['store']); ?></span>
                         </div>
 
+                        <h3>QUANTITY</h3> <!-- Added quantity heading -->
+                        <div class="quantity-control" data-quantity="">
+                            <button class="quantity-btn" data-quantity-minus="">
+                                <svg viewBox="0 0 409.6 409.6">
+                                    <g>
+                                        <g>
+                                            <path d="M392.533,187.733H17.067C7.641,187.733,0,195.374,0,204.8s7.641,17.067,17.067,17.067h375.467 c9.426,0,17.067-7.641,17.067-17.067S401.959,187.733,392.533,187.733z" />
+                                        </g>
+                                    </g>
+                                </svg>
+                            </button>
+                            <input type="number" class="quantity-input" data-quantity-target="" value="1" step="1" min="1" max="" name="quantity">
+                            <button class="quantity-btn" data-quantity-plus="">
+                                <svg viewBox="0 0 426.66667 426.66667">
+                                    <path d="m405.332031 192h-170.664062v-170.667969c0-11.773437-9.558594-21.332031-21.335938-21.332031-11.773437 0-21.332031 9.558594-21.332031 21.332031v170.667969h-170.667969c-11.773437 0-21.332031 9.558594-21.332031 21.332031 0 11.777344 9.558594 21.335938 21.332031 21.335938h170.667969v170.664062c0 11.777344 9.558594 21.335938 21.332031 21.335938 11.777344 0 21.335938-9.558594 21.335938-21.335938v-170.664062h170.664062c11.777344 0 21.335938-9.558594 21.335938-21.335938 0-11.773437-9.558594-21.332031-21.335938-21.332031zm0 0" />
+                                </svg>
+                            </button>
+                        </div>
+
                         <button class="add-cart-large">Add To Cart</button>
+                        <a href="productview.php?id=<?php echo $row['id']; ?>" class="view_product_link">View Product Details</a>
                     </div>
 
                     <!-- 3D Product Display -->
@@ -180,15 +213,14 @@ $result = $conn->query($sql);
                             }
                             ?>
                             <div class="image_overlay"></div>
-                            
-
                             <div class="view_gallery">View gallery</div>
                             <a href="productview.php?id=<?php echo $row['id']; ?>" class="view_details">View details</a>
-
                             <div class="stats">
                                 <div class="stats-container">
                                     <span class="product_price">₱<?php echo number_format($row['price'], 2); ?></span>
                                     <span class="product_name"><?php echo htmlspecialchars($row['name']); ?></span>
+                                    <br>
+                                    <span class="product_label"><?php echo htmlspecialchars($row['label']); ?></span>
                                     <div class="product-options">
                                     <br /><strong>DESCRIPTION</strong>
                                         <span><?php echo htmlspecialchars($row['description']); ?></span>
