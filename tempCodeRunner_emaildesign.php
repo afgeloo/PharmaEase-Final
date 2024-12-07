@@ -116,3 +116,4 @@ $status = "Shipped";
 
 sendStyledOrderStatusEmail($toEmail, $toName, $orderId, $status);
 }
+
