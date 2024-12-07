@@ -79,6 +79,367 @@ input {
     font-size: 18px;
 }
 
+/*checkout */
+  
+  .payment {
+    max-width: 50em; /* Increase the width */
+    margin: 20px auto; /* Add space at the top and bottom */
+    background-color: white;
+    color: #5e6977;
+    border-radius: 8px;
+    box-shadow: 0.2em 0.3em 0.8em -0.45em rgba(0, 0, 0, 0.2), 0 0.2em 0.5em 0 rgba(0, 0, 0, 0.08);
+  }
+  
+  .payment-tabs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 2em;
+    padding-right: 2em;
+    border-bottom: 1px solid #e1e8ee;
+    counter-reset: section;
+  }
+  
+  .payment-tabs > a {
+    padding: 1.35em 0;
+    color: #bdc6cf;
+    font-size: 0.9em;
+    position: relative;
+    transition: all 200ms ease-in-out;
+  }
+  
+  .payment-tabs > a:before {
+    counter-increment: section;
+    content: counter(section);
+    display: inline-block;
+    width: 1.65em;
+    height: 1.65em;
+    margin-right: 0.5em;
+    border: 0.15em solid #e1e8ee;
+    color: #bdc6cf;
+    font-size: 0.85em;
+    text-align: center;
+    line-height: 1.65em; /* Adjust this line to center the number */
+    border-radius: 50%;
+    transition: all 300ms ease-in-out;
+  }
+  
+  .payment-tabs > a:after {
+    content: '';
+    display: block;
+    border-bottom: 2px solid transparent;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+  }
+  
+  .payment-tabs > a:hover {
+    text-decoration: none;
+    color: #9a9e9e;
+  }
+  
+  .payment-tabs > a:hover:before {
+    border-color: #9a9e9e;
+    color: #9a9e9e;
+  }
+  
+  .payment-tabs > a.active {
+    color: #358ed7;
+    font-weight: 500;
+  }
+  
+  .payment-tabs > a.active:before {
+    border-color: #358ed7;
+    color: inherit;
+  }
+  
+  .payment-tabs > a.active:after {
+    border-bottom: 2px solid #358ed7;
+  }
+  
+  .payment-customer {
+    display: none;
+  }
+  
+  .payment-method h2 {
+    margin: 0;
+    padding: 1.8em 2em;
+    font-size: 1.2em;
+    line-height: 1.2;
+    color: #5e6977;
+  }
+  
+  .payment-method .pm-item {
+    position: relative;
+  }
+  
+  .payment-method .pm-item:last-child:after {
+    content: '';
+    display: block;
+    height: 0.125em;
+    background-color: #e1e8ee;
+    position: absolute;
+    left: 2em;
+    right: 2em;
+  }
+  
+  .payment-method .pm-label {
+    display: flex;
+    margin-bottom: 0;
+    padding: 1.5rem 2rem;
+    cursor: pointer;
+    background-color: #f6f7f9;
+  }
+  
+  .payment-method .pm-text {
+    padding-left: 2.5em;
+    position: relative;
+  }
+  
+  .payment-method .pm-text:before {
+    content: '';
+    display: block;
+    width: 1.5em;
+    height: 1.5em;
+    background: #e1e8ee;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    box-shadow: 0 0.08rem 0 rgba(#86939e, 0.25) inset;
+  }
+  
+  .payment-method .pm-text h5 {
+    padding-top: 0.25em;
+    font-size: 1em;
+  }
+  
+  .payment-method .pm-text p {
+    margin-bottom: 0;
+    color: #86939e;
+  }
+  
+  .payment-method .pm-thumb {
+    padding-left: 0.9em;
+    width: 80px; /* Set width */
+    height: 40px; /* Set height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .payment-method .pm-thumb img {
+    max-width: 100%; /* Ensure the image fits within the container */
+    max-height: 100%; /* Ensure the image fits within the container */
+  }
+
+.payment-method .pm-thumb img.cash-icon {
+    width: 120px; /* Increase the width */
+    height: 60px; /* Increase the height */
+}
+  
+  .payment-method input[type='radio'] {
+    display: none;
+  }
+  
+  .payment-method input[type='radio']:checked + .pm-label {
+    background: none;
+  }
+  
+  .payment-method input[type='radio']:checked + .pm-label .pm-text:before {
+    background: radial-gradient(white 0%, white 33%, #7dc855 38%, #7dc855 100%);
+  }
+  
+  .payment-input {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2em;
+  }
+  
+  .payment-input label {
+    margin-bottom: 0.3em;
+    color: #7dc855;
+    font-size: 0.9em;
+  }
+  
+  .payment-input select {
+    height: 2.5rem !important;
+    padding-right: 2em;
+    width: auto; /* Change this line to make the select elements smaller */
+  }
+  
+  .payment-input .form-control {
+    height: 3.4em;
+  }
+  
+  .payment-input .form-control + .help-block {
+    color: #86939e;
+  }
+  
+  .payment-input button {
+    background-color: #7dc855;
+    border: none;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 1.3rem 2rem;
+    border-radius: 0.4em;
+    margin-top: 2em;
+    transition: all 300ms ease-in-out;
+  }
+  
+  .payment-input button:hover {
+    background-color: #67bb47;
+  }
+  
+  .payment-footer {
+    margin-top: 3em;
+    padding: 2em;
+    border-top: 1px solid #e1e8ee;
+    text-align: center;
+    font-size: 0.8em;
+  }
+  
+  .payment-footer a {
+    text-decoration: none;
+    color: #86939e;
+  }
+  
+  .payment-footer a:hover {
+    color: #5e6977;
+  }
+  
+  .payment-input .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5em;
+  }
+  
+  .payment-input .form-group.half {
+    flex: 1;
+    padding-right: 1em;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .payment-input .form-group.half.pr-3 {
+    flex: 1;
+    padding-right: 1em;
+    padding-left: 20px; /* Add padding-left */
+  }
+  
+  .payment-input .form-group.half.pl-3 {
+    flex: 1;
+    padding-left: 20px; /* Add padding-left */
+    max-width: 50%; /* Increase width for better visibility */
+  }
+  
+  .payment-input .form-group.half .row {
+    display: flex;
+    gap: 0.5em; /* Add gap between dropdowns */
+  }
+  
+  .payment-input .form-group.half .row .col-4 {
+    flex: 1;
+    max-width: 33.33%; /* Ensure the columns are evenly spaced */
+  }
+  
+  .payment-input .form-group.half.pl-3 {
+    flex: 1;
+    padding-left: 20px; /* Add padding-left */
+    max-width: 25%; /* Change this line to make the CVV code input field half smaller */
+  }
+  
+  .payment-input .form-group.half:last-child {
+    padding-right: 0;
+  }
+  
+  .payment-input .form-group label {
+    margin-bottom: 0.5em;
+    color: #7dc855;
+    font-size: 0.9em;
+  }
+  
+  .payment-input .form-group input,
+  .payment-input .form-group select {
+    height: 2.5rem;
+    padding: 0.5em;
+    border: 1px solid #e1e8ee;
+    border-radius: 0.3em;
+    font-size: 1em;
+    color: #5e6977;
+    margin-bottom: 1em; /* Add spacing between form elements */
+  }
+  
+  .payment-input .form-group input.is-valid {
+    border-color: #7dc855;
+  }
+  
+  .payment-input .form-group input.is-invalid {
+    border-color: #e74c3c;
+  }
+  
+  .payment-input .form-group .help-block {
+    color: #86939e;
+    font-size: 0.85em;
+    margin-top: 0.5em;
+  }
+  
+  .payment-input .form-group .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -0.5em;
+    margin-left: -0.5em;
+  }
+  
+  .payment-input .form-group .row .col-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+    margin-bottom: 1em; /* Add spacing between form elements */
+    display: flex; /* Add this line to display elements beside each other */
+    gap: 0.5em; /* Add this line to add space between elements */
+  }
+
+.payment-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 2em;
+}
+
+.payment-actions a {
+    display: inline-block;
+    padding: 1em 2em;
+    border-radius: 0.3em;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 300ms ease-in-out;
+}
+
+.payment-actions a.return {
+    background-color: #e1e8ee;
+    color: #5e6977;
+}
+
+.payment-actions a.return:hover {
+    background-color: #d1d8de;
+}
+
+.payment-actions a.finish {
+    background-color: #7dc855;
+    color: white;
+}
+
+.payment-actions a.finish:hover {
+    background-color: #67bb47;
+}
+
+.payment-actions a.finish img {
+    filter: brightness(0) invert(1); /* Ensure the arrow image is white */
+}
+
 /* Footer */
 footer {
     display: flex;
@@ -130,4 +491,353 @@ footer ul {
         width: 100%;
         margin: 10px 0;
     }
+    .payment-method .pm-thumb {
+        width: 60px; /* Adjust width for smaller screens */
+        height: 30px; /* Adjust height for smaller screens */
+    }
 }
+
+/* ...existing code... */
+
+.cart-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.shopping-cart {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 1em; /* Add padding around the content */
+}
+
+.product {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+.product-image-container {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-image {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.totals {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    margin-top: 1em;
+}
+
+.totals-item {
+    display: flex;
+    justify-content: space-between;
+    text-align: right; /* Align text to the right */
+    gap: 2em; /* Add more space between label and value */
+}
+
+.totals-item label {
+    flex: 1;
+    text-align: right; /* Align label text to the right */
+}
+
+.totals-item-total {
+    font-weight: bold;
+}
+
+/* ...existing code... */
+
+.cart-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 2em;
+}
+
+.cart-actions a {
+    display: inline-block;
+    padding: 1em 2em;
+    border-radius: 0.3em;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 300ms ease-in-out;
+}
+
+.cart-actions a.return {
+    background-color: #e1e8ee;
+    color: #5e6977;
+}
+
+.cart-actions a.return:hover {
+    background-color: #d1d8de;
+}
+
+.cart-actions a.next {
+    background-color: #7dc855;
+    color: white;
+}
+
+.cart-actions a.next:hover {
+    background-color: #67bb47;
+}
+
+.cart-actions a.next img {
+    filter: brightness(0) invert(1); /* Ensure the arrow image is white */
+}
+
+/* ...existing code... */
+
+.customer-info {
+    padding: 2em;
+}
+
+.customer-info h2 {
+    margin-bottom: 1em;
+    font-size: 1.5em;
+    color: #5e6977;
+}
+
+.customer-info .form-group {
+    margin-bottom: 1em;
+}
+
+.customer-info .form-group label {
+    display: block;
+    margin-bottom: 0.5em;
+    color: #7dc855;
+    font-size: 0.9em;
+}
+
+.customer-info .form-group input,
+.customer-info .form-group select {
+    width: 100%;
+    padding: 0.5em;
+    border: 1px solid #e1e8ee;
+    border-radius: 0.3em;
+    font-size: 1em;
+    color: #5e6977;
+}
+
+.address-actions {
+    display: flex;
+    gap: 1em;
+    margin-top: 1em;
+}
+
+.address-actions button {
+    background-color: #7dc855;
+    border: none;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0.5em 1em;
+    border-radius: 0.3em;
+    transition: all 300ms ease-in-out;
+}
+
+.address-actions button:hover {
+    background-color: #67bb47;
+}
+
+.address-actions .add-address {
+    background-color: #a3c9f1; /* Pastel blue */
+}
+
+.address-actions .add-address:hover {
+    background-color: #82b1e1; /* Darker pastel blue */
+}
+
+.address-actions .remove-address {
+    background-color: #f1a3a3; /* Pastel red */
+}
+
+.address-actions .remove-address:hover {
+    background-color: #e18282; /* Darker pastel red */
+}
+
+.customer-info-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 2em 0;
+}
+
+.customer-info-actions a {
+    display: inline-block;
+    padding: 1em 2em;
+    border-radius: 0.3em;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 300ms ease-in-out;
+}
+
+.customer-info-actions a.return {
+    background-color: #e1e8ee;
+    color: #5e6977;
+}
+
+.customer-info-actions a.return:hover {
+    background-color: #d1d8de;
+}
+
+.customer-info-actions a.next {
+    background-color: #7dc855;
+    color: white;
+}
+
+.customer-info-actions a.next:hover {
+    background-color: #67bb47;
+}
+
+.customer-info-actions a.next img {
+    filter: brightness(0) invert(1); /* Ensure the arrow image is white */
+}
+
+/* ...existing code... */
+
+.shipping-info {
+    padding: 2em;
+}
+
+.shipping-info h2 {
+    margin-bottom: 1em;
+    font-size: 1.5em;
+    color: #5e6977;
+}
+
+.shipping-info p {
+    margin-bottom: 1em;
+    font-size: 1em;
+    color: #5e6977;
+}
+
+.shipping-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 2em 0;
+}
+
+.shipping-actions a {
+    display: inline-block;
+    padding: 1em 2em;
+    border-radius: 0.3em;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 300ms ease-in-out;
+}
+
+.shipping-actions a.return {
+    background-color: #e1e8ee;
+    color: #5e6977;
+}
+
+.shipping-actions a.return:hover {
+    background-color: #d1d8de;
+}
+
+.shipping-actions a.next {
+    background-color: #7dc855;
+    color: white;
+}
+
+.shipping-actions a.next:hover {
+    background-color: #67bb47;
+}
+
+.shipping-actions a.next img {
+    filter: brightness(0) invert(1); /* Ensure the arrow image is white */
+}
+
+/* ...existing code... */
+
+/* ...existing code... */
+
+.payment-tabs > a.completed {
+    color: #7dc855;
+    font-weight: 500;
+}
+
+.payment-tabs > a.completed:before {
+    border-color: #7dc855;
+    color: inherit;
+}
+
+.payment-tabs > a.completed:after {
+    border-bottom: 2px solid #7dc855;
+}
+
+/* ...existing code... */
+
+.invoice {
+    max-width: 50em;
+    margin: 20px auto;
+    background-color: white;
+    color: #5e6977;
+    border-radius: 8px;
+    box-shadow: 0.2em 0.3em 0.8em -0.45em rgba(0, 0, 0, 0.2), 0 0.2em 0.5em 0 rgba(0, 0, 0, 0.08);
+    padding: 2em;
+}
+
+.invoice-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+.invoice-logo {
+    height: 40px; /* Make the logo smaller */
+    margin-right: 1em;
+}
+
+.invoice h2 {
+    text-align: center;
+    color: #88C273;
+}
+
+.invoice h3 {
+    margin-top: 1em;
+    color: #5e6977;
+}
+
+.invoice p {
+    margin: 0.5em 0;
+    font-size: 1em;
+    color: #5e6977;
+}
+
+.invoice-actions {
+    text-align: center;
+    margin-top: 2em;
+}
+
+.invoice-actions .done-button {
+    display: inline-block;
+    padding: 1em 2em;
+    background-color: #7dc855;
+    color: white;
+    text-decoration: none;
+    border-radius: 0.3em;
+    font-weight: 500;
+    transition: all 300ms ease-in-out;
+}
+
+.invoice-actions .done-button:hover {
+    background-color: #67bb47;
+}
+
+/* ...existing code... */

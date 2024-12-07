@@ -25,6 +25,7 @@ session_start();
         <a href="#">Cart</a>
         <a href="#">Checkout</a>
         <a href="#">My Account</a>
+        <a href="../main/main.php"><ion-icon name="log-out-outline"></ion-icon> Sign Out</a>
       </nav>
     </header>
     <div class="navlist">

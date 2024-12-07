@@ -43,6 +43,7 @@ $result = $conn->query($sql);
         <a href="../cart/cart.php">Cart</a>
         <a href="../checkout/checkout.php">Checkout</a>
         <a href="#">My Account</a>
+        <a href="../main/main.php"><ion-icon name="log-out-outline"></ion-icon> Sign Out</a>
       </nav>
     </header>
     <div class="navlist">
