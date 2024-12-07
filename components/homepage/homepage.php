@@ -17,8 +17,16 @@ if ($conn->connect_error) {
 
 
 // SQL query to fetch products
-$sql = "SELECT * FROM `sexual wellness`";
-        
+$sql = "SELECT * FROM `sexual wellness`
+        UNION ALL
+        SELECT * FROM `prescription medicines`
+        UNION ALL
+        SELECT * FROM `over the counter`
+        UNION ALL
+        SELECT * FROM `vitamins & suppliments`
+        UNION ALL
+        SELECT * FROM `baby care`
+        ORDER BY RAND()";
 $result = $conn->query($sql);
 
 ?>
@@ -43,6 +51,7 @@ $result = $conn->query($sql);
       <a href="homepage.php">Home</a>
         <a href="../cart/cart.php">Cart</a>
         <a href="../checkout/checkout.php">Checkout</a>
+        <a href="../orderstatus/orders.php">Track Order</a>
         <a href="../myaccount/account.php">My Account</a>
         <a href="../main/main.php"><ion-icon name="log-out-outline"></ion-icon> Sign Out</a>
       </nav>

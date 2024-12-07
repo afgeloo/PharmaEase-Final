@@ -9,7 +9,33 @@ $dbname = "pharmaease_db"; // Replace with your database name
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
+if (!isset($_SESSION['cart'])) {
+  $_SESSION['cart'] = array();
+}
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
+  $product_id = $_POST['product_id'];
+  $product_name = $_POST['product_name'];
+  $product_price = $_POST['product_price'];
+  $product_quantity = $_POST['product_quantity'];
+
+  // Check if the product is already in the cart
+  if (isset($_SESSION['cart'][$product_id])) {
+      // Update quantity if product already exists
+      $_SESSION['cart'][$product_id]['quantity'] += $product_quantity;
+  } else {
+      // Add new product to cart
+      $_SESSION['cart'][$product_id] = array(
+          'name' => $product_name,
+          'price' => $product_price,
+          'quantity' => $product_quantity
+      );
+  }
+
+  // Redirect to the cart page with a success message
+  header("Location: cart.php?success=1");
+  exit();
+}
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -38,9 +64,10 @@ $result = $conn->query($sql);
     <header>
       <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
       <nav>
-        <a href="../homepage/homepage.php">Home</a>  
+      <a href="../homepage/homepage.php">Home</a>
         <a href="cart.php">Cart</a>
         <a href="../checkout/checkout.php">Checkout</a>
+        <a href="../orderstatus/orders.php">Track Order</a>
         <a href="../myaccount/account.php">My Account</a>
         <a href="../main/main.php"><ion-icon name="log-out-outline"></ion-icon> Sign Out</a>
       </nav>
@@ -87,13 +114,13 @@ $result = $conn->query($sql);
         <div class="product">
           <input type="checkbox" class="product-checkbox">
           <div class="product-image">
-            <img src="https://s.cdpn.io/3/dingo-dog-bones.jpg">
+            <img src="/PharmaEase/PharmaEase-Final/assets/ProductPics/MEDICINAL SUPPLIES/ANTIGEN.png">
           </div>
           <div class="product-details">
-            <div class="product-title">Dingo Dog Bones</div>
-            <p class="product-description">The best dog bones of all time. Holy crap. Your dog will be begging for these things! I got curious once and ate one myself. I'm a fan.</p>
+            <div class="product-title">Antigen</div>
+            <p class="product-description">Allow for at-home testing to detect the presence of the virus. Includes nasal swabs and instructions for use.</p>
           </div>
-          <div class="product-price">12.99</div>
+          <div class="product-price">150.00</div>
           <div class="product-quantity">
             <div class="quantity-control" data-quantity="">
               <button class="quantity-btn" data-quantity-minus="">
@@ -118,19 +145,19 @@ $result = $conn->query($sql);
               Remove
             </button>
           </div>
-          <div class="product-line-price">12.99</div>
+          <div class="product-line-price">150.00</div>
         </div>
 
         <div class="product">
           <input type="checkbox" class="product-checkbox">
           <div class="product-image">
-            <img src="https://s.cdpn.io/3/large-NutroNaturalChoiceAdultLambMealandRiceDryDogFood.png">
+            <img src="/PharmaEase/PharmaEase-Final/assets/ProductPics/MEDICINAL SUPPLIES/face shield.png">
           </div>
           <div class="product-details">
-            <div class="product-title">Nutro™ Adult Lamb and Rice Dog Food</div>
-            <p class="product-description">Who doesn't like lamb and rice? We've all hit the halal cart at 3am while quasi-blackout after a night of binge drinking in Manhattan. Now it's your dog's turn!</p>
+            <div class="product-title">Face Shield</div>
+            <p class="product-description">It protects the face from unforeseen bacteria and diseases.</p>
           </div>
-          <div class="product-price">45.99</div>
+          <div class="product-price">12.05</div>
           <div class="product-quantity">
             <div class="quantity-control" data-quantity="">
               <button class="quantity-btn" data-quantity-minus="">
@@ -155,7 +182,44 @@ $result = $conn->query($sql);
               Remove
             </button>
           </div>
-          <div class="product-line-price">45.99</div>
+          <div class="product-line-price">12.05</div>
+        </div>
+
+        <div class="product">
+          <input type="checkbox" class="product-checkbox">
+          <div class="product-image">
+            <img src="/PharmaEase/PharmaEase-Final/assets/ProductPics/SEXUAL WELLNESS/GILLETTE SHAVING CREAM.png">
+          </div>
+          <div class="product-details">
+            <div class="product-title">Gillette</div>
+            <p class="product-description">Shaving Cream</p>
+          </div>
+          <div class="product-price">133.00</div>
+          <div class="product-quantity">
+            <div class="quantity-control" data-quantity="">
+              <button class="quantity-btn" data-quantity-minus="">
+                <svg viewBox="0 0 409.6 409.6">
+                  <g>
+                    <g>
+                      <path d="M392.533,187.733H17.067C7.641,187.733,0,195.374,0,204.8s7.641,17.067,17.067,17.067h375.467 c9.426,0,17.067-7.641,17.067-17.067S401.959,187.733,392.533,187.733z" />
+                    </g>
+                  </g>
+                </svg>
+              </button>
+              <input type="number" class="quantity-input" data-quantity-target="" value="1" step="1" min="1">
+              <button class="quantity-btn" data-quantity-plus="">
+                <svg viewBox="0 0 426.66667 426.66667">
+                  <path d="m405.332031 192h-170.664062v-170.667969c0-11.773437-9.558594-21.332031-21.335938-21.332031-11.773437 0-21.332031 9.558594-21.332031 21.332031v170.667969h-170.667969c-11.773437 0-21.332031 9.558594-21.332031 21.332031 0 11.777344 9.558594 21.335938 21.332031 21.335938h170.667969v170.664062c0 11.777344 9.558594 21.335938 21.332031 21.335938 11.777344 0 21.335938-9.558594 21.335938-21.335938v-170.664062h170.664062c11.777344 0 21.335938-9.558594 21.335938-21.335938 0-11.773437-9.558594-21.332031-21.335938-21.332031zm0 0" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="product-removal">
+            <button class="remove-product">
+              Remove
+            </button>
+          </div>
+          <div class="product-line-price">133.00</div>
         </div>
 
         <div class="totals">

@@ -1,5 +1,26 @@
 <?php
+
 session_start();
+
+// Database connection variables
+$servername = "localhost"; // Replace with your database server
+$username = "root";        // Replace with your MySQL username
+$password = "";            // Replace with your MySQL password
+$dbname = "pharmaease_db"; // Replace with your database name
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// SQL query to fetch products
+$sql = "SELECT * FROM `vitamins & suppliments`
+        ORDER BY RAND()";
+$result = $conn->query($sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -24,6 +45,7 @@ session_start();
       <a href="homepage.php">Home</a>
         <a href="../cart/cart.php">Cart</a>
         <a href="../checkout/checkout.php">Checkout</a>
+        <a href="../orderstatus/orders.php">Track Order</a>
         <a href="../myaccount/account.php">My Account</a>
         <a href="../main/main.php"><ion-icon name="log-out-outline"></ion-icon> Sign Out</a>
       </nav>
