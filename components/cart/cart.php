@@ -13,38 +13,71 @@ if (!isset($_SESSION['cart'])) {
   $_SESSION['cart'] = array();
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
-  $product_id = $_POST['product_id'];
-  $product_name = $_POST['product_name'];
-  $product_price = $_POST['product_price'];
-  $product_quantity = $_POST['product_quantity'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Add product to cart
+    if (isset($_POST['add_to_cart'])) {
+        $product_image = $_POST['product_image'];
+        $product_id = $_POST['product_id'];
+        $product_name = $_POST['product_name'];
+        $product_price = $_POST['product_price'];
+        $quantity = intval($_POST['quantity']); // Ensure quantity is an integer
+        $product_description = $_POST['product_description'];
 
-  // Check if the product is already in the cart
-  if (isset($_SESSION['cart'][$product_id])) {
-      // Update quantity if product already exists
-      $_SESSION['cart'][$product_id]['quantity'] += $product_quantity;
-  } else {
-      // Add new product to cart
-      $_SESSION['cart'][$product_id] = array(
-          'name' => $product_name,
-          'price' => $product_price,
-          'quantity' => $product_quantity
-      );
-  }
+        // Check if the product is already in the cart
+        if (isset($_SESSION['cart'][$product_id])) {
+            // Update quantity if product already exists
+            $_SESSION['cart'][$product_id]['quantity'] += $quantity;
+        } else {
+            // Add new product to cart
+            $_SESSION['cart'][$product_id] = array(
+                'images' => $product_image,
+                'name' => $product_name,
+                'price' => $product_price,
+                'description' => $product_description,
+                'quantity' => $quantity
+            );
+        }
+        // Redirect to the cart page after adding the product
+        header("Location: cart.php?success=1");
+        exit();
+    }
 
-  // Redirect to the cart page with a success message
-  header("Location: cart.php?success=1");
-  exit();
+    // Remove product from cart
+    if (isset($_POST['remove_product']) && isset($_POST['product_id_to_remove'])) {
+        $product_id_to_remove = $_POST['product_id_to_remove'];
+
+        // Check if product is in the cart
+        if (isset($_SESSION['cart'][$product_id_to_remove])) {
+            unset($_SESSION['cart'][$product_id_to_remove]); // Remove the product
+        }
+
+        // Redirect to the cart page after removal
+        header("Location: cart.php");
+        exit();
+    }
 }
+
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
 // SQL query to fetch products
-$sql = "SELECT * FROM `sexual wellness`";
+$sql = "SELECT * FROM `sexual wellness`
+        UNION ALL
+        SELECT * FROM `prescription medicines`
+        UNION ALL
+        SELECT * FROM `over the counter`
+        UNION ALL
+        SELECT * FROM `vitamins & suppliments`
+        UNION ALL
+        SELECT * FROM `personal care`
+        UNION ALL
+        SELECT * FROM `medicinal supplies`
+        UNION ALL
+        SELECT * FROM `baby care`
+        ORDER BY RAND()";
 $result = $conn->query($sql);
-
 ?>
 
 <!DOCTYPE html>
@@ -60,11 +93,10 @@ $result = $conn->query($sql);
 </head>
 <body>
 <div class="container">
-    <!-- Main Navbar -->
     <header>
       <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
       <nav>
-      <a href="../homepage/homepage.php">Home</a>
+        <a href="../homepage/homepage.php">Home</a>
         <a href="cart.php">Cart</a>
         <a href="../checkout/checkout.php">Checkout</a>
         <a href="../orderstatus/orders.php">Track Order</a>
@@ -72,6 +104,7 @@ $result = $conn->query($sql);
         <a href="../main/main.php"><ion-icon name="log-out-outline"></ion-icon> Sign Out</a>
       </nav>
     </header>
+    
     <div class="navlist">
       <div>
       <a href="../homepage/allproducts.php">All Products</a>
@@ -96,7 +129,7 @@ $result = $conn->query($sql);
         </form>
       </div>
     </div>
-    <!-- Cart Segment -->
+
     <div class="cart-container">
       <h1>Shopping Cart</h1>
 
@@ -106,149 +139,90 @@ $result = $conn->query($sql);
           <label class="product-image">Image</label>
           <label class="product-details">Product</label>
           <label class="product-price">Price</label>
-          <label class="product-quantity">Quantity</label>
+          <label class="quantity">Quantity</label>
           <label class="product-removal">Remove</label>
           <label class="product-line-price">Total</label>
         </div>
 
-        <div class="product">
-          <input type="checkbox" class="product-checkbox">
-          <div class="product-image">
-            <img src="/PharmaEase/PharmaEase-Final/assets/ProductPics/MEDICINAL SUPPLIES/ANTIGEN.png">
-          </div>
-          <div class="product-details">
-            <div class="product-title">Antigen</div>
-            <p class="product-description">Allow for at-home testing to detect the presence of the virus. Includes nasal swabs and instructions for use.</p>
-          </div>
-          <div class="product-price">150.00</div>
-          <div class="product-quantity">
-            <div class="quantity-control" data-quantity="">
-              <button class="quantity-btn" data-quantity-minus="">
-                <svg viewBox="0 0 409.6 409.6">
-                  <g>
-                    <g>
-                      <path d="M392.533,187.733H17.067C7.641,187.733,0,195.374,0,204.8s7.641,17.067,17.067,17.067h375.467 c9.426,0,17.067-7.641,17.067-17.067S401.959,187.733,392.533,187.733z" />
-                    </g>
-                  </g>
-                </svg>
-              </button>
-              <input type="number" class="quantity-input" data-quantity-target="" value="1" step="1" min="1">
-              <button class="quantity-btn" data-quantity-plus="">
-                <svg viewBox="0 0 426.66667 426.66667">
-                  <path d="m405.332031 192h-170.664062v-170.667969c0-11.773437-9.558594-21.332031-21.335938-21.332031-11.773437 0-21.332031 9.558594-21.332031 21.332031v170.667969h-170.667969c-11.773437 0-21.332031 9.558594-21.332031 21.332031 0 11.777344 9.558594 21.335938 21.332031 21.335938h170.667969v170.664062c0 11.777344 9.558594 21.335938 21.332031 21.335938 11.777344 0 21.335938-9.558594 21.335938-21.335938v-170.664062h170.664062c11.777344 0 21.335938-9.558594 21.335938-21.335938 0-11.773437-9.558594-21.332031-21.335938-21.332031zm0 0" />
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div class="product-removal">
-            <button class="remove-product">
-              Remove
-            </button>
-          </div>
-          <div class="product-line-price">150.00</div>
-        </div>
+        <?php
+    // Display products in cart
+    if (isset($_SESSION['cart'])) {
+        $subtotal = 0; // Initialize subtotal
+        foreach ($_SESSION['cart'] as $product_id => $product_details) {
+            $product_image = $product_details['images'];
+            $product_name = $product_details['name'];
+            $product_description = isset($product_details['description']) ? $product_details['description'] : 'No description available'; // Check if description exists
+            $product_price = $product_details['price'];
+            $quantity = isset($product_details['quantity']) ? $product_details['quantity'] : 1; // Default to 1 if not set
 
-        <div class="product">
-          <input type="checkbox" class="product-checkbox">
-          <div class="product-image">
-            <img src="/PharmaEase/PharmaEase-Final/assets/ProductPics/MEDICINAL SUPPLIES/face shield.png">
-          </div>
-          <div class="product-details">
-            <div class="product-title">Face Shield</div>
-            <p class="product-description">It protects the face from unforeseen bacteria and diseases.</p>
-          </div>
-          <div class="product-price">12.05</div>
-          <div class="product-quantity">
-            <div class="quantity-control" data-quantity="">
-              <button class="quantity-btn" data-quantity-minus="">
-                <svg viewBox="0 0 409.6 409.6">
-                  <g>
-                    <g>
-                      <path d="M392.533,187.733H17.067C7.641,187.733,0,195.374,0,204.8s7.641,17.067,17.067,17.067h375.467 c9.426,0,17.067-7.641,17.067-17.067S401.959,187.733,392.533,187.733z" />
-                    </g>
-                  </g>
-                </svg>
-              </button>
-              <input type="number" class="quantity-input" data-quantity-target="" value="1" step="1" min="1">
-              <button class="quantity-btn" data-quantity-plus="">
-                <svg viewBox="0 0 426.66667 426.66667">
-                  <path d="m405.332031 192h-170.664062v-170.667969c0-11.773437-9.558594-21.332031-21.335938-21.332031-11.773437 0-21.332031 9.558594-21.332031 21.332031v170.667969h-170.667969c-11.773437 0-21.332031 9.558594-21.332031 21.332031 0 11.777344 9.558594 21.335938 21.332031 21.335938h170.667969v170.664062c0 11.777344 9.558594 21.335938 21.332031 21.335938 11.777344 0 21.335938-9.558594 21.335938-21.335938v-170.664062h170.664062c11.777344 0 21.335938-9.558594 21.335938-21.335938 0-11.773437-9.558594-21.332031-21.335938-21.332031zm0 0" />
-                </svg>
-              </button>
+            // Update subtotal
+            $subtotal += $product_price * $quantity;
+            ?>
+            <div class="product">
+                <input type="checkbox" class="product-checkbox">
+                <div class="product-image">
+                    <img src="<?php echo htmlspecialchars($product_image); ?>" alt="<?php echo htmlspecialchars($product_name); ?>"> <!-- Correct image path -->
+                </div>
+                <div class="product-details">
+                    <div class="product-title"><?php echo htmlspecialchars($product_name); ?></div>
+                    <p class="product-description"><?php echo htmlspecialchars($product_description); ?></p> <!-- Display description -->
+                </div>
+                <div class="product-price"><?php echo number_format($product_price, 2); ?></div>
+                <div class="quantity">
+                <div class="quantity-control" data-quantity="">
+                    <button class="quantity-btn" data-quantity-minus="">
+                        <svg viewBox="0 0 409.6 409.6">
+                            <g>
+                                <g>
+                                    <path d="M392.533,187.733H17.067C7.641,187.733,0,195.374,0,204.8s7.641,17.067,17.067,17.067h375.467 c9.426,0,17.067-7.641,17.067-17.067S401.959,187.733,392.533,187.733z" />
+                                </g>
+                            </g>
+                        </svg>
+                    </button>
+                    <!-- Display the quantity in the input field -->
+                    <input type="number" class="quantity-input" value="<?php echo $quantity; ?>" step="1" min="1" data-quantity-target readonly>
+                    <button class="quantity-btn" data-quantity-plus="">
+                        <svg viewBox="0 0 426.66667 426.66667">
+                            <path d="m405.332031 192h-170.664062v-170.667969c0-11.773437-9.558594-21.332031-21.335938-21.332031-11.773437 0-21.332031 9.558594-21.332031 21.332031v170.667969h-170.667969c-11.773437 0-21.332031 9.558594-21.332031 21.332031 0 11.777344 9.558594 21.335938 21.332031 21.335938h170.667969v170.664062c0 11.777344 9.558594 21.335938 21.332031 21.335938 11.777344 0 21.335938-9.558594 21.335938-21.335938v-170.664062h170.664062c11.777344 0 21.335938-9.558594 21.335938-21.335938 0-11.773437-9.558594-21.332031-21.335938-21.332031zm0 0" />
+                        </svg>
+                    </button>
+                </div>
+                </div>
+                <div class="product-removal">
+                <!-- Remove button form -->
+                <form method="POST" action="">
+                    <button class="remove-product" type="submit" name="remove_product">Remove</button>
+                    <input type="hidden" name="product_id_to_remove" value="<?php echo $product_id; ?>">
+                </form>
             </div>
-          </div>
-          <div class="product-removal">
-            <button class="remove-product">
-              Remove
-            </button>
-          </div>
-          <div class="product-line-price">12.05</div>
-        </div>
-
-        <div class="product">
-          <input type="checkbox" class="product-checkbox">
-          <div class="product-image">
-            <img src="/PharmaEase/PharmaEase-Final/assets/ProductPics/SEXUAL WELLNESS/GILLETTE SHAVING CREAM.png">
-          </div>
-          <div class="product-details">
-            <div class="product-title">Gillette</div>
-            <p class="product-description">Shaving Cream</p>
-          </div>
-          <div class="product-price">133.00</div>
-          <div class="product-quantity">
-            <div class="quantity-control" data-quantity="">
-              <button class="quantity-btn" data-quantity-minus="">
-                <svg viewBox="0 0 409.6 409.6">
-                  <g>
-                    <g>
-                      <path d="M392.533,187.733H17.067C7.641,187.733,0,195.374,0,204.8s7.641,17.067,17.067,17.067h375.467 c9.426,0,17.067-7.641,17.067-17.067S401.959,187.733,392.533,187.733z" />
-                    </g>
-                  </g>
-                </svg>
-              </button>
-              <input type="number" class="quantity-input" data-quantity-target="" value="1" step="1" min="1">
-              <button class="quantity-btn" data-quantity-plus="">
-                <svg viewBox="0 0 426.66667 426.66667">
-                  <path d="m405.332031 192h-170.664062v-170.667969c0-11.773437-9.558594-21.332031-21.335938-21.332031-11.773437 0-21.332031 9.558594-21.332031 21.332031v170.667969h-170.667969c-11.773437 0-21.332031 9.558594-21.332031 21.332031 0 11.777344 9.558594 21.335938 21.332031 21.335938h170.667969v170.664062c0 11.777344 9.558594 21.335938 21.332031 21.335938 11.777344 0 21.335938-9.558594 21.335938-21.335938v-170.664062h170.664062c11.777344 0 21.335938-9.558594 21.335938-21.335938 0-11.773437-9.558594-21.332031-21.335938-21.332031zm0 0" />
-                </svg>
-              </button>
+                <div class="product-line-price"><?php echo number_format($product_price * $quantity, 2); ?></div>
             </div>
-          </div>
-          <div class="product-removal">
-            <button class="remove-product">
-              Remove
-            </button>
-          </div>
-          <div class="product-line-price">133.00</div>
-        </div>
-
-        <div class="totals">
-          <div class="totals-item">
+        <?php
+        }
+    }
+    ?>
+    <div class="totals">
+        <div class="totals-item">
             <label>Subtotal</label>
-            <div class="totals-value" id="cart-subtotal">0.00</div>
-          </div>
-          <div class="totals-item">
+            <div class="totals-value" id="cart-subtotal"><?php echo number_format($subtotal, 2); ?></div>
+        </div>
+        <div class="totals-item">
             <label>Tax (5%)</label>
-            <div class="totals-value" id="cart-tax">0.00</div>
-          </div>
-          <div class="totals-item">
+            <div class="totals-value" id="cart-tax"><?php echo number_format($subtotal * 0.05, 2); ?></div>
+        </div>
+        <div class="totals-item">
             <label>Shipping</label>
             <div class="totals-value" id="cart-shipping">0.00</div>
-          </div>
-          <div class="totals-item totals-item-total">
-            <label>Grand Total</label>
-            <div class="totals-value" id="cart-total">0.00</div>
-          </div>
-          <button class="checkout" style="display: none;">Checkout</button>
-          <a href="../checkout/checkout.php" class="checkout-button">Proceed to Checkout</a>
         </div>
-            
-        
-
-      </div>
+        <div class="totals-item totals-item-total">
+            <label>Grand Total</label>
+            <div class="totals-value" id="cart-total"><?php echo number_format($subtotal * 1.05, 2); ?></div>
+        </div>
+        <button class="checkout" style="display: none;">Checkout</button>
+        <a href="../checkout/checkout.php" class="checkout-button">Proceed to Checkout</a>
     </div>
-     <!-- Footer  -->
-     <?php include "../homepage/footer.php"; ?>
-</div>
+    <?php include "../homepage/footer.php"; ?>
 </body>
 </html>
+
+

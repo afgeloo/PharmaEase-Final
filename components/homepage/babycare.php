@@ -26,7 +26,7 @@ $result = $conn->query($sql);
 <html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="sexualwellness.css?v=<?php echo time(); ?>">
+  <link rel="stylesheet" href="babycare.css?v=<?php echo time(); ?>">
   <link rel="shortcut icon" type="image/png" href="/PharmaEase/PharmaEase-Final/assets/PharmaEaseLogo.png">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
@@ -66,6 +66,7 @@ $result = $conn->query($sql);
       </div>
     </form>
     </div>
+    <br><h2>Baby Care</h2>
     <div class="product-container">
     <div id="grid-selector">
                <div id="grid-menu">

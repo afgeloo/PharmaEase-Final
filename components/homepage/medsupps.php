@@ -66,6 +66,7 @@ $result = $conn->query($sql);
       </div>
     </form>
     </div>
+    <br><h2>Medicinal Supplies</h2>
     <div class="product-container">
     <div id="grid-selector">
                <div id="grid-menu">

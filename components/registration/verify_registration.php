@@ -36,7 +36,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['verify'])) {
             $updateStmt->bind_param("i", $verificationCode);
             if ($updateStmt->execute()) {
                 $successMessage = "Your email has been verified successfully!";
-                // Optionally, redirect to login page
+                echo "<script>
+                    setTimeout(() => {
+                        window.location.href = '../main/main.php';
+                    }, 5000);
+                </script>";
             } else {
                 $verificationError = "Error updating record: " . $conn->error;
             }
@@ -52,14 +56,14 @@ $conn->close();
 <html>
 <head>
 <title>Verify Registration</title>
-    <link rel="stylesheet" type="text/css" href="registration.css?v=1.0">
+    <link rel="stylesheet" type="text/css" href="verify_registration.css?v=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container fade-in">
         <div class="main">
             <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFull.png" alt="Logo" class="logo-img">
-            <h2>Verify Your Email</h2>
+            <h2>Verify Your Email</h2><br>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
                 <label>Verification Code:</label>
                 <input class="input" type="text" name="verification_code" value="<?php echo htmlspecialchars($verificationCode); ?>">

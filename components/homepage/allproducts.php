@@ -39,6 +39,7 @@ if (!isset($_SESSION['cart'])) {
 
 if (isset($_POST['add_to_cart'])) {
   // Add product to cart
+  $product_image = $_POST['product_image'];
   $product_id = $_POST['product_id'];
   $quantity = $_POST['quantity'];
   $_SESSION['cart'][$product_id] = $quantity;
@@ -91,6 +92,7 @@ if (isset($_POST['add_to_cart'])) {
       </div>
     </form>
     </div>
+    <br><h2>All Products</h2>
     <div class="product-container">
     <div id="grid-selector">
                <div id="grid-menu">
@@ -148,8 +150,8 @@ if (isset($_POST['add_to_cart'])) {
                         </div>
 
                         <h3>QUANTITY</h3> <!-- Added quantity heading -->
-                        <div class="quantity-control" data-quantity="">
-                            <button class="quantity-btn" data-quantity-minus="">
+                        <div class="quantity-control" quantity="">
+                            <button class="quantity-btn" quantity-minus="">
                                 <svg viewBox="0 0 409.6 409.6">
                                     <g>
                                         <g>
@@ -158,22 +160,23 @@ if (isset($_POST['add_to_cart'])) {
                                     </g>
                                 </svg>
                             </button>
-                            <input type="number" class="quantity-input" data-quantity-target="" value="1" step="1" min="1" max="" name="quantity">
-                            <button class="quantity-btn" data-quantity-plus="">
+                            <input type="number" class="quantity-input" quantity-target="" value="1" step="1" min="1" max="" name="quantity">
+                            <button class="quantity-btn" quantity-plus="">
                                 <svg viewBox="0 0 426.66667 426.66667">
                                     <path d="m405.332031 192h-170.664062v-170.667969c0-11.773437-9.558594-21.332031-21.335938-21.332031-11.773437 0-21.332031 9.558594-21.332031 21.332031v170.667969h-170.667969c-11.773437 0-21.332031 9.558594-21.332031 21.332031 0 11.777344 9.558594 21.335938 21.332031 21.335938h170.667969v170.664062c0 11.777344 9.558594 21.335938 21.332031 21.335938 11.777344 0 21.335938-9.558594 21.335938-21.335938v-170.664062h170.664062c11.777344 0 21.335938-9.558594 21.335938-21.335938 0-11.773437-9.558594-21.332031-21.335938-21.332031zm0 0" />
                                 </svg>
                             </button>
                         </div>
 
-                        <form action="../cart/cart2.php" method="post">
-    <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($row['id']); ?>">
-    <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($row['name']); ?>">
-    <input type="hidden" name="product_description" value="<?php echo htmlspecialchars($row['description']); ?>">
-    <input type="hidden" name="product_price" value="<?php echo htmlspecialchars($row['price']); ?>">
-    <input type="hidden" name="product_quantity" value="1"> <!-- Default quantity -->
-    <button type="submit" name="add_to_cart" class="add-cart-large">Add To Cart</button>
-</form>
+                        <form action="../cart/cart.php" method="post">
+                            <input type="hidden" name="product_image" value="<?php echo htmlspecialchars($images[0]); ?>"> <!-- Ensure the correct image path -->
+                            <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($row['id']); ?>">
+                            <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($row['name']); ?>">
+                            <input type="hidden" name="product_description" value="<?php echo htmlspecialchars($row['description']); ?>">
+                            <input type="hidden" name="product_price" value="<?php echo htmlspecialchars($row['price']); ?>">
+                            <input type="hidden" name="quantity" class="quantity" value="1"> <!-- Default quantity -->
+                            <button type="submit" name="add_to_cart" class="add-cart-large">Add To Cart</button>
+                        </form>
 
                         <a href="productview.php?id=<?php echo $row['id']; ?>" class="view_product_link">View Product Details</a>
                     </div>
@@ -387,29 +390,32 @@ gallerySlider.init();
 </script>
 <script>
 $(document).ready(function() {
-    $('[data-quantity]').each(function() {
+    $('[quantity]').each(function() {
         var $this = $(this);
-        var $quantityTarget = $this.find('[data-quantity-target]');
-        var $quantityMinus = $this.find('[data-quantity-minus]');
-        var $quantityPlus = $this.find('[data-quantity-plus]');
+        var $quantityTarget = $this.find('[quantity-target]');
+        var $quantityMinus = $this.find('[quantity-minus]');
+        var $quantityPlus = $this.find('[quantity-plus]');
         var quantity = parseInt($quantityTarget.val(), 10);
 
         $quantityMinus.on('click', function() {
             if (quantity > 1) {
                 quantity--;
                 $quantityTarget.val(quantity);
+                $this.closest('.info-large').find('.quantity').val(quantity); // Update hidden input
             }
         });
 
         $quantityPlus.on('click', function() {
             quantity++;
             $quantityTarget.val(quantity);
+            $this.closest('.info-large').find('.quantity').val(quantity); // Update hidden input
         });
 
         $quantityTarget.on('input', function() {
             var value = parseInt($quantityTarget.val(), 10);
             if (!isNaN(value) && value > 0) {
                 quantity = value;
+                $this.closest('.info-large').find('.quantity').val(quantity); // Update hidden input
             }
         });
 
@@ -417,6 +423,7 @@ $(document).ready(function() {
             if ($quantityTarget.val() === '' || parseInt($quantityTarget.val(), 10) <= 0) {
                 quantity = 1;
                 $quantityTarget.val(quantity);
+                $this.closest('.info-large').find('.quantity').val(quantity); // Update hidden input
             }
         });
     });

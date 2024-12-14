@@ -130,8 +130,11 @@ function updateQuantity(quantityInput) {
 function removeItem(removeButton) {
   /* Remove row from DOM and recalc cart total */
   var productRow = $(removeButton).closest('.product');
+  
+  console.log("Removing product row:", productRow);  // Debugging statement
+
   productRow.slideUp(fadeTime, function() {
-    productRow.remove();
+    productRow.remove();  // Simplified removal for debugging
     recalculateCart();
   });
 }
