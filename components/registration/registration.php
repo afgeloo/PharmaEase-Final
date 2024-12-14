@@ -19,9 +19,9 @@ if ($conn->connect_error) {
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../../vendor/phpmailer/phpmailer/src/Exception.php';
-require '../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
-require '../../vendor/phpmailer/phpmailer/src/SMTP.php';
+// require '../../vendor/phpmailer/phpmailer/src/Exception.php';
+// require '../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
+// require '../../vendor/phpmailer/phpmailer/src/SMTP.php';
 
 $firstName = $lastName = $birthday = $age = $contactNumber = $email = $address = $username = $password = $confirmPassword = "";
 $firstNameError = $lastNameError = $birthdayError = $ageError = $contactError = $emailError = $addressError = $usernameError = $passwordError = $confirmPasswordError = "";
@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
         // Prepare and bind
         $stmt = $conn->prepare("INSERT INTO registered_users (first_name, last_name, birthday, age, contact_number, email, address, username, password, is_verified, code_verification) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)");
-        $stmt->bind_param("sssisssssi", $firstName, $lastName, $birthday, $age, $contactNumber, $email, $address, $username, $hashedPassword, $verificationCode);
+        $stmt->bind_param("sssisssssi", $firstName, $lastName, $birthday, $age, $contactNumber, $email, $address, $username, $Password);
 
         if ($stmt->execute()) {
             // Send verification email

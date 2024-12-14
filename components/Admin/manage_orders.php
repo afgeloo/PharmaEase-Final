@@ -4,7 +4,7 @@ session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Authentication Check
+// // Authentication Check
 // if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
 //     header("Location: ../login.php");
 //     exit();
@@ -22,32 +22,6 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
     die("Connection Error: " . $conn->connect_error);
-}
-
-// Handle Confirm Order
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirm_order'])) {
-    $orderId = intval($_POST['order_id']);
-    $stmt = $conn->prepare("UPDATE orders SET status = 'Confirmed' WHERE id = ?");
-    $stmt->bind_param("i", $orderId);
-    if ($stmt->execute()) {
-        $successMessage = "Order #$orderId has been confirmed.";
-    } else {
-        $errorMessage = "Error confirming order: " . $conn->error;
-    }
-    $stmt->close();
-}
-
-// Handle Cancel Order
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cancel_order'])) {
-    $orderId = intval($_POST['order_id']);
-    $stmt = $conn->prepare("UPDATE orders SET status = 'Cancelled' WHERE id = ?");
-    $stmt->bind_param("i", $orderId);
-    if ($stmt->execute()) {
-        $successMessage = "Order #$orderId has been cancelled.";
-    } else {
-        $errorMessage = "Error cancelling order: " . $conn->error;
-    }
-    $stmt->close();
 }
 
 // Fetch Orders with User Information
@@ -76,9 +50,14 @@ $orderResult = $conn->query($sql);
                 <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
             </a>
             <nav class="admin-nav">
-                <a href="manage_orders.php" class="active">Manage Orders</a>
-                <a href="manage_products.php">Manage Products</a>
-                <a href="../logout.php">Logout</a>
+                <a href="homepage.php">Home</a>
+                <a href="#">Cart</a>
+                <a href="#">Checkout</a>
+                <a href="#">My Account</a>
+                <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === 1): ?>
+                    <a href="manage_orders.php">Manage Orders</a>
+                    <a href="manage_products.php">Manage Products</a>
+                <?php endif; ?>
             </nav>
         </header>
         <div class="navlist">
@@ -94,73 +73,65 @@ $orderResult = $conn->query($sql);
             </div>
             <div class="search">
                 <form action="#">
-                    <input type="text" placeholder="Search for Products & Brands" name="search" />
+                    <input type="text" placeholder="Search for Products & Brands" name="search">
                 </form>
             </div>
         </div>
-
-        <!-- Manage Orders Section -->
-        <div class="admin-container">
-            <h2 class="admin-header">Admin Panel - Manage Orders</h2>
-            <?php
-            if (isset($successMessage)) {
-                echo "<div class='message success'>$successMessage</div>";
-            }
-            if (isset($errorMessage)) {
-                echo "<div class='message error'>$errorMessage</div>";
-            }
-            ?>
-            <div class="table-responsive">
-                <table>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>User Name</th>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                    <?php
-                    if ($orderResult->num_rows > 0) {
-                        while($row = $orderResult->fetch_assoc()) {
-                            $orderId = htmlspecialchars($row['id']);
-                            $userName = htmlspecialchars($row['first_name'] . ' ' . $row['last_name']);
-                            $product = htmlspecialchars($row['product_name']);
-                            $quantity = htmlspecialchars($row['quantity']);
-                            $status = htmlspecialchars($row['status']);
-                            
-                            echo "<tr>
-                                    <td>$orderId</td>
-                                    <td>$userName</td>
-                                    <td>$product</td>
-                                    <td>$quantity</td>
-                                    <td>$status</td>
-                                    <td>";
-                            if ($status !== 'Confirmed' && $status !== 'Cancelled') {
-                                echo "<form method='post' style='display:inline; margin-right:5px;'>
-                                        <input type='hidden' name='order_id' value='$orderId'>
-                                        <button type='submit' name='confirm_order' class='btn confirm-btn' onclick=\"return confirm('Are you sure you want to confirm this order?');\">Confirm</button>
-                                      </form>
-                                      <form method='post' style='display:inline;'>
-                                        <input type='hidden' name='order_id' value='$orderId'>
-                                        <button type='submit' name='cancel_order' class='btn cancel-btn' onclick=\"return confirm('Are you sure you want to cancel this order?');\">Cancel</button>
-                                      </form>";
-                            } else {
-                                echo "-";
-                            }
-                            echo "</td>
-                                  </tr>";
-                        }
-                    } else {
-                        echo "<tr><td colspan='6'>No orders found.</td></tr>";
-                    }
-                    ?>
-                </table>
-            </div>
-        </div>
+        <!-- Your content for managing orders goes here -->
     </div>
 </body>
 </html>
 <?php
 $conn->close();
+?>
+<?php
+session_start();
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+// Database connection variables
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "pharmaease_db";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$loginError = "";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $loginUsername = $_POST["username"];
+    $loginPassword = $_POST["password"];
+
+    $stmt = $conn->prepare("SELECT password, is_admin FROM registered_users WHERE username = ? OR contact_number = ? OR email = ?");
+    if ($stmt === false) {
+        die("Prepare failed: " . $conn->error);
+    }
+
+    $stmt->bind_param("sss", $loginUsername, $loginUsername, $loginUsername);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($storedPassword, $isAdmin);
+        $stmt->fetch();
+
+        if (password_verify($loginPassword, $storedPassword)) {
+            $_SESSION['user'] = $loginUsername;
+            $_SESSION['is_admin'] = $isAdmin; // Store admin status in session
+            header("Location: /PharmaEase/PharmaEase-Final/components/homepage/homepage.php");
+            exit();
+        } else {
+            $loginError = "Invalid password.";
+        }
+    } else {
+        $loginError = "No user found with the provided credentials.";
+    }
+}
 ?>

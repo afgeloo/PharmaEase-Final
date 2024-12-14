@@ -1,6 +1,7 @@
 <?php
 session_start();
-
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 $servername = "localhost";
 $username = "root";
@@ -15,7 +16,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-
 // SQL query to fetch products
 $sql = "SELECT * FROM products";
 $result = $conn->query($sql);
@@ -25,6 +25,7 @@ $result = $conn->query($sql);
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="homepage.css?v=<?php echo time(); ?>">
   <link rel="shortcut icon" type="image/png" href="/PharmaEase/PharmaEase-Final/assets/PharmaEaseLogo.png">
@@ -43,6 +44,10 @@ $result = $conn->query($sql);
         <a href="../cart/cart.php">Cart</a>
         <a href="../checkout/checkout.php">Checkout</a>
         <a href="#">My Account</a>
+        <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === 1): ?>
+                <a href="../Admin/manage_orders.php">Manage Orders</a>
+                <a href="../Admin/manage_products.php">Manage Products</a>
+            <?php endif; ?>
       </nav>
     </header>
     <div class="navlist">

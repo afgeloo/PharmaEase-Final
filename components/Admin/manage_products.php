@@ -21,7 +21,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
-    die("Connection Error: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
 }
 
 // Handle Add Product
@@ -107,9 +107,14 @@ $productResult = $conn->query($productSql);
                 <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
             </a>
             <nav class="admin-nav">
+            <a href=".. /homepage/homepage.php">Home</a>
+            <a href="#">Cart</a>
+            <a href="#">Checkout</a>
+            <a href="#">My Account</a>
+            <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === 1): ?>
                 <a href="manage_orders.php">Manage Orders</a>
-                <a href="manage_products.php" class="active">Manage Products</a>
-                <a href="../logout.php">Logout</a>
+                <a href="manage_products.php">Manage Products</a>
+            <?php endif; ?>
             </nav>
         </header>
         <div class="navlist">

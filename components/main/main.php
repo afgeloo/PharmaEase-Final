@@ -1,45 +1,52 @@
 <?php
 session_start();
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
+// Database connection variables
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "pharmaease_db";
 
+// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+// Check connection
 if ($conn->connect_error) {
-    die("Connection Error: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
 }
 
-$loginUsername = $loginPassword = "";
 $loginError = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $loginUsername = $_POST["username"];
     $loginPassword = $_POST["password"];
 
-    $stmt = $conn->prepare("SELECT password FROM registered_users WHERE username = ? OR contact_number = ? OR email = ?");
+    $stmt = $conn->prepare("SELECT password, is_admin FROM registered_users WHERE username = ? OR contact_number = ? OR email = ?");
+    if ($stmt === false) {
+        die("Prepare failed: " . $conn->error);
+    }
+
     $stmt->bind_param("sss", $loginUsername, $loginUsername, $loginUsername);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($storedPassword);
+        $stmt->bind_result($storedPassword, $isAdmin);
         $stmt->fetch();
 
         if (password_verify($loginPassword, $storedPassword)) {
             $_SESSION['user'] = $loginUsername;
+            $_SESSION['is_admin'] = $isAdmin; // Store admin status in session
             header("Location: /PharmaEase/PharmaEase-Final/components/homepage/homepage.php");
             exit();
         } else {
             $loginError = "Invalid password.";
         }
     } else {
-        $loginError = "No account found with the provided username, contact number, or email.";
+        $loginError = "No user found with the provided credentials.";
     }
-
-    $stmt->close();
 }
 
 $conn->close();
