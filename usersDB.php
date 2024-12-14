@@ -33,7 +33,7 @@ $sql_create_table = "CREATE TABLE registered_users (
 
 // // Execute query to create the table
 if ($conn->query($sql_create_table) === TRUE) {
-    echo "Table 'sexual wellness' created successfully.<br>";
+    echo "Table 'registered_users' created successfully.<br>";
 } else {
     echo "Error creating table: " . $conn->error . "<br>";
 }

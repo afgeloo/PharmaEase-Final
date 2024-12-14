@@ -447,7 +447,15 @@ body {
 h2 {
   color: #333333;
   letter-spacing: 1.5px;
-  margin-left: 20px;
+
+  /* Center the text */
+  text-align: center;
+
+  /* Remove the left margin */
+  margin-left: 0;
+
+  /* Center the element within its parent */
+  margin: 0 auto;
 }
 
 h2::first-letter {

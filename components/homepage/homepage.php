@@ -129,7 +129,7 @@ $result = $conn->query($sql);
           <p>PharmaEase is an online pharmacy designed to empower local pharmacies by providing a digital avenue to offer their services and products. PharmaEase ensures that individuals can access essential medications conveniently, especially during emergencies when immediate assistance may not be available. By connecting pharmacies directly with consumers, PharmaEase enhances accessibility to healthcare and supports the modernization of local pharmaceutical services. </p>
     </div>
     <!-- Deals of the day -->
-    <h2>Top Products</h2>
+    <br><h2>Top Products</h2>
     <div class="product-container">
     <div id="grid-selector">
                <div id="grid-menu">
@@ -205,7 +205,15 @@ $result = $conn->query($sql);
                             </button>
                         </div>
 
-                        <button class="add-cart-large">Add To Cart</button>
+                        <form action="../cart/cart2.php" method="post">
+                            <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($row['id']); ?>">
+                            <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($row['name']); ?>">
+                            <input type="hidden" name="product_description" value="<?php echo htmlspecialchars($row['description']); ?>">
+                            <input type="hidden" name="product_price" value="<?php echo htmlspecialchars($row['price']); ?>">
+                            <input type="hidden" name="product_quantity" value="1"> <!-- Default quantity -->
+                            <button type="submit" name="add_to_cart" class="add-cart-large">Add To Cart</button>
+                        </form>
+
                         <a href="productview.php?id=<?php echo $row['id']; ?>" class="view_product_link">View Product Details</a>
                     </div>
 

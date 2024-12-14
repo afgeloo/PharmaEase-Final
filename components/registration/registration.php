@@ -44,10 +44,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Validate inputs
     if (empty($firstName)) $firstNameError = "First Name is required";
     if (empty($lastName)) $lastNameError = "Last Name is required";
-    if (empty($birthday)) $birthdayError = "Birthday is required";
-    if (empty($age)) $ageError = "Age is required";
-    elseif (!is_numeric($age)) $ageError = "Age must be a number";
-    elseif ($age < 13) $ageError = "You must be at least 13 years old";
+    if (empty($age)) {
+        $ageError = "Age is required";
+    } elseif (!is_numeric($age) || $age < 0) {
+        $ageError = "Age must be a positive number";
+    } elseif ($age < 13) {
+        $ageError = "You must be at least 13 years old";
+    }
+    
+    if (empty($birthday)) {
+        $birthdayError = "Birthday is required";
+    } else {
+        $birthYear = (int)substr($birthday, 0, 4); // Extract the year
+        $currentYear = date("Y");
+    
+        if ($birthYear < 1000 || $birthYear > $currentYear) {
+            $birthdayError = "Birth year must be a valid 4-digit number and not exceed the current year";
+        }
+    }    
 
     if (empty($contactNumber)) $contactError = "Contact Number is required";
     elseif (!preg_match("/^\d{11}$/", $contactNumber)) $contactError = "Contact number must be 11 digits";
@@ -65,47 +79,67 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     if ($password !== $confirmPassword) $confirmPasswordError = "Passwords do not match";
 
     if (!$firstNameError && !$lastNameError && !$birthdayError && !$ageError && !$contactError && !$emailError && !$addressError && !$usernameError && !$passwordError && !$confirmPasswordError) {
-        // Generate verification code
-        $verificationCode = rand(100000, 999999);
-
-        // Hash password
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        // Prepare and bind
-        $stmt = $conn->prepare("INSERT INTO registered_users (first_name, last_name, birthday, age, contact_number, email, address, username, password, is_verified, code_verification) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)");
-        $stmt->bind_param("sssisssssi", $firstName, $lastName, $birthday, $age, $contactNumber, $email, $address, $username, $hashedPassword, $verificationCode);
-
-        if ($stmt->execute()) {
-            // Send verification email
-            $mail = new PHPMailer(true);
-            try {
-                $mail->isSMTP();
-                $mail->Mailer = "smtp";
-                //$mail->SMTPDebug = 1;
-                $mail->SMTPAuth = TRUE;
-                $mail->SMTPSecure = "tls";
-                $mail->Port = 587;
-                $mail->Host = "smtp.gmail.com";
-                $mail->Username = "pharmaease.info@gmail.com";
-                $mail->Password = "mgbo dlkk ukoo feve";
-
-                $mail->setFrom("pharmaease.info@gmail.com", "PharmaEase");
-                $mail->addAddress($email, $firstName . ' ' . $lastName);
-                $mail->isHTML(true);
-                $mail->Subject = "Email Verification";
-                $mail->Body = "Your verification code is: <b>$verificationCode</b>";
-
-                $mail->send();
-                header("Location: verify_registration.php");
-                exit();
-            } catch (Exception $e) {
-                $successMessage = "Registration successful, but email could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        // Check if email, username, or contact number already exists
+        $checkQuery = $conn->prepare("SELECT email, username, contact_number FROM registered_users WHERE email = ? OR username = ? OR contact_number = ?");
+        $checkQuery->bind_param("sss", $email, $username, $contactNumber);
+        $checkQuery->execute();
+        $checkResult = $checkQuery->get_result();
+    
+        if ($checkResult->num_rows > 0) {
+            $existingData = $checkResult->fetch_assoc();
+            if ($existingData['email'] === $email) {
+                $emailError = "Email already exists.";
+            }
+            if ($existingData['username'] === $username) {
+                $usernameError = "Username already exists.";
+            }
+            if ($existingData['contact_number'] === $contactNumber) {
+                $contactError = "Contact number already exists.";
             }
         } else {
-            $successMessage = "Error: " . $conn->error;
+            // Generate verification code
+            $verificationCode = rand(100000, 999999);
+    
+            // Hash password
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    
+            // Prepare and bind
+            $stmt = $conn->prepare("INSERT INTO registered_users (first_name, last_name, birthday, age, contact_number, email, address, username, password, is_verified, code_verification) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)");
+            $stmt->bind_param("sssisssssi", $firstName, $lastName, $birthday, $age, $contactNumber, $email, $address, $username, $hashedPassword, $verificationCode);
+    
+            if ($stmt->execute()) {
+                // Send verification email
+                $mail = new PHPMailer(true);
+                try {
+                    $mail->isSMTP();
+                    $mail->Mailer = "smtp";
+                    //$mail->SMTPDebug = 1;
+                    $mail->SMTPAuth = TRUE;
+                    $mail->SMTPSecure = "tls";
+                    $mail->Port = 587;
+                    $mail->Host = "smtp.gmail.com";
+                    $mail->Username = "pharmaease.info@gmail.com";
+                    $mail->Password = "mgbo dlkk ukoo feve";
+    
+                    $mail->setFrom("pharmaease.info@gmail.com", "PharmaEase");
+                    $mail->addAddress($email, $firstName . ' ' . $lastName);
+                    $mail->isHTML(true);
+                    $mail->Subject = "Email Verification";
+                    $mail->Body = "Your verification code is: <b>$verificationCode</b>";
+    
+                    $mail->send();
+                    header("Location: verify_registration.php");
+                    exit();
+                } catch (Exception $e) {
+                    $successMessage = "Registration successful, but email could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                }
+            } else {
+                $successMessage = "Error: " . $conn->error;
+            }
         }
+        $checkQuery->close();
     }
-}
+}    
 
 $conn->close();
 ?>
@@ -116,15 +150,58 @@ $conn->close();
     <link rel="stylesheet" type="text/css" href="registration.css?v=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
     <script>
-        function calculateAge() {
-            var birthday = new Date(document.getElementById('birthday').value);
-            var today = new Date();
-            var age = today.getFullYear() - birthday.getFullYear();
-            if (today.getMonth() < birthday.getMonth() || (today.getMonth() === birthday.getMonth() && today.getDate() < birthday.getDate())) {
-                age--;
-            }
-            document.getElementById('age').value = age;
+       function calculateAge() {
+    const birthdayInput = document.getElementById('birthday'); // Get the input element
+    const ageInput = document.getElementById('age');
+    const birthday = new Date(birthdayInput.value); // Parse the input value as a Date
+    const today = new Date();
+
+    if (isNaN(birthday)) {
+        ageInput.value = ""; // Clear the age if the input is invalid
+        return;
+    }
+
+    let age = today.getFullYear() - birthday.getFullYear();
+    const monthDiff = today.getMonth() - birthday.getMonth();
+    const dayDiff = today.getDate() - birthday.getDate();
+
+    // Adjust for incomplete birthdays in the current year
+    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+        age--;
+    }
+
+    // Prevent negative age
+    age = Math.max(age, 0);
+    ageInput.value = age;
+
+    // Restrict invalid birth years and future dates
+    restrictBirthYear();
+}
+
+function restrictBirthYear() {
+    const birthdayInput = document.getElementById('birthday');
+    const value = birthdayInput.value;
+
+    if (value) {
+        const birthYear = parseInt(value.split('-')[0], 10); // Extract year portion
+        const currentYear = new Date().getFullYear();
+        const maxDate = new Date().toISOString().split('T')[0]; // Current date in YYYY-MM-DD
+
+        // Check if birth year is valid
+        if (birthYear < 1000 || birthYear > currentYear) {
+            alert("Invalid birth year. Please enter a valid year (4 digits) that does not exceed the current year.");
+            birthdayInput.value = ""; // Clear invalid input
+            return;
         }
+
+        // Check if date is in the future
+        if (value > maxDate) {
+            alert("The selected date cannot be in the future.");
+            birthdayInput.value = ""; // Clear invalid input
+        }
+    }
+}
+
 
         function validateContactNumber(input) {
             input.value = input.value.replace(/\D/g, '').substring(0, 11);
@@ -146,11 +223,19 @@ $conn->close();
                 <?php if ($_SERVER["REQUEST_METHOD"] == "POST") echo "<div class='error'>$lastNameError</div>"; ?>
 
                 <label>Birthday:</label>
-                <input class="input" type="date" name="birthday" id="birthday" value="<?php echo $birthday; ?>" onchange="calculateAge()">
+                <input 
+                    class="input" 
+                    type="date" 
+                    name="birthday" 
+                    id="birthday" 
+                    value="<?php echo $birthday; ?>" 
+                    onchange="calculateAge()" 
+                    onkeydown="return false;" 
+                    oninput="restrictBirthYear()">
                 <?php if ($_SERVER["REQUEST_METHOD"] == "POST") echo "<div class='error'>$birthdayError</div>"; ?>
 
                 <label>Age:</label>
-                <input class="input" type="text" name="age" id="age" value="<?php echo $age; ?>" readonly>
+                <input class="input" type="number" name="age" id="age" value="<?php echo $age; ?>" readonly>
                 <?php if ($_SERVER["REQUEST_METHOD"] == "POST") echo "<div class='error'>$ageError</div>"; ?>
 
                 <label>Contact Number:</label>
@@ -183,10 +268,30 @@ $conn->close();
         </div>
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const container = document.querySelector('.container');
-            container.classList.add('fade-in');
+    document.addEventListener("DOMContentLoaded", () => {
+        const container = document.querySelector('.container');
+        const inputs = document.querySelectorAll('input, textarea');
+
+        container.classList.add('fade-in');
+
+        inputs.forEach((input, index) => {
+            input.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); // Prevent form submission
+
+                    // If it's a textarea, make sure it doesn't jump to the next input
+                    if (input.tagName.toLowerCase() === 'textarea') {
+                        return;
+                    }
+
+                    const nextInput = inputs[index + 1]; // Get the next input field
+                    if (nextInput) {
+                        nextInput.focus(); // Focus on the next input field
+                    }
+                }
+            });
         });
-    </script>
+    });
+</script>
 </body>
 </html>
