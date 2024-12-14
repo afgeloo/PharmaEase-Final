@@ -45,6 +45,10 @@ $result = $conn->query($sql);
         <a href="#">Cart</a>
         <a href="#">Checkout</a>
         <a href="#">My Account</a>
+        <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === 1): ?>
+                    <li><a href="manage_orders.php">Manage Orders</a></li>
+                    <li><a href="manage_products.php">Manage Products</a></li>
+                <?php endif; ?>
       </nav>
     </header>
     <div class="navlist">
