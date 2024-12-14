@@ -137,8 +137,8 @@ $productResult = $conn->query($productSql);
                                 $name = htmlspecialchars($product['name']);
                                 $category = htmlspecialchars($product['category']);
                                 $price = htmlspecialchars($product['price']);
-                                $quantity = htmlspecialchars($product['quantity']);
-                                $sku = htmlspecialchars($product['sku']);
+                                $quantity = htmlspecialchars($product['stock']);
+                                $sku = htmlspecialchars($product['label']);
                             ?>
                             <tr>
                                 <td><?php echo $productId; ?></td>
