@@ -56,6 +56,8 @@ $orderResult = $conn->query($sql);
     <link rel="stylesheet" type="text/css" href="/PharmaEase/PharmaEase-Final/components/Admin/admin.css?v=1.0">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="/PharmaEase/PharmaEase-Final/assets/PharmaEaseLogo.png">
 </head>
 <body>
     <div class="container">

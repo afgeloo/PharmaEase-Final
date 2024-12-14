@@ -1,6 +1,8 @@
 <?php
 // manage_products.php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
@@ -24,55 +26,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Handle Add Product
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_product'])) {
-    // Retrieve and sanitize form inputs
-    $productName = htmlspecialchars(trim($_POST['product_name']));
-    $description = htmlspecialchars(trim($_POST['description']));
-    $price = floatval($_POST['price']);
-    $sku = htmlspecialchars(trim($_POST['sku']));
-    $category = htmlspecialchars(trim($_POST['category']));
-    $quantity = intval($_POST['quantity']);
-
-    // Handle Image Upload
-    $imagePaths = [];
-    $uploadDirectory = "/Applications/XAMPP/xamppfiles/htdocs/pharmaease/PharmaEase-Final/assets/ProductPics/" . ucfirst(str_replace(' ', '_', $category)) . "/";
-
-    // Create category directory if it doesn't exist
-    if (!is_dir($uploadDirectory)) {
-        mkdir($uploadDirectory, 0777, true);
-    }
-
-    foreach ($_FILES['product_images']['tmp_name'] as $key => $tmp_name) {
-        $file_name = basename($_FILES['product_images']['name'][$key]);
-        $targetFilePath = $uploadDirectory . $file_name;
-
-        // Move the uploaded file to the target directory
-        if (move_uploaded_file($tmp_name, $targetFilePath)) {
-            $imagePaths[] = "/PharmaEase/PharmaEase-Final/assets/ProductPics/" . ucfirst(str_replace(' ', '_', $category)) . "/" . $file_name;
-        }
-    }
-
-    // Convert image paths to JSON
-    $imagesJson = json_encode($imagePaths);
-
-    // Prepare SQL statement to insert new product
-    $stmt = $conn->prepare("INSERT INTO products (name, description, price, sku, category, quantity, images) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    if ($stmt) {
-        $stmt->bind_param("ssdsiss", $productName, $description, $price, $sku, $category, $quantity, $imagesJson);
-        if ($stmt->execute()) {
-            $successMessage = "Product '$productName' has been added successfully.";
-        } else {
-            $errorMessage = "Error adding product: " . $stmt->error;
-        }
-        $stmt->close();
-    } else {
-        $errorMessage = "Prepare failed: " . $conn->error;
-    }
-}
-
-// Handle Delete Product
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_product'])) {
+// Handle product deletion
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_product'])) {
     $productId = intval($_POST['product_id']);
     $stmt = $conn->prepare("DELETE FROM products WHERE id = ?");
     $stmt->bind_param("i", $productId);
@@ -80,6 +35,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_product'])) {
         $successMessage = "Product ID #$productId has been deleted.";
     } else {
         $errorMessage = "Error deleting product: " . $conn->error;
+    }
+    $stmt->close();
+}
+
+// Handle product update
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
+    $productId = intval($_POST['product_id']);
+    $name = $_POST['product_name'];
+    $category = $_POST['category'];
+    $price = floatval($_POST['price']);
+    $stock = intval($_POST['stock']);
+    $sku = $_POST['sku'];
+
+    $stmt = $conn->prepare("UPDATE products SET name = ?, category = ?, price = ?, quantity = ?, sku = ? WHERE id = ?");
+    $stmt->bind_param("ssdisi", $name, $category, $price, $quantity, $sku, $productId);
+    if ($stmt->execute()) {
+        $successMessage = "Product ID #$productId has been updated.";
+    } else {
+        $errorMessage = "Error updating product: " . $conn->error;
     }
     $stmt->close();
 }
@@ -98,23 +72,23 @@ $productResult = $conn->query($productSql);
     <link rel="stylesheet" type="text/css" href="/PharmaEase/PharmaEase-Final/components/Admin/admin.css?v=1.0">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="/PharmaEase/PharmaEase-Final/assets/PharmaEaseLogo.png">
 </head>
 <body>
     <div class="container">
-        <!-- Admin Navbar -->
+        <!-- Main Navbar -->
         <header>
-            <a href="homepage.php">
-                <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
-            </a>
-            <nav >
-            <a href="/PharmaEase/PharmaEase-Final/components/homepage/homepage.php">Home</a>
-            <a href="#">Cart</a>
-            <a href="#">Checkout</a>
-            <a href="#">My Account</a>  
-            <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === 1): ?>
-                <a href="manage_orders.php">Manage Orders</a>
-                <a href="manage_products.php">Manage Products</a>
-            <?php endif; ?>
+            <img src="/PharmaEase/PharmaEase-Final/assets/PharmaEaseFullLight.png" alt="PharmaEase Logo" class="logo-img">
+            <nav>
+                <a href="homepage.php">Home</a>
+                <a href="../cart/cart.php">Cart</a>
+                <a href="../checkout/checkout.php">Checkout</a>
+                <a href="#">My Account</a>
+                <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === 1): ?>
+                    <a href="manage_orders.php">Manage Orders</a>
+                    <a href="manage_products.php">Manage Products</a>
+                <?php endif; ?>
             </nav>
         </header>
         <div class="navlist">
@@ -130,109 +104,101 @@ $productResult = $conn->query($productSql);
             </div>
             <div class="search">
                 <form action="#">
-                    <input type="text" placeholder="Search for Products & Brands" name="search" />
+                    <input type="text" placeholder="Search for Products & Brands" name="search">
                 </form>
             </div>
         </div>
-
-        <!-- Manage Products Section -->
+        <!-- Products Management Section -->
         <div class="admin-container">
-            <h2 class="admin-header">Admin Panel - Manage Products</h2>
-            <?php
-            if (isset($successMessage)) {
-                echo "<div class='message success'>$successMessage</div>";
-            }
-            if (isset($errorMessage)) {
-                echo "<div class='message error'>$errorMessage</div>";
-            }
-            ?>
-            <!-- Add Product Form -->
-            <div class="add-product-form">
-                <h3>Add New Product</h3>
-                <form action="manage_products.php" method="post" enctype="multipart/form-data">
-                    <label for="product_name">Product Name:</label>
-                    <input type="text" id="product_name" name="product_name" required>
-
-                    <label for="description">Description:</label>
-                    <textarea id="description" name="description" rows="4" required></textarea>
-
-                    <label for="price">Price ($):</label>
-                    <input type="number" step="0.01" id="price" name="price" required>
-
-                    <label for="sku">SKU:</label>
-                    <input type="text" id="sku" name="sku" required>
-
-                    <label for="category">Category:</label>
-                    <select id="category" name="category" required>
-                        <option value="">Select Category</option>
-                        <option value="Vitamins_and_Supplements">Vitamins and Supplements</option>
-                        <option value="Prescription_Medicines">Prescription Medicines</option>
-                        <option value="Over-the-Counter">Over-the-Counter</option>
-                        <option value="Personal_Care">Personal Care</option>
-                        <option value="Medicinal_Supplies">Medicinal Supplies</option>
-                        <option value="Baby_Care">Baby Care</option>
-                        <option value="Sexual_Wellness">Sexual Wellness</option>
-                        <!-- Add more categories as needed -->
-                    </select>
-
-                    <label for="quantity">Quantity:</label>
-                    <input type="number" id="quantity" name="quantity" required>
-
-                    <label for="product_images">Product Images:</label>
-                    <input type="file" id="product_images" name="product_images[]" multiple accept="image/*" required>
-
-                    <button type="submit" name="add_product" class="btn confirm-btn">Add Product</button>
-                </form>
-            </div>
-
-            <!-- Remove Product List -->
-            <div class="remove-product-list">
-                <h3>Existing Products</h3>
-                <div class="table-responsive">
-                    <table>
+            <h2 class="admin-header">Manage Products</h2>
+            <?php if (isset($successMessage)): ?>
+                <p class="success-message"><?php echo $successMessage; ?></p>
+            <?php endif; ?>
+            <?php if (isset($errorMessage)): ?>
+                <p class="error-message"><?php echo $errorMessage; ?></p>
+            <?php endif; ?>
+            <?php if ($productResult->num_rows > 0): ?>
+                <table class="admin-table">
+                    <thead>
                         <tr>
                             <th>Product ID</th>
-                            <th>Name</th>
+                            <th>Product Name</th>
                             <th>Category</th>
-                            <th>Price ($)</th>
-                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Stock</th>
                             <th>SKU</th>
                             <th>Actions</th>
                         </tr>
-                        <?php
-                        if ($productResult->num_rows > 0) {
-                            while($product = $productResult->fetch_assoc()) {
+                    </thead>
+                    <tbody>
+                        <?php while($product = $productResult->fetch_assoc()): ?>
+                            <?php
                                 $productId = htmlspecialchars($product['id']);
                                 $name = htmlspecialchars($product['name']);
                                 $category = htmlspecialchars($product['category']);
                                 $price = htmlspecialchars($product['price']);
                                 $quantity = htmlspecialchars($product['quantity']);
                                 $sku = htmlspecialchars($product['sku']);
-                                
-                                echo "<tr>
-                                        <td>$productId</td>
-                                        <td>$name</td>
-                                        <td>$category</td>
-                                        <td>$price</td>
-                                        <td>$quantity</td>
-                                        <td>$sku</td>
-                                        <td>
-                                            <form method='post' onsubmit=\"return confirm('Are you sure you want to delete this product?');\">
-                                                <input type='hidden' name='product_id' value='$productId'>
-                                                <button type='submit' name='delete_product' class='btn cancel-btn'>Delete</button>
-                                            </form>
-                                        </td>
-                                      </tr>";
-                            }
-                        } else {
-                            echo "<tr><td colspan='7'>No products found.</td></tr>";
-                        }
-                        ?>
-                    </table>
-                </div>
+                            ?>
+                            <tr>
+                                <td><?php echo $productId; ?></td>
+                                <td><?php echo $name; ?></td>
+                                <td><?php echo $category; ?></td>
+                                <td><?php echo $price; ?></td>
+                                <td><?php echo $quantity; ?></td>
+                                <td><?php echo $sku; ?></td>
+                                <td>
+                                    <form method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');" style="display:inline;">
+                                        <input type="hidden" name="product_id" value="<?php echo $productId; ?>">
+                                        <button type="submit" name="delete_product" class="btn cancel-btn">Delete</button>
+                                    </form>
+                                    <button class="btn edit-btn" onclick="openEditForm(<?php echo $productId; ?>, '<?php echo $name; ?>', '<?php echo $category; ?>', <?php echo $price; ?>, <?php echo $quantity; ?>, '<?php echo $sku; ?>')">Edit</button>
+                                </td>
+                            </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+            <?php else: ?>
+                <p>No products found.</p>
+            <?php endif; ?>
+        </div>
+        <!-- Edit Product Form -->
+        <div id="editForm" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeEditForm()">&times;</span>
+                <h2>Edit Product</h2>
+                <form method="POST">
+                    <input type="hidden" id="edit_product_id" name="product_id">
+                    <label for="product_name">Product Name:</label>
+                    <input type="text" id="edit_product_name" name="product_name" required>
+                    <label for="category">Category:</label>
+                    <input type="text" id="edit_category" name="category" required>
+                    <label for="price">Price:</label>
+                    <input type="number" step="0.01" id="edit_price" name="price" required>
+                    <label for="stock">Stock:</label>
+                    <input type="number" id="edit_stock" name="stock" required>
+                    <label for="sku">SKU:</label>
+                    <input type="text" id="edit_sku" name="sku" required>
+                    <button type="submit" name="edit_product" class="btn confirm-btn">Update Product</button>
+                </form>
             </div>
         </div>
     </div>
+    <script>
+        function openEditForm(id, name, category, price, stock, sku) {
+            document.getElementById('edit_product_id').value = id;
+            document.getElementById('edit_product_name').value = name;
+            document.getElementById('edit_category').value = category;
+            document.getElementById('edit_price').value = price;
+            document.getElementById('edit_stock').value = stock;
+            document.getElementById('edit_sku').value = sku;
+            document.getElementById('editForm').style.display = 'block';
+        }
+
+        function closeEditForm() {
+            document.getElementById('editForm').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
 <?php
